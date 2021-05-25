@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10sp"
+        android:paddingBottom="20sp"
+        tools:ignore="UselessParent">
+
+        <View
+            android:id="@+id/thumbnail"
+            android:layout_width="48sp"
+            android:layout_height="48sp"
+            android:layout_marginLeft="18sp"
+            android:layout_marginTop="10sp"
+            android:background="@color/shimmerbackground"
+            android:layout_marginStart="18sp" />
+
+        <View
+            android:id="@+id/thumbnail_name"
+            android:layout_width="120sp"
+            android:layout_height="12sp"
+            android:layout_toRightOf="@+id/thumbnail"
+            android:layout_marginTop="10sp"
+            android:layout_marginLeft="10sp"
+            android:background="@color/shimmerbackground"
+            android:layout_marginStart="10sp"
+            android:layout_toEndOf="@+id/thumbnail" />
+
+        <View
+            android:id="@+id/thumbnail_name_price"
+            android:layout_width="40sp"
+            android:layout_height="12sp"
+            android:layout_below="@+id/thumbnail_name"
+            android:layout_toRightOf="@+id/thumbnail"
+            android:layout_marginTop="10sp"
+            android:layout_marginLeft="10sp"
+            android:background="@color/shimmerbackground"
+            android:gravity="center"
+            android:layout_marginStart="10sp"
+            android:layout_toEndOf="@+id/thumbnail" />
+    </RelativeLayout>
+
+</LinearLayout>

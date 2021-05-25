@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relative_headter"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/nav_header_height"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imageView_pic"
+        android:layout_width="64sp"
+        android:layout_height="64sp"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="16dp"
+        android:contentDescription="@string/app_name"
+        android:paddingTop="@dimen/nav_header_vertical_spacing"
+        android:src="@drawable/logo1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/txt_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_toEndOf="@+id/imageView_pic"
+        android:layout_toRightOf="@+id/imageView_pic"
+        android:fontFamily="@font/opensansbold"
+        android:text="@string/nav_header_title"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@color/app_color"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/txt_person_mobile"
+        app:layout_constraintStart_toEndOf="@+id/imageView_pic"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:ignore="RelativeOverlap" />
+
+    <TextView
+        android:id="@+id/txt_person_mobile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_name"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="16dp"
+        android:layout_toEndOf="@+id/imageView_pic"
+        android:layout_toRightOf="@+id/imageView_pic"
+        android:fontFamily="@font/poppinsmedium"
+        android:text="@string/nav_header_subtitle"
+        android:textColor="@color/app_color"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView_pic"
+        app:layout_constraintTop_toBottomOf="@+id/txt_name" />
+
+    <ImageView
+        android:layout_width="24sp"
+        android:layout_height="24sp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="24dp"
+        android:contentDescription="@string/dropdown"
+        android:src="@drawable/ic_baseline_arrow_forward_ios_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:tint="@color/app_color" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1sp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/app_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="SmallSp" />
+</androidx.constraintlayout.widget.ConstraintLayout>

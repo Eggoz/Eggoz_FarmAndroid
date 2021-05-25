@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+        <!--    common-->
+        <string name="_xxx">XXX</string>
+        <string name="farmer_name">नाम</string>
+        <string name="month_year">महीना/वर्ष</string>
+        <string name="confirm">पुष्टि करें</string>
+        <string name="item_price">Rs. 00</string>
+        <string name="address">पता</string>
+        <string name="pay_now">पूछताछ करें</string>
+        <string name="enter_your_mobile_number">मोबाइल नंबर दर्ज करें</string>
+        <string name="termsandcondi">साइन अप करके आप आउट होने के लिए सहमत हैं \n <u>गोपनीयता नीति और शर्तें</u></string>
+        <string name="already_have_acc">पहले से ही एक खाता है?</string>
+        <string name="sign_in"> Sign in</string>
+        <string name="farm_name">उदाहरण: रामाधीर पॉटरी फार्म</string>
+        <string name="_91">+91</string>
+        <string name="passwordhint">******</string>
+        <string name="hintemail">\@gmail.com</string>
+        <string name="name_of_farmer">किसान का नाम</string>
+        <string name="submit">प्रस्तुत</string>
+        <string name="name_of_farm">खेत का नाम</string>
+        <string name="app_name">Eggoz</string>
+        <string name="email_add">ईमेल पता</string>
+        <string name="Next">अगला</string>
+        <string name="enter_quantity_here">यहां मात्रा दर्ज करें</string>
+        <string name="city">शहर</string>
+        <string name="pincode">पिन कोड</string>
+        <string name="xxxxxx">xxxxx</string>
+        <string name="Culling_Birds">कलिंग बर्ड्स</string>
+        <string name="remark">टिप्पणी</string>
+        <string name="Let_start">चलो शुरू करते हैं</string>
+
+        <!--    cart-->
+        <string name="txt_explore_more">अधिक उत्पाद का अन्वेषण करें</string>
+        <string name="Add_Cart">कार्ट में डालें</string>
+
+        <!--    item payment option-->
+        <string name="add_address">पता जोड़ें</string>
+        <string name="Total">संपूर्ण</string>
+
+        <!--    side nav-->
+        <string name="menu_home">घर</string>
+        <string name="Ledger">खाता बही</string>
+        <string name="Activity_Logs">गतिविधि लॉग</string>
+        <string name="My_Cart">मेरी गाड़ी</string>
+        <string name="FAQs">पूछे जाने वाले प्रश्न</string>
+        <string name="Terms_Conditions"><![CDATA[नियम एवं शर्तें]]></string>
+        <string name="Setting">स्थापना</string>
+        <string name="Logout">लॉग आउट</string>
+
+        <!--    otp verification-->
+        <string name="enter_your_otp">अपना ओटीपी दर्ज करें</string>
+
+        <!--    signup 1-->
+        <string name="send_otp">ओटीपी भेजें</string>
+
+        <!--    signup 2-->
+        <string name="enter_new_password">नया पासवर्ड दर्ज करें</string>
+        <string name="enter_con_password">पासवर्ड की पुष्टि कीजिये</string>
+
+        <!--    signup 5-->
+        <string name="total_bird_capacity">फार्म की कुल सक्रिय पक्षी क्षमता</string>
+        <string name="bird_number">पक्षी संख्या</string>
+        <string name="white_eggs">सफेद अंडे</string>
+        <string name="Daily_production">दैनिक उत्पादन</string>
+        <string name="Bird_Capacity">पक्षी क्षमता</string>
+        <string name="brown_egg">भूरा अंडा</string>
+        <string name="Former_Type">पूर्व प्रकार</string>
+        <string name="Mannual">गाइड</string>
+        <string name="Feed_Mixing_Present">फ़ीड मिक्सिंग प्रेजेंट</string>
+        <string name="write_remark">टिप्पणी लिखें</string>
+
+
+        <!--    starter screen-->
+        <string name="deliver_your_egg">अपना अंडा वितरित करें</string>
+        <string name="des_starter_screen">Quisque sit amet sagittis erat. Duis pharetra ornare venenatis. Nulla maximus porta velit ut molestie. Proin quis convallis mauris. In facilisis justo at mi pharetra lobortis. s.</string>
+        <string name="skip_step">चरण छोड़ें</string>
+        <string name="next">अगला</string>
+
+        <!--    list view-->
+        <string name="home_title1">अंडे की दरें</string>
+
+        <!--    bottom nav-->
+        <string name="menu_schedule">अनुसूची</string>
+        <string name="menu_sell_shop">बेचें &amp; दुकान</string>
+        <string name="menu_My_Farm">मेरे खेत</string>
+        <string name="menu_profile">प्रोफ़ाइल</string>
+
+        <!--    dailt input dialog-->
+        <string name="Add_Medicine">दवा जोड़ें</string>
+        <string name="Consumed_Medicine">उपभोग की गई दवा</string>
+        <string name="item_name">वस्तु का नाम</string>
+
+        <!--    daily input-->
+        <string name="egg_produced">कुल अंडा उत्पादित</string>
+        <string name="broken_egg_prod">टूटे हुए अंडे का उत्पादन</string>
+        <string name="broken_egg_in_operation">ऑपरेशन में टूटा अंडा</string>
+        <string name="total_Morality">कुल नैतिकता</string>
+        <string name="Feed_Consumed">फ़ीड की खपत</string>
+        <string name="have_given_medicine">हेनो को कोई मदीना दो ?</string>
+        <string name="add_medicine">दवा जोड़ें</string>
+
+        <!--    home-->
+        <string name="daily_report">दैनिक रिपोर्ट</string>
+        <string name="iot_report">आईओटी रिपोर्ट</string>
+        <string name="Suggestions">सुझाव</string>
+
+        <!--    schedule-->
+        <string name="select_days">दिनों का चयन करें</string>
+        <string name="ScheduleConfirm">शेड्यूल कन्फर्म</string>
+
+
+        <!--    cart -->
+        <string name="eligiblity">शिपिंग के लिए योग्य</string>
+
+        <!--    faqs list-->
+        <string name="dropdown">ड्रॉप डाउन</string>
+
+
+        <!--    others-->
+        <string name="menu_faqs">पूछे जाने वाले प्रश्न</string>
+        <string name="menu_terms_condition">नियम व शर्तें</string>
+        <string name="Eggoz_Price">अंडे की कीमत</string>
+        <string name="check_details">विवरण जांचें</string>
+        <string name="action_notification">अधिसूचना</string>
+        <string name="action_search">खोज</string>
+        <string name="Eggoz_vs_necc_price">Eggoz Vs NECC Price</string>
+        <string name="payment">भुगतान</string>
+        <string name="_00">00</string>
+        <string name="item_quantity">मात्रा</string>
+        <string name="number_of_egg">अंडे की संख्या</string>
+        <string name="other_product">अन्य उत्पाद</string>
+        <string name="none">कोई नहीं</string>
+        <string name="rate">मूल्यांकन करें</string>
+        <string name="enter_rate_here">यहां दर दर्ज करें</string>
+        <string name="total_amount">कुल राशि</string>
+        <string name="enter_total_amount">कुल राशि दर्ज करें</string>
+        <string name="card_hint">**** **** **** ****</string>
+        <string name="select_city">शहर चुनें</string>
+        <string name="cart">कार्ट</string>
+        <string name="Expiry_Date_hint">02/21</string>
+        <string name="email_add_hint">\@gmail.com</string>
+        <string name="Item">मद</string>
+        <string name="upload">डालना</string>
+        <string name="enter_pincode">पिनकोड दर्ज करें</string>
+        <string name="enter_address">पता लिखिए</string>
+        <string name="navigation_drawer_open">नेविगेशन दराज खोलें</string>
+        <string name="navigation_drawer_close">नेविगेशन दराज बंद करें</string>
+        <string name="nav_header_title">Eggoz</string>
+        <string name="nav_header_subtitle">00 0000 0000</string>
+        <string name="action_settings">समायोजन</string>
+        <string name="icon">Icon</string>
+        <string name="_0000">000000</string>
+        <string name="add">+</string>
+        <string name="sub">-</string>
+        <string name="delete">हटाना</string>
+        <string name="necc">NECC</string>
+        <string name="image">छवि</string>
+        <string name="add_item">जोड़ें</string>
+        <string name="zerro">0</string>
+        <string name="party">पार्टी</string>
+        <string name="item_type">Item Type</string>
+        <string name="item_type_here">Item Type Here</string>
+        <string name="Expenses">व्यय</string>
+        <string name="Sale">बिक्री</string>
+        <string name="Day_entry">डे एंट्री</string>
+        <string name="expenses">व्यय</string>
+        <string name="hindi">हिन्दी</string>
+        <string name="english">English</string>
+        <string name="Consulting">परामर्श</string>
+        <string name="menu_feed">चारा</string>
+        <string name="area">क्षेत्र</string>
+        <string name="select_your_area">अपना क्षेत्र चुनें</string>
+        <string name="Addfarm">खेत जोड़ें</string>
+        <string name="Shade_Name">छाया का नाम</string>
+        <string name="TotalActiveBirdCapacityofShade">छाया की कुल सक्रिय पक्षी क्षमता</string>
+        <string name="FolkType">लोक प्रकार</string>
+        <string name="add_more">जोड़ना</string>
+        <string name="Vaccination">टीका</string>
+        <string name="empty">खाली</string>
+        <string name="save">सहेजें</string>
+        <string name="item">आइटम</string>
+        <string name="select_party">पार्टी का चयन करें</string>
+        <string name="total_active_bird">कुल सक्रिय पक्षी</string>
+        <string name="Feed_Intake_per_Bird">प्रति पक्षी फ़ीड सेवन</string>
+        <string name="HDEP">एचडीईपी</string>
+        <string name="Motality">गतिशीलता</string>
+        <string name="FarmSummary">फार्म सारांश</string>
+        <string name="order_summary">आदेश सारांश</string>
+        <string name="Layer_Name">परत का नाम</string>
+        <string name="Layer_Type">प्रकार</string>
+        <string name="Capacity">क्षमता</string>
+        <string name="add_farm">फार्म जोड़ें</string>
+        <string name="farm">फार्म</string>
+        <string name="Flocks">झुंड</string>
+        <string name="FlockName">झुंड का नाम</string>
+        <string name="BreedName">नस्ल का नाम</string>
+        <string name="flockAge">आयु (दिन)</string>
+        <string name="FlockSize">झुंड मात्रा</string>
+        <string name="flocksnumber">संख्या में झुंड</string>
+        <string name="TypeEgg">अंडा टाइप करें</string>
+        <string name="enter_breedname">नस्ल का नाम यहां दर्ज करें</string>
+        <string name="Type">प्रकार</string>
+        <string name="Layer_Type_option">लेयर शेड/ग्रोवर शेड</string>
+        <string name="BirdsNumber">पक्षी संख्या</string>
+        <string name="No_of_Grower">ब्रायलर मात्रा</string>
+        <string name="No_of_sheds">शेड मात्रा</string>
+        <string name="gm">किलो में</string>
+        <string name="AddFlock">झुंड जोड़ें</string>
+        <string name="Add_flock">झुंड जोड़ें</string>
+        <string name="mobile_no">मोबाइल नंबर</string>
+        <string name="update">अपडेट करें</string>
+        <string name="Kadaknath">कड़कनाथ अंडा</string>
+        <string name="menu_bazaar">बाजार</string>
+        <string name="blogs">ब्लॉग</string>
+        <string name="name">नाम</string>
+        <string name="totoalbird">कुल पक्षी</string>
+        <string name="zone">क्षेत्र</string>
+        <string name="select_zone">एनईसी क्षेत्र का चयन करें</string>
+        <string name="enter_address_name">नाम दर्ज</string>
+        <string name="building">इमारत</string>
+        <string name="Street">सड़क</string>
+        <string name="enter_Street">यहां स्ट्रीट दर्ज करें</string>
+        <string name="enter_building">यहां भवन दर्ज करें</string>
+        <string name="enter_landmark">मील का पत्थर दर्ज करें</string>
+        <string name="enter_city">यहां शहर दर्ज करें</string>
+        <string name="weight">वजन</string>
+        <string name="video">वीडियो</string>
+        <string name="na">--</string>
+        <string name="egg_production">अंडा उत्पादन</string>
+        <string name="mortality">नश्वरता</string>
+        <string name="select_farmtype">फार्म प्रकार चुनें </string>
+        <string name="select_shed">शेड का चयन करें</string>
+        <string name="perhunpc">/100Pc</string>
+        <string name="Ok">ठीक है</string>
+        <string name="welcome">स्वागत हे</string>
+        <string name="choose_your_language">अपनी भाषा चुनिए</string>
+        <string name="backslash">/</string>
+        <string name="loading">लोड हो रहा है…</string>
+        <string name="farm_name2">खेत का नाम</string>
+        <string name="farm_layer_type">फार्म परत प्रकार</string>
+        <string name="no_of_layer_sheds">परत शेड की संख्या</string>
+        <string name="no_of_grower_sheds">उत्पादक शेडों की संख्या</string>
+        <string name="no_of_broiler_shed">ब्रायलर शेड की संख्या </string>
+        <string name="farm_address">खेत का पता</string>
+        <string name="flat_building_apartment">फ्लैट, भवन, अपार्टमेंट</string>
+        <string name="ex_h_no_123">उदा:-एच नं-123</string>
+        <string name="landmark">सीमा चिन्ह</string>
+        <string name="state">राज्य</string>
+        <string name="grower_name">उत्पादक का नाम</string>
+        <string name="total_active_bird_capacity_of_shade">छाया की कुल सक्रिय पक्षी क्षमता</string>
+        <string name="age">उम्र</string>
+        <string name="vaccination">टीका</string>
+        <string name="helpsupport"><![CDATA[मदद & समर्थन]]></string>
+        <string name="back">वापस</string>
+        <string name="helpsupport2">शीर्षक</string>
+
+
+        <string name="alerts">अलर्ट</string>
+        <string name="add_farm_details">कृषि विवरण जोड़ें</string>
+        <string name="you_didn_t_added_your_farm_until_now_please_add_your_farm_first">आपने अब तक अपना खेत नहीं जोड़ा है कृपया पहले अपना खेत जोड़ें</string>
+        <string name="products_populars">लोकप्रिय उत्पाद</string>
+        <string name="live_iot_report">लाइव आईओटी रिपोर्ट</string>
+        <string name="enabl_iot_service">आईओटी सेवा सक्षम करें</string>
+        <string name="request_iot_service_to_know_the_status_of_your_farms">अपने फार्म की स्थिति जानने के लिए IOT सेवा का अनुरोध करें</string>
+        <string name="request_iot">आईओटी का अनुरोध करें</string>
+        <string name="tempreture">तापमान</string>
+        <string name="humidity">नमी</string>
+        <string name="ammonia">अमोनिया</string>
+        <string name="live_iot_update">लाइव आईओटी अपडेट</string>
+        <string name="daily_input_missed">दैनिक इनपुट छूट गया</string>
+        <string name="yesterday">बिता कल</string>
+        <string name="consulting">परामर्श</string>
+        <string name="expand_farm">अपने खेत का विस्तार करें</string>
+        <string name="add_more_farm">अधिक फार्म जोड़ें</string>
+        <string name="see_all">सभी देखें</string>
+        <string name="explore_products">उत्पादों का अन्वेषण करें</string>
+        <string name="categories">श्रेणियाँ</string>
+        <string name="farm_details">खेत का विवरण</string>
+        <string name="add_new_shed">नया शेड जोड़ें</string>
+        <string name="breed_name">नस्ल का नाम:</string>
+        <string name="xx">XX</string>
+        <string name="flocks_age_weekly">झुंड की आयु (साप्ताहिक)</string>
+        <string name="egg_type">अंडे का प्रकार</string>
+        <string name="flock_summary">झुंड सारांश</string>
+        <string name="daily_input">दैनिक इनपुट</string>
+        <string name="photo_video">फोटो/वीडियो</string>
+        <string name="write_about_farm_issue">कृषि समस्या के बारे में लिखें</string>
+        <string name="heading">शीर्षक:</string>
+        <string name="issue_title">अंक शीर्षक</string>
+        <string name="enter_issue_here">यहां मुद्दा दर्ज करें</string>
+        <string name="explain_issue">मुद्दे की व्याख्या करें</string>
+        <string name="write_your_issue">अपनी समस्या लिखें...………………………………...</string>
+        <string name="send_message">मेसेज भेजें</string>
+        <string name="write_your_message_here">यहां अपना संदेश लिखें</string>
+        <string name="you_need_any_help_send_us_a_message">आपको किसी भी मदद की ज़रूरत है हमें एक संदेश भेजें</string>
+        <string name="ledgers">बहीखाते</string>
+        <string name="activity_log">गतिविधि लॉग</string>
+        <string name="my_cart">मेरी गाड़ी</string>
+        <string name="summary">सारांश</string>
+        <string name="my_Orders">मेरे आदेश</string>
+        <string name="daily_Input">दैनिक इनपुट</string>
+        <string name="edit_Profile">प्रोफ़ाइल संपादित करें</string>
+        <string name="comment">टिप्पणी</string>
+        <string name="add_Flock">झुंड जोड़ें</string>
+        <string name="createfeed">फ़ीड बनाएं</string>
+        <string name="addgrower">उत्पादक जोड़ें</string>
+        <string name="product_List">उत्पादों की सूची</string>
+        <string name="feed_per_bird_gm">प्रति पक्षी फ़ीड (ग्राम)</string>
+        <string name="you_seem_s_inactive_no_summary_found">आप निष्क्रिय लग रहे हैं कोई सारांश नहीं मिला</string>
+
+</resources>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginBottom="8sp"
+    app:cardCornerRadius="15sp"
+    android:layout_marginStart="8sp"
+    android:layout_marginEnd="8sp"
+    android:paddingBottom="14sp"
+    app:cardElevation="2sp">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="24sp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/farm_layout_head"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="2sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/txt_farm_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/poppinsmedium"
+            android:text="@string/farm_name"
+            android:textColor="@color/app_color"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toTopOf="@+id/txt_farm_add"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/txt_farm_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/opensansregular"
+            android:paddingBottom="16sp"
+            android:text="@string/address"
+            android:textColor="@color/app_color"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_farm_name" />
+
+
+
+   <!--     <TextView
+            android:id="@+id/txt_addshades"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add new Shed"
+            android:textSize="14sp"
+            android:textColor="@color/app_color"
+            android:layout_marginEnd="14sp"
+            app:layout_constraintTop_toBottomOf="@+id/txt_farm_add"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />-->
+        <Button
+            android:id="@+id/txt_addshades"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_new_shed"
+            android:textColor="@color/white"
+            android:layout_marginEnd="14sp"
+            android:textSize="12dp"
+            app:layout_constraintTop_toBottomOf="@+id/txt_farm_add"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cons_farm_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/farm_layout_head">
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyceleview_farm_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyceleview_grower_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recyceleview_farm_detail"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

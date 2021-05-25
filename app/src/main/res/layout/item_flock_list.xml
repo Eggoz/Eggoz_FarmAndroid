@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/shade_details"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="45sp"
+        android:background="@color/brown"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/txt_flock_name"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="16sp"
+            android:fontFamily="@font/poppinsmedium"
+            android:gravity="center_vertical"
+            android:text="@string/FlockName"
+            android:textColor="@color/app_color"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txt_flock_status"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="18sp"
+            android:fontFamily="@font/poppinsregular"
+            android:gravity="center_vertical"
+            android:visibility="gone"
+            android:text="Edit Details"
+            android:textColor="@color/app_color"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/flock_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/brown"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/const_breed_name"
+            android:layout_width="match_parent"
+            android:layout_height="45sp"
+            android:background="@color/transparent20"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16sp"
+                android:fontFamily="@font/poppinsregular"
+                android:gravity="center_vertical"
+                android:text="@string/breed_name"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txt_BreedName"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="16sp"
+                android:fontFamily="@font/poppinsregular"
+                android:gravity="center_vertical"
+                android:text="@string/xx"
+                android:textColor="@color/cream"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/const_flock_age"
+            android:layout_width="match_parent"
+            android:layout_height="45sp"
+            android:background="@color/brown"
+            app:layout_constraintTop_toBottomOf="@+id/const_breed_name"
+            tools:layout_editor_absoluteX="7dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16sp"
+                android:fontFamily="@font/poppinsregular"
+                android:gravity="center_vertical"
+                android:text="@string/flocks_age_weekly"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txt_flockage"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="16sp"
+                android:fontFamily="@font/poppinsregular"
+                android:gravity="center_vertical"
+                android:text="@string/xx"
+                android:textColor="@color/cream"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/const_flock_quantity"
+            android:layout_width="match_parent"
+            android:layout_height="45sp"
+            android:background="@color/transparent20"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/const_flock_age">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16sp"
+                android:fontFamily="@font/poppinsregular"
+                android:gravity="center_vertical"
+                android:text="@string/flocksnumber"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txt_Flock_quantity"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="16sp"
+                android:fontFamily="@font/poppinsregular"
+                android:gravity="center_vertical"
+                android:text="@string/xx"
+                android:textColor="@color/cream"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/const_egg_type"
+            android:layout_width="match_parent"
+            android:layout_height="45sp"
+            android:background="@color/brown"
+            app:layout_constraintTop_toBottomOf="@+id/const_flock_quantity"
+            tools:layout_editor_absoluteX="7dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16sp"
+                android:fontFamily="@font/poppinsregular"
+                android:gravity="center_vertical"
+                android:text="@string/egg_type"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txt_Egg_type"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="16sp"
+                android:fontFamily="@font/poppinsregular"
+                android:gravity="center_vertical"
+                android:text="@string/xx"
+                android:textColor="@color/cream"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/const_hdep"
+            android:layout_width="match_parent"
+            android:layout_height="45sp"
+            android:background="@color/transparent20"
+            app:layout_constraintTop_toBottomOf="@+id/const_egg_type"
+            tools:layout_editor_absoluteX="7dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16sp"
+                android:fontFamily="@font/poppinsregular"
+                android:gravity="center_vertical"
+                android:text="@string/HDEP"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txt_Hdep"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="16sp"
+                android:fontFamily="@font/poppinsregular"
+                android:gravity="center_vertical"
+                android:text="@string/xx"
+                android:textColor="@color/cream"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/const_egg_production"
+            android:layout_width="match_parent"
+            android:layout_height="45sp"
+            android:background="@color/brown"
+            app:layout_constraintTop_toBottomOf="@+id/const_hdep"
+            tools:layout_editor_absoluteX="7dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16sp"
+                android:fontFamily="@font/poppinsregular"
+                android:gravity="center_vertical"
+                android:text="@string/egg_production"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txt_egg_production"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="16sp"
+                android:fontFamily="@font/poppinsregular"
+                android:gravity="center_vertical"
+                android:text="@string/xx"
+                android:textColor="@color/cream"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/const_mortality"
+            android:layout_width="match_parent"
+            android:layout_height="45sp"
+            android:background="@color/transparent20"
+            app:layout_constraintTop_toBottomOf="@+id/const_egg_production"
+            tools:layout_editor_absoluteX="7dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16sp"
+                android:fontFamily="@font/poppinsregular"
+                android:gravity="center_vertical"
+                android:text="@string/mortality"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txt_mortality"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="16sp"
+                android:fontFamily="@font/poppinsregular"
+                android:gravity="center_vertical"
+                android:text="@string/xx"
+                android:textColor="@color/cream"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/txt_last_update"
+            android:layout_width="match_parent"
+            android:background="@color/white"
+            android:gravity="right"
+            android:textColor="@color/brown"
+            android:paddingTop="4sp"
+            android:layout_height="wrap_content"
+            android:text="@string/Shade_Name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/const_mortality"
+            />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/const_egg_btn"
+        android:layout_width="match_parent"
+        android:layout_height="45sp"
+        android:layout_marginTop="14sp"
+        android:background="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/flock_layout">
+
+        <!-- <Button
+            android:id="@+id/btn_FlockSummary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="28dp"
+            android:background="@drawable/starter_background"
+            android:clickable="true"
+            android:fontFamily="@font/opensansregular"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:gravity="center"
+            android:paddingStart="20sp"
+            android:paddingEnd="20sp"
+            android:text="Flock Summary"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toStartOf="@+id/btn_DailyInput"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+
+            />-->
+
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/btn_FlockSummary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_marginStart="10sp"
+            android:layout_marginEnd="10sp"
+            android:fontFamily="@font/opensansregular"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:cardCornerRadius="8sp"
+            app:layout_constraintEnd_toStartOf="@+id/btn_DailyInput"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="42sp"
+                android:background="@drawable/cornerbtn_background"
+                android:gravity="center"
+                android:padding="5sp"
+                android:paddingStart="30sp"
+                android:paddingEnd="30sp"
+                android:text="@string/flock_summary"
+                android:textSize="14sp" />
+        </androidx.cardview.widget.CardView>
+
+
+        <Button
+            android:id="@+id/btn_DailyInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/starter_background"
+            android:clickable="true"
+            android:layout_marginStart="10sp"
+            android:layout_marginEnd="10sp"
+            android:fontFamily="@font/opensansregular"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:gravity="center"
+            android:paddingStart="20sp"
+            android:paddingEnd="20sp"
+            android:text="@string/daily_input"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_FlockSummary"
+            app:layout_constraintTop_toTopOf="parent"
+
+            android:focusable="true" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="2sp"
+        android:background="@color/shade_color"
+        android:layout_marginTop="14sp"
+        app:layout_constraintTop_toBottomOf="@+id/const_egg_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

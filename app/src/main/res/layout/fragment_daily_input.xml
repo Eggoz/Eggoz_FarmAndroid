@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".ui.daily_input.DailyInputFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/conAddflock"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/imgaddfarm"
+                android:layout_width="match_parent"
+                android:layout_height="0sp"
+                android:scaleType="fitXY"
+                android:src="@drawable/addfarm"
+                app:layout_constraintBottom_toTopOf="@+id/btn_Add_flocks"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/btn_Add_flocks"
+                android:layout_width="324dp"
+                android:layout_height="74dp"
+                android:layout_marginLeft="40sp"
+                android:layout_marginRight="40sp"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:gravity="center"
+                app:cardBackgroundColor="@color/app_color"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="0dp"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imgaddfarm">
+
+                <TextView
+                    android:id="@+id/txt_title_farm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/opensansbold"
+                    android:padding="16dp"
+                    android:text="@string/Addfarm"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+
+            </androidx.cardview.widget.CardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <!--   <androidx.recyclerview.widget.RecyclerView
+               android:id="@+id/recycle_daily_input"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:layout_marginTop="16dp"
+               android:visibility="gone"
+               app:layout_constraintBottom_toBottomOf="parent"
+               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintTop_toTopOf="parent"
+               app:layout_constraintVertical_bias="0.0"
+
+               />
+           -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/conloadData"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="20dp">
+
+            <TextView
+                android:id="@+id/txt_farm_details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:text="@string/farm_details"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <!--    <TextView
+                    android:id="@+id/txt_add_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="18sp"
+                    android:fontFamily="sans-serif-condensed-medium"
+                    android:text="Add Farm"
+                    android:textColor="@color/app_color"
+                    app:layout_constraintBottom_toBottomOf="@+id/txt_farm_details"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toEndOf="@+id/txt_farm_details" />
+        -->
+            <Button
+                android:id="@+id/txt_add_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="14sp"
+                android:text="@string/add_farm"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/txt_farm_details"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycleview_farmDetail"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="16dp"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_add_more"
+                app:layout_constraintVertical_bias="0.0" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

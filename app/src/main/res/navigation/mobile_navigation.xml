@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_empty">
+
+    <fragment
+        android:id="@+id/nav_empty"
+        android:name="com.antino.eggoz.ui.empty.EmptyFragment"
+        android:label="@string/empty"
+        tools:layout="@layout/fragment_home"/>
+
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.antino.eggoz.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_Expenses"
+        android:name="com.antino.eggoz.ui.expenses.Expenses"
+        android:label="@string/Expenses"
+        tools:layout="@layout/fragment_expenses" />
+    <fragment
+        android:id="@+id/nav_consulting"
+        android:name="com.antino.eggoz.ui.consulting.ConsultingFragment"
+        android:label="@string/Consulting"
+        tools:layout="@layout/fragment_consulting" />
+    <fragment
+        android:id="@+id/nav_Ledger"
+        android:name="com.antino.eggoz.ui.ledgers.Leadgers"
+        android:label="@string/Ledger"
+        tools:layout="@layout/fragment_leadgers" />
+    <fragment
+        android:id="@+id/nav_help_support"
+        android:name="com.antino.eggoz.ui.helpsupport.HelpSupportFragment"
+        android:label="@string/helpsupport"
+        tools:layout="@layout/fragment_help_support" />
+
+    <fragment
+        android:id="@+id/nav_Activity_Logs"
+        android:name="com.antino.eggoz.ui.activity_log.ActivityLog"
+        android:label="@string/Activity_Logs"
+        tools:layout="@layout/fragment_activity_log" />
+    <fragment
+        android:id="@+id/nav_My_Cart"
+        android:name="com.antino.eggoz.view.otherfragment.CartFragment"
+        android:label="@string/My_Cart"
+        tools:layout="@layout/fragment_cart" />
+    <fragment
+        android:id="@+id/nav_OrderSummary"
+        android:name="com.antino.eggoz.ui.order.OrderSummaryFragment"
+        android:label="@string/order_summary"
+        tools:layout="@layout/fragment_order_summary" />
+
+
+
+
+
+
+
+
+    <fragment
+        android:id="@+id/nav_schedule"
+        android:name="com.antino.eggoz.ui.schedule.ScheduleFragment"
+        android:label="@string/menu_schedule"
+        tools:layout="@layout/fragment_schedule" />
+
+    <fragment
+        android:id="@+id/nav_sell_shop"
+        android:name="com.antino.eggoz.ui.sell_shop.SellShopFragment"
+        android:label="@string/menu_sell_shop"
+        tools:layout="@layout/fragment_sell_shop" />
+
+    <fragment
+        android:id="@+id/nav_daily_input"
+        android:name="com.antino.eggoz.ui.daily_input.DailyInputFragment"
+        android:label="@string/menu_My_Farm"
+        tools:layout="@layout/fragment_daily_input" />
+
+    <fragment
+        android:id="@+id/nav_profile"
+        android:name="com.antino.eggoz.ui.profile.ProfileFragment"
+        android:label="@string/menu_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/nav_faqs"
+        android:name="com.antino.eggoz.ui.faqs.FaqsFragment"
+        android:label="@string/menu_faqs"
+        tools:layout="@layout/fragment_faqs" />
+    <fragment
+        android:id="@+id/nav_terms_conditions"
+        android:name="com.antino.eggoz.ui.termscondition.TermsAndConditionFragment"
+        android:label="@string/menu_terms_condition"
+        tools:layout="@layout/fragment_terms_and_condition" />
+</navigation>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginTop="5sp"
+    android:layout_marginBottom="5sp"
+    android:layout_marginLeft="14sp"
+    android:layout_marginStart="14sp"
+    android:layout_marginRight="14sp"
+    android:layout_marginEnd="14sp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="10dp"
+    >
+    <RelativeLayout
+        android:id="@+id/layout_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="20sp"
+        android:paddingBottom="20sp"
+        android:paddingLeft="16sp"
+        android:paddingRight="16sp"
+        tools:ignore="UselessParent">
+        <TextView
+            android:id="@+id/txt_address_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:fontFamily="@font/poppinsmedium"
+            android:textColor="@color/black"
+            android:text="@string/home_title1"/>
+
+        <TextView
+            android:id="@+id/txt_address_detail"
+            android:layout_below="@+id/txt_address_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14sp"
+            android:textSize="14sp"
+            android:fontFamily="@font/poppinsregular"
+            android:textColor="@color/icon"
+            android:text="@string/home_title1"/>
+    </RelativeLayout>
+
+
+
+</LinearLayout>

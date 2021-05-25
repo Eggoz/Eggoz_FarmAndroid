@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="240sp"
+    android:layout_height="120sp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginLeft="8sp"
+    android:layout_marginRight="8sp"
+    android:layout_marginEnd="8sp"
+    android:layout_marginBottom="8sp"
+    app:cardCornerRadius="15sp"
+    app:cardElevation="2sp"
+    android:layout_marginStart="8sp">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/item"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/banner_image"
+            android:layout_width="100sp"
+            android:layout_height="74sp"
+            android:layout_marginTop="12sp"
+            android:layout_marginLeft="8sp"
+            android:contentDescription="@string/icon"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_launcher_background"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="22sp"
+            android:layout_marginTop="18sp"
+            android:fontFamily="@font/poppinsregular"
+            android:text="Egg Sechdule"
+            android:lines="1"
+            android:textColor="@color/app_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/banner_image"
+            app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/item_title_white_egg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="22sp"
+            android:fontFamily="@font/poppinsregular"
+            android:layout_marginTop="8sp"
+            android:text="White Eggs\t232"
+            android:lines="1"
+            android:textSize="10sp"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/banner_image"
+            app:layout_constraintTop_toBottomOf="@+id/item_title" />
+        <TextView
+            android:id="@+id/item_title_brown_egg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="22sp"
+            android:fontFamily="@font/poppinsregular"
+            android:text="Brown Eggs\t232"
+            android:lines="1"
+            android:textSize="10sp"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/banner_image"
+            app:layout_constraintTop_toBottomOf="@+id/item_title_white_egg" />
+        <TextView
+            android:id="@+id/item_title_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="22sp"
+            android:fontFamily="@font/poppinssemibold"
+            android:layout_marginTop="5sp"
+            android:text="BYesterday"
+            android:lines="1"
+            android:textSize="14sp"
+            android:textColor="@color/app_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/banner_image"
+            app:layout_constraintTop_toBottomOf="@+id/item_title_brown_egg" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/item_add"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/img_add"
+            android:layout_width="80sp"
+            android:layout_height="100sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:src="@drawable/ic_baseline_add_24"
+            android:layout_marginStart="4sp"
+            app:tint="@color/app_color" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppinsregular"
+            android:textColor="@color/app_color"
+            android:layout_marginStart="-8sp"
+            android:text="Add More Schedule"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/img_add"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</androidx.cardview.widget.CardView>

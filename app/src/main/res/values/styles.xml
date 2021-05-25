@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="scrollbar_shape_style">
+        <item name="android:scrollbarAlwaysDrawVerticalTrack">true</item>
+        <item name="android:scrollbarStyle">outsideOverlay</item>
+        <item name="android:scrollbars">vertical</item>
+        <item name="android:fadeScrollbars">false</item>
+        <item name="android:scrollbarThumbVertical">@drawable/thumb</item>
+        <item name="android:scrollbarTrackVertical">@drawable/track</item>
+        <item name="android:scrollbarSize">8dp</item>
+    </style>
+
+    <style name="side_nav_menu">
+        <item name="android:actionMenuTextColor">@color/icon</item>
+    </style>
+</resources>

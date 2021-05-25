@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/item_faqs_relative_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:layout_marginStart="16sp"
+    android:layout_marginLeft="16sp"
+    android:layout_marginEnd="16sp"
+    android:layout_marginRight="16sp"
+    android:background="@drawable/bordercolor"
+    android:minHeight="100sp"
+    android:orientation="vertical"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="10dp">
+
+    <TextView
+        android:id="@+id/item_faqs_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16sp"
+        android:layout_marginTop="16sp"
+        android:layout_marginRight="16sp"
+        android:layout_toLeftOf="@+id/img_expand"
+        android:fontFamily="@font/poppinsmedium"
+        android:textColor="@color/app_color"
+        android:textSize="16sp"
+        android:layout_toStartOf="@+id/img_expand" />
+
+    <ImageView
+        android:id="@+id/img_expand"
+        android:layout_width="50sp"
+        android:layout_height="50sp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="16sp"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:layout_marginRight="16sp"
+        android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
+        app:tint="@color/app_color"
+        android:contentDescription="@string/dropdown"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="16sp" />
+
+    <TextView
+        android:id="@+id/item_faqs_title_des"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/img_expand"
+        android:layout_marginLeft="16sp"
+        android:layout_marginTop="16sp"
+        android:layout_marginRight="16sp"
+        android:layout_marginBottom="16sp"
+        android:fontFamily="@font/poppinsregular"
+        android:textColor="@color/black"
+        android:visibility="gone" />
+
+
+</RelativeLayout>

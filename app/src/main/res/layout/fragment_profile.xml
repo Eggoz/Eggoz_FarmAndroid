@@ -1,0 +1,493 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nested_scroolview_profile"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:fillViewport="true"
+        tools:context=".ui.profile.ProfileFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!--  <androidx.constraintlayout.widget.ConstraintLayout
+                  android:id="@+id/const_addfarm"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent">
+
+                  <ImageView
+                      android:id="@+id/imgaddfarm"
+                      android:layout_width="match_parent"
+                      android:layout_height="0sp"
+                      android:src="@drawable/addfarm"
+                      android:scaleType="fitXY"
+                      app:layout_constraintTop_toTopOf="parent"
+                      app:layout_constraintBottom_toTopOf="@+id/btn_add_farm"
+                      app:layout_constraintEnd_toEndOf="parent"
+                      app:layout_constraintStart_toStartOf="parent"
+                      />
+
+                  <androidx.cardview.widget.CardView
+                      android:id="@+id/btn_add_farm"
+                      android:layout_width="324dp"
+                      android:layout_height="74dp"
+                      android:layout_marginLeft="40sp"
+                      android:layout_marginRight="40sp"
+                      android:clickable="true"
+                      android:foreground="?android:attr/selectableItemBackground"
+                      android:gravity="center"
+                      app:cardBackgroundColor="@color/app_color"
+                      app:cardCornerRadius="20dp"
+                      app:cardElevation="0dp"
+                      app:cardUseCompatPadding="true"
+                      app:layout_constraintTop_toBottomOf="@+id/imgaddfarm"
+                      app:layout_constraintBottom_toBottomOf="parent"
+                      app:layout_constraintEnd_toEndOf="parent"
+                      app:layout_constraintStart_toStartOf="parent">
+
+                      <TextView
+                          android:id="@+id/txt_title_farm"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_gravity="center"
+                          android:layout_weight="1"
+                          android:fontFamily="@font/opensansbold"
+                          android:padding="16dp"
+                          android:text="@string/Addfarm"
+                          android:textColor="@color/white"
+                          android:textSize="20sp" />
+
+                  </androidx.cardview.widget.CardView>
+
+
+              </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:descendantFocusability="blocksDescendants"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:visibility="visible">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/profileLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="visible">
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout2"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:background="@color/app_color"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardView"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="150dp"
+                        android:background="@color/white"
+                        android:elevation="1sp"
+                        app:cardCornerRadius="8sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="20sp">
+
+                            <ImageView
+                                android:id="@+id/img_edit"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginEnd="8dp"
+                                android:src="@drawable/ic_baseline_edit_24"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="1.0"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/txt_name"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:layout_marginTop="80dp"
+                                android:fontFamily="@font/poppinssemibold"
+                                android:text="@string/app_name"
+                                android:textColor="@color/black"
+                                android:textSize="16sp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/txt_mobile_no"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:fontFamily="@font/poppinsregular"
+                                android:text="Mobile No."
+                                android:textSize="16sp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/txt_name" />
+
+                            <TextView
+                                android:id="@+id/txt_email_id"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:fontFamily="@font/poppinsregular"
+                                android:text="Email."
+                                android:textSize="16sp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/txt_mobile_no" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/img_person"
+                        android:layout_width="100sp"
+                        android:layout_height="100sp"
+                        android:layout_marginTop="100dp"
+                        android:elevation="2sp"
+                        android:src="@drawable/ic_baseline_person_24"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/txt_farm_details"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="24dp"
+                        android:fontFamily="sans-serif-condensed-medium"
+                        android:text="Farm Details"
+                        android:visibility="gone"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+                    <TextView
+                        android:id="@+id/txt_add_more"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="18sp"
+                        android:visibility="gone"
+                        android:fontFamily="sans-serif-condensed-medium"
+                        android:text="Add Farm"
+                        android:textColor="@color/app_color"
+                        app:layout_constraintBottom_toBottomOf="@+id/txt_farm_details"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toEndOf="@+id/txt_farm_details" />
+
+
+                    <!--   <androidx.cardview.widget.CardView
+                           android:id="@+id/btn_add_farm"
+                           android:layout_width="324dp"
+                           android:layout_height="74dp"
+                           android:layout_marginLeft="40sp"
+                           android:layout_marginRight="40sp"
+                           android:clickable="true"
+                           android:foreground="?android:attr/selectableItemBackground"
+                           android:gravity="center"
+                           app:cardBackgroundColor="@color/app_color"
+                           app:cardCornerRadius="20dp"
+                           app:cardElevation="0dp"
+                           app:cardUseCompatPadding="true"
+                           app:layout_constraintTop_toBottomOf="@+id/registerLayout"
+                           app:layout_constraintBottom_toBottomOf="parent"
+                           app:layout_constraintEnd_toEndOf="parent"
+                           app:layout_constraintStart_toStartOf="parent">
+
+                           <TextView
+                               android:id="@+id/txt_title_farm"
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:layout_gravity="center"
+                               android:layout_weight="1"
+                               android:fontFamily="@font/opensansbold"
+                               android:padding="16dp"
+                               android:text="@string/Addfarm"
+                               android:textColor="@color/white"
+                               android:textSize="20sp" />
+
+                       </androidx.cardview.widget.CardView>
+           -->
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycleview_farmDetail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:visibility="visible"
+                        app:layout_constraintBottom_toBottomOf="@+id/profileLayout"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_farm_details"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/btn_add_farm"
+                        android:layout_width="324dp"
+                        android:layout_height="74dp"
+                        android:layout_marginLeft="40sp"
+                        android:layout_marginRight="40sp"
+                        android:visibility="gone"
+                        android:clickable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:gravity="center"
+                        app:cardBackgroundColor="@color/app_color"
+                        app:cardCornerRadius="20dp"
+                        app:cardElevation="0dp"
+                        app:cardUseCompatPadding="true"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/imgaddfarm">
+
+                        <TextView
+                            android:id="@+id/txt_title_farm"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/opensansbold"
+                            android:padding="16dp"
+                            android:text="@string/Addfarm"
+                            android:textColor="@color/white"
+                            android:textSize="20sp" />
+
+                    </androidx.cardview.widget.CardView>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+<!--
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/editLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="39sp"
+                    android:paddingRight="39sp"
+                    android:visibility="gone">
+
+                    <androidx.core.widget.NestedScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+
+                            <ImageView
+                                android:id="@+id/img_icon"
+                                android:layout_width="match_parent"
+                                android:layout_height="200dp"
+                                android:layout_marginTop="34sp"
+                                android:contentDescription="@string/icon"
+                                android:src="@drawable/logo1"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintVertical_bias="0.0" />
+
+                            <TextView
+                                android:id="@+id/txt_farmer_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8sp"
+                                android:fontFamily="@font/opensansregular"
+                                android:gravity="start"
+                                android:text="@string/name_of_farmer"
+                                android:textColor="@color/black"
+                                android:textSize="14sp"
+                                app:layout_constraintBottom_toTopOf="@+id/edt_farmer_name_layout"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.02"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/img_icon"
+                                app:layout_constraintVertical_bias="0.0" />
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/edt_farmer_name_layout"
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/txt_farmer_name">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/edt_farmer_name"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/farmer_name"
+                                    android:inputType="textPersonName" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <TextView
+                                android:id="@+id/txt_edit_email_id"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                android:fontFamily="@font/opensansregular"
+                                android:gravity="start"
+                                android:text="@string/email_add"
+                                android:textColor="@color/black"
+                                android:textSize="14sp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/edt_farmer_name_layout" />
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/edt_email_id_layout"
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/txt_edit_email_id">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/edt_email_id"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/email_add_hint"
+                                    android:inputType="textEmailAddress" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <TextView
+                                android:id="@+id/txt_pincode"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                android:fontFamily="@font/opensansregular"
+                                android:gravity="start"
+                                android:text="@string/pincode"
+                                android:textColor="@color/black"
+                                android:textSize="14sp"
+                                app:layout_constraintBottom_toTopOf="@+id/edt_pincode_layout"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/edt_email_id_layout" />
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/edt_pincode_layout"
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/txt_pincode">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/edt_pincode"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/enter_pincode"
+                                    android:inputType="number"
+                                    android:maxLength="6" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <TextView
+                                android:id="@+id/txt_mobileno"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                android:fontFamily="@font/opensansregular"
+                                android:gravity="start"
+                                android:text="@string/mobile_no"
+                                android:textColor="@color/black"
+                                android:textSize="14sp"
+                                app:layout_constraintBottom_toTopOf="@+id/edt_mobile_no_layout"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/edt_pincode_layout" />
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/edt_mobile_no_layout"
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/txt_mobileno">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/edt_mobile_no"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/enter_your_mobile_number"
+                                    android:inputType="number" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+
+                            <androidx.cardview.widget.CardView
+                                android:id="@+id/btn_editSubmit"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="32sp"
+                                android:clickable="true"
+                                android:foreground="?android:attr/selectableItemBackground"
+                                android:gravity="center"
+                                app:cardBackgroundColor="@color/app_color"
+                                app:cardCornerRadius="20dp"
+                                app:cardElevation="0dp"
+                                app:cardUseCompatPadding="true"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/edt_mobile_no_layout">
+
+                                <TextView
+                                    android:id="@+id/txt_title"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/opensansbold"
+                                    android:padding="16dp"
+                                    android:text="@string/save"
+                                    android:textColor="@color/white"
+                                    android:textSize="20sp" />
+
+                            </androidx.cardview.widget.CardView>
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.core.widget.NestedScrollView>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>-->
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>

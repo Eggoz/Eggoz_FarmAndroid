@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="5dp"
+    android:orientation="horizontal">
+
+    <RelativeLayout
+        android:layout_width="180sp"
+        android:layout_height="150sp"
+        android:layout_marginLeft="5sp"
+        android:layout_marginRight="10sp"
+        android:layout_marginEnd="10sp"
+        android:layout_marginStart="5sp">
+
+        <View
+            android:id="@+id/thumbnail"
+            android:layout_width="180sp"
+            android:layout_height="110sp"
+            android:background="@color/shimmerbackground" />
+
+        <View
+            android:id="@+id/thumbnail_name"
+            android:layout_width="80sp"
+            android:layout_height="12sp"
+            android:layout_below="@+id/thumbnail"
+            android:layout_marginStart="11sp"
+            android:layout_marginLeft="11sp"
+            android:layout_marginTop="18sp"
+            android:layout_marginRight="16sp"
+            android:background="@color/shimmerbackground"
+            android:gravity="center"
+            android:layout_marginEnd="16sp" />
+
+        <View
+            android:id="@+id/thumbnail_name_price"
+            android:layout_width="40sp"
+            android:layout_height="12sp"
+            android:layout_below="@+id/thumbnail"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="11sp"
+            android:layout_marginLeft="11sp"
+            android:layout_marginTop="18sp"
+            android:layout_marginEnd="9sp"
+            android:layout_marginRight="16sp"
+            android:background="@color/shimmerbackground"
+            android:gravity="center"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="180sp"
+        android:layout_height="150sp"
+        android:layout_marginRight="5sp"
+        android:layout_marginLeft="10sp"
+        android:layout_marginStart="10sp"
+        android:layout_marginEnd="5sp">
+
+        <View
+            android:id="@+id/thumbnail2"
+            android:layout_width="180sp"
+            android:layout_height="110sp"
+            android:background="@color/shimmerbackground" />
+
+        <View
+            android:id="@+id/thumbnail_name2"
+            android:layout_width="80sp"
+            android:layout_height="12sp"
+            android:layout_below="@+id/thumbnail2"
+            android:layout_marginStart="11sp"
+            android:layout_marginLeft="11sp"
+            android:layout_marginTop="18sp"
+            android:layout_marginRight="16sp"
+            android:background="@color/shimmerbackground"
+            android:gravity="center"
+            android:layout_marginEnd="16sp" />
+
+        <View
+            android:id="@+id/thumbnail_name_price2"
+            android:layout_width="40sp"
+            android:layout_height="12sp"
+            android:layout_below="@+id/thumbnail2"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="11sp"
+            android:layout_marginLeft="11sp"
+            android:layout_marginTop="18sp"
+            android:layout_marginEnd="9sp"
+            android:layout_marginRight="16sp"
+            android:background="@color/shimmerbackground"
+            android:gravity="center"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+</LinearLayout>

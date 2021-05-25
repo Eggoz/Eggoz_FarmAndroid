@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="8sp"
+    android:layout_marginEnd="8sp"
+    android:layout_marginBottom="14sp"
+    android:paddingBottom="14sp"
+    app:cardCornerRadius="15sp"
+    app:cardElevation="2sp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="14sp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cons_title"
+            android:layout_width="match_parent"
+            android:layout_height="45sp"
+            android:background="@color/app_color"
+            android:layout_marginBottom="8sp"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            >
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2sp"
+                android:background="@color/app_color"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/txt_flock_name"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="18sp"
+                android:fontFamily="@font/poppinssemibold"
+                android:gravity="center"
+                android:text="herer"
+                android:textColor="@color/white"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txt_last_update"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="20sp"
+                android:fontFamily="@font/poppinsmedium"
+                android:gravity="center"
+                android:text="last update"
+                android:textSize="12sp"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintTop_toTopOf="parent"
+
+
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/const_shadeName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8sp"
+            app:layout_constraintEnd_toStartOf="@+id/const_flockName"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cons_title"
+            tools:layout_editor_absoluteY="14dp">
+            <View
+                android:layout_width="1sp"
+                android:layout_height="70sp"
+                android:background="@color/lite_grey"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/txt_hdep_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppinssemibold"
+                android:gravity="center"
+                android:text="Hdep"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txt_hdep"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppinsmedium"
+                android:gravity="center"
+                android:paddingTop="14sp"
+                android:text="@string/_00"
+                android:textColor="@color/dark_grey"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_hdep_title" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/const_flockName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8sp"
+            app:layout_constraintEnd_toStartOf="@+id/const_BreedName"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/const_shadeName"
+            app:layout_constraintTop_toBottomOf="@+id/cons_title"
+            tools:layout_editor_absoluteY="14dp">
+            <View
+                android:layout_width="1sp"
+                android:layout_height="70sp"
+                android:background="@color/lite_grey"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+            <TextView
+                android:id="@+id/txt_feedIntake_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppinssemibold"
+                android:gravity="center"
+                android:text="Feed Intake"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txt_feedIntake"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppinsmedium"
+                android:gravity="center"
+                android:paddingTop="14sp"
+                android:text="@string/_00"
+                android:textColor="@color/dark_grey"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_feedIntake_title" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/const_BreedName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8sp"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/const_flockName"
+            app:layout_constraintTop_toBottomOf="@+id/cons_title"
+            tools:layout_editor_absoluteY="14dp">
+
+
+            <TextView
+                android:id="@+id/txt_totoalbird_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20sp"
+                android:fontFamily="@font/poppinssemibold"
+                android:gravity="center"
+                android:text="@string/totoalbird"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txt_totoalbird"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppinsmedium"
+                android:gravity="center"
+                android:paddingTop="14sp"
+                android:text="@string/_00"
+                android:textColor="@color/dark_grey"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_totoalbird_title" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Button
+            android:id="@+id/btn_addInput"
+            android:layout_width="match_parent"
+            android:layout_height="45sp"
+            android:layout_marginStart="24sp"
+            android:layout_marginTop="14sp"
+            android:layout_marginEnd="24sp"
+            android:background="@color/home_back"
+            android:clickable="true"
+            android:fontFamily="@font/poppinsmedium"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:gravity="center"
+            android:text="Add Daily Input"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/const_flockName"
+
+            />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

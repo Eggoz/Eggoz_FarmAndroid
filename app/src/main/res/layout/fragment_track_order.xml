@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.order.TrackOrderFragment">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="34sp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycleview_track_order"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+            <ImageView
+                android:id="@+id/img_Order_Confirm"
+                android:layout_width="34sp"
+                android:layout_height="34sp"
+                android:background="@drawable/solid_cornerbtn_background"
+                android:src="@drawable/ic_baseline_done_24"
+                android:layout_marginStart="28sp"
+                android:layout_marginTop="34sp"
+                app:layout_constraintTop_toBottomOf="@+id/recycleview_track_order"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+            <TextView
+                android:id="@+id/txt_Order_Confirm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Order Confirm"
+                android:layout_marginStart="16sp"
+                android:fontFamily="@font/poppinssemibold"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@+id/img_Order_Confirm"
+                android:layout_marginTop="34sp"
+                app:layout_constraintTop_toBottomOf="@+id/recycleview_track_order"
+                />
+            <TextView
+                android:id="@+id/txt_Order_Confirm_detail"
+                android:layout_width="0sp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppinsregular"
+                android:text="Your order #212423 was placed on 23th November 2019."
+                android:layout_marginStart="16sp"
+                android:layout_marginBottom="36sp"
+                app:layout_constraintStart_toEndOf="@+id/img_Order_Confirm"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="8sp"
+                app:layout_constraintTop_toBottomOf="@+id/txt_Order_Confirm"
+                />
+            <View
+                android:layout_width="1dp"
+                android:layout_height="0sp"
+                android:layout_marginTop="8sp"
+                android:layout_marginBottom="8sp"
+                app:layout_constraintBottom_toTopOf="@+id/img_Packed"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="45sp"
+                app:layout_constraintTop_toBottomOf="@+id/img_Order_Confirm"
+                android:background="@color/app_color"
+                />
+
+            <ImageView
+                android:id="@+id/img_Packed"
+                android:layout_width="34sp"
+                android:layout_height="34sp"
+                android:background="@drawable/cornerbtn_background"
+                android:layout_marginStart="28sp"
+                android:layout_marginTop="36sp"
+                app:layout_constraintTop_toBottomOf="@+id/txt_Order_Confirm_detail"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+            <TextView
+                android:id="@+id/txt_Packed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Order Packed"
+                android:layout_marginStart="16sp"
+                android:fontFamily="@font/poppinssemibold"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@+id/img_Packed"
+                android:layout_marginTop="36sp"
+                app:layout_constraintTop_toBottomOf="@+id/txt_Order_Confirm_detail"
+                />
+            <TextView
+                android:id="@+id/txt_Packed_detail"
+                android:layout_width="0sp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppinsregular"
+                android:text="Your order still needs to be processed by our store before sending it to you."
+                android:layout_marginStart="16sp"
+                android:layout_marginBottom="24sp"
+                app:layout_constraintStart_toEndOf="@+id/img_Packed"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="8sp"
+                app:layout_constraintTop_toBottomOf="@+id/txt_Packed"
+                />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="0sp"
+                android:layout_marginTop="8sp"
+                android:layout_marginBottom="8sp"
+                app:layout_constraintBottom_toTopOf="@+id/img_Picked_up_by_the_courier"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="45sp"
+                app:layout_constraintTop_toBottomOf="@+id/img_Packed"
+                android:background="@color/app_color"
+                />
+
+            <ImageView
+                android:id="@+id/img_Picked_up_by_the_courier"
+                android:layout_width="34sp"
+                android:layout_height="34sp"
+                android:background="@drawable/cornerbtn_background"
+                android:layout_marginStart="28sp"
+                android:layout_marginTop="36sp"
+                app:layout_constraintTop_toBottomOf="@+id/txt_Packed_detail"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+            <TextView
+                android:id="@+id/txt_Picked_up_by_the_courier"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Picked up by the courier"
+                android:layout_marginStart="16sp"
+                android:fontFamily="@font/poppinssemibold"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@+id/img_Packed"
+                android:layout_marginTop="36sp"
+                app:layout_constraintTop_toBottomOf="@+id/txt_Packed_detail"
+                />
+            <TextView
+                android:id="@+id/txt_Picked_up_by_the_courier_detail"
+                android:layout_width="0sp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppinsregular"
+                android:text="Your order has been picked up by one of our couriers and its on your way."
+                android:layout_marginStart="16sp"
+                android:layout_marginBottom="24sp"
+                app:layout_constraintStart_toEndOf="@+id/img_Packed"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="8sp"
+                app:layout_constraintTop_toBottomOf="@+id/txt_Picked_up_by_the_courier"
+                />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="0sp"
+                android:layout_marginTop="8sp"
+                android:layout_marginBottom="8sp"
+                app:layout_constraintBottom_toTopOf="@+id/img_On_the_Way"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="45sp"
+                app:layout_constraintTop_toBottomOf="@+id/img_Picked_up_by_the_courier"
+                android:background="@color/app_color"
+                />
+
+            <ImageView
+                android:id="@+id/img_On_the_Way"
+                android:layout_width="34sp"
+                android:layout_height="34sp"
+                android:background="@drawable/cornerbtn_background"
+                android:layout_marginStart="28sp"
+                android:layout_marginTop="36sp"
+                app:layout_constraintTop_toBottomOf="@+id/txt_Picked_up_by_the_courier_detail"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+            <TextView
+                android:id="@+id/txt_On_the_Way"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="On the Way"
+                android:layout_marginStart="16sp"
+                android:fontFamily="@font/poppinssemibold"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@+id/img_Packed"
+                android:layout_marginTop="36sp"
+                app:layout_constraintTop_toBottomOf="@+id/txt_Picked_up_by_the_courier_detail"
+                />
+            <TextView
+                android:id="@+id/txt_On_the_Way_detail"
+                android:layout_width="0sp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppinsregular"
+                android:text="The package is on your way. Make sure to be at the location to meet the courier."
+                android:layout_marginStart="16sp"
+                android:layout_marginBottom="24sp"
+                app:layout_constraintStart_toEndOf="@+id/img_Packed"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="8sp"
+                app:layout_constraintTop_toBottomOf="@+id/txt_On_the_Way"
+                />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="0sp"
+                android:layout_marginTop="8sp"
+                android:layout_marginBottom="8sp"
+                app:layout_constraintBottom_toTopOf="@+id/img_Delivered"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="45sp"
+                app:layout_constraintTop_toBottomOf="@+id/img_On_the_Way"
+                android:background="@color/app_color"
+                />
+
+            <ImageView
+                android:id="@+id/img_Delivered"
+                android:layout_width="34sp"
+                android:layout_height="34sp"
+                android:background="@drawable/cornerbtn_background"
+                android:layout_marginStart="28sp"
+                android:layout_marginTop="36sp"
+                app:layout_constraintTop_toBottomOf="@+id/txt_On_the_Way_detail"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+            <TextView
+                android:id="@+id/txt_Delivered"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Delivered"
+                android:layout_marginStart="16sp"
+                android:fontFamily="@font/poppinssemibold"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@+id/img_Delivered"
+                android:layout_marginTop="36sp"
+                app:layout_constraintTop_toBottomOf="@+id/txt_On_the_Way_detail"
+                />
+            <TextView
+                android:id="@+id/txt_Delivered_detail"
+                android:layout_width="0sp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppinsregular"
+                android:text="It seems like the package has arrived to you. Hope you are happy with it!"
+                android:layout_marginStart="16sp"
+                android:layout_marginBottom="24sp"
+                app:layout_constraintStart_toEndOf="@+id/img_Delivered"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="8sp"
+                app:layout_constraintTop_toBottomOf="@+id/txt_Delivered"
+                />
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+</layout>

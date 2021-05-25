@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".ui.daily_input.DailyInputBroilerFragment">
+
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="40sp">
+
+
+                <TextView
+                    android:id="@+id/txt_total_mortality"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:gravity="start"
+                    android:text="@string/total_Morality"
+                    android:fontFamily="@font/opensansregular"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    app:layout_constraintBottom_toTopOf="@+id/edt_total_mortality_layout"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edt_total_mortality_layout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_total_mortality">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_total_mortality"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/xxxxxx"
+                        android:lines="1"
+                        android:maxLength="8"
+                        android:digits="0123456789"
+                        android:inputType="number" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <TextView
+                    android:id="@+id/txt_culling_bird"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:gravity="start"
+                    android:text="@string/Culling_Birds"
+                    android:fontFamily="@font/opensansregular"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edt_total_mortality_layout" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edt_culling_bird_layout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_culling_bird">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_culling_bird"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/xxxxxx"
+                        android:lines="1"
+                        android:maxLength="8"
+                        android:digits="0123456789"
+                        android:inputType="number" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <TextView
+                    android:id="@+id/txt_active_bird"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/opensansregular"
+                    android:gravity="start"
+                    android:text="@string/total_active_bird"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edt_culling_bird_layout" />
+
+                <TextView
+                    android:id="@+id/txt_active_bird_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/opensansregular"
+                    android:gravity="start"
+                    android:text="@string/_00"
+                    android:textColor="@color/app_color"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edt_culling_bird_layout" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <TextView
+                    android:id="@+id/txt_Feed_Consumed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:gravity="start"
+                    android:text="@string/Feed_Consumed"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/opensansregular"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_active_bird" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edt_Feed_Consumed_layout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_Feed_Consumed">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_Feed_Consumed"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/gm"
+                        android:lines="1"
+                        android:maxLength="10"
+                        android:inputType="numberDecimal" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <TextView
+                    android:id="@+id/txt_Feed_Intake_per_Bird"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/opensansregular"
+                    android:gravity="start"
+                    android:text="@string/Feed_Intake_per_Bird"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edt_Feed_Consumed_layout" />
+
+                <TextView
+                    android:id="@+id/txt_Feed_Intake_per_Bird_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/opensansregular"
+                    android:gravity="start"
+                    android:text="@string/_00"
+                    android:textColor="@color/app_color"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edt_Feed_Consumed_layout" />
+
+
+                <TextView
+                    android:id="@+id/txt_Remark"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:gravity="start"
+                    android:text="@string/remark"
+                    android:fontFamily="@font/opensansregular"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_Feed_Intake_per_Bird"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edt_Remark_layout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_Remark">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_Remark"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/xxxxxx"
+                        android:lines="1"
+                        android:maxLength="20"
+                        android:inputType="text" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/medicine_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="18sp"
+                    android:layout_marginBottom="24sp"
+                    app:layout_constraintBottom_toTopOf="@+id/btn_Submit"
+                    app:layout_constraintEnd_toStartOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edt_Remark_layout"
+                    app:layout_constraintVertical_bias="0.0">
+
+                    <TextView
+                        android:id="@+id/txt_title_have_medicine"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/opensansregular"
+                        android:text="@string/have_given_medicine" />
+
+                    <TextView
+                        android:id="@+id/txt_add_medicine"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@+id/txt_title_have_medicine"
+                        android:text="@string/add_medicine"
+                        android:fontFamily="@font/opensansregular"
+                        android:textSize="14sp"
+                        android:textColor="@color/app_color"
+                        android:textStyle="bold" />
+
+
+                </RelativeLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycle_medicen"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/medicine_layout"
+
+                    />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/btn_Submit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    app:cardBackgroundColor="@color/app_color"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="0dp"
+                    app:cardUseCompatPadding="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:clickable="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/recycle_medicen">
+
+                    <TextView
+                        android:id="@+id/txt_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:padding="16dp"
+                        android:text="@string/Let_start"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/opensansbold"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                </androidx.cardview.widget.CardView>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
