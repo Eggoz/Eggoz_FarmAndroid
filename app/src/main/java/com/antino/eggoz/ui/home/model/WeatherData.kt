@@ -1,9 +1,11 @@
 package com.antino.eggoz.ui.home.model
 
+import androidx.annotation.Keep
 import com.antino.eggoz.view.data.LoginUser
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
+@Keep
 data class WeatherData(
 
     @SerializedName("results")
@@ -14,7 +16,13 @@ data class WeatherData(
     var errorType: String,
     @SerializedName("errors")
     @Expose
-    var errors: List<LoginUser.Error>?
+    var errors: List<LoginUser.Error>?,
+    @SerializedName("cod")
+    @Expose
+    var cod: String,
+    @SerializedName("message")
+    @Expose
+    var message: String
 
 ) {
 

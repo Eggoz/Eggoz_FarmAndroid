@@ -1,9 +1,11 @@
 package com.antino.eggoz.ui.daily_input.model
 
+import androidx.annotation.Keep
 import com.antino.eggoz.view.data.LoginUser
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
+@Keep
 data class AddDailyInput(
     @SerializedName("flock")
     @Expose

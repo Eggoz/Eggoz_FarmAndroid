@@ -30,6 +30,7 @@ class SliderAdapter(val context: Context) : PagerAdapter() {
         imageView.setImageResource(images[position])
 
 
+
         val vp = container as ViewPager
         vp.addView(view, 0)
         return view

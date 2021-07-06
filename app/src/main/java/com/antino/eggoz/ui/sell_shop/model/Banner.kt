@@ -1,9 +1,11 @@
 package com.antino.eggoz.ui.sell_shop.model
 
+import androidx.annotation.Keep
 import com.antino.eggoz.view.data.LoginUser
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
+@Keep
 data class Banner(
     @SerializedName("count")
     @Expose

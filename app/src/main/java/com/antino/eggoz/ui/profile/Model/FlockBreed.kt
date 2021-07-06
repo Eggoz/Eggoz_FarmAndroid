@@ -1,8 +1,10 @@
 package com.antino.eggoz.ui.profile.Model
 
+import androidx.annotation.Keep
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
+@Keep
 data class FlockBreed(
 
     @SerializedName("count")

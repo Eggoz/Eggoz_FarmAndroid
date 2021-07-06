@@ -2,6 +2,7 @@ package com.antino.eggoz.ui.feed
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +14,6 @@ import com.antino.eggoz.R
 import com.antino.eggoz.ui.feed.model.Comment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import java.util.*
 
 class CommentAdapter(
     private val mcontext: CommentFragment,
@@ -41,6 +41,7 @@ class CommentAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         holder.txtname.text = results!![position].user.name
+        Log.d("data",results!![position].commentText)
         holder.txtcomment_detail.text = results!![position].commentText
         if (results!![position].isLiked)
             holder.likeComment.setTextColor(ContextCompat.getColor(context,R.color.app_color))

@@ -1,9 +1,11 @@
 package com.antino.eggoz.ui.profile.Model
 
+import androidx.annotation.Keep
 import com.antino.eggoz.view.data.LoginUser
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
+@Keep
 data class Farm(
     @SerializedName("errors")
     @Expose
@@ -25,7 +27,12 @@ data class Farm(
     var results: List<Result>? = null
 ) {
     class Result(
-
+        @SerializedName("errors")
+        @Expose
+        var errors: List<LoginUser.Error>?,
+        @SerializedName("error_type")
+        @Expose
+        var errorType: String,
         @SerializedName("id")
         @Expose
         var id: Int,
@@ -49,13 +56,13 @@ data class Farm(
         var updatedAt: String,
         @SerializedName("number_of_layer_shed")
         @Expose
-        var numberOfLayerShed: Int,
+        var numberOfLayerShed: Int?=null,
         @SerializedName("number_of_grower_shed")
         @Expose
-        var numberOfGrowerShed: Int,
+        var numberOfGrowerShed: Int?=null,
         @SerializedName("number_of_broiler_shed")
         @Expose
-        var number_of_broiler_shed: Int,
+        var number_of_broiler_shed: Int?=null,
         @SerializedName("farm_type")
         @Expose
         var farmType: String,
@@ -235,6 +242,12 @@ data class Farm(
         }
         class Shed(
 
+            @SerializedName("errors")
+            @Expose
+            var errors: List<LoginUser.Error>?,
+            @SerializedName("error_type")
+            @Expose
+            var errorType: String,
             @SerializedName("id")
             @Expose
             var id: Int,
@@ -255,6 +268,13 @@ data class Farm(
             var farm: Int
         ) {
             class Flock1(
+
+                @SerializedName("errors")
+                @Expose
+                var errors: List<LoginUser.Error>?,
+                @SerializedName("error_type")
+                @Expose
+                var errorType: String,
                 @SerializedName("id")
                 @Expose
                 var id: Int,

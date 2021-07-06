@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/white"
     android:layout_height="wrap_content"
-    android:paddingBottom="8sp"
-    android:layout_marginBottom="4sp">
+    android:layout_marginBottom="4sp"
+    android:background="@color/white"
+    android:paddingBottom="8sp">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/img_person"
@@ -25,10 +25,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="8dp"
-        android:textColor="@color/app_color"
         android:fontFamily="@font/poppinsbold"
-        android:textSize="16sp"
         android:text="@string/app_name"
+        android:textColor="@color/app_color"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/img_person"
@@ -49,7 +49,7 @@
         app:layout_constraintTop_toBottomOf="@+id/txt_person_name"
         tools:ignore="SmallSp" />
 
-    <ImageView
+    <!--   <ImageView
         android:id="@+id/img_voteup"
         android:layout_width="34sp"
         android:layout_height="34sp"
@@ -60,34 +60,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/txt_details"
         app:layout_constraintBottom_toBottomOf="@+id/txt_details"
-        />
+        />-->
 
-    <TextView
-        android:id="@+id/txt_vote"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/poppinsregular"
-        android:gravity="center"
-        android:minWidth="34dp"
-        android:text="0"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toStartOf="@+id/txt_details"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_voteup" />
+
+
     <ImageView
         android:id="@+id/img_votedown"
         android:layout_width="34sp"
         android:layout_height="34sp"
-        android:visibility="gone"
-        android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
         android:layout_marginStart="18sp"
+        android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_vote"
-        />
-
+        app:layout_constraintTop_toBottomOf="@+id/txt_vote" />
 
 
     <TextView
@@ -97,14 +84,14 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="12dp"
-        android:minLines="3"
         android:fontFamily="@font/poppinsregular"
+        android:minLines="3"
         android:text="The first domesticated hens perhaps were used for sport. Cockfighting was instrumental in bringing about the selection of these birds for larger size. Cocks later acquired religious significance. In Zoroastrianism the cock was associated with protection of good against evil and was a symbol of light."
         android:textColor="@color/black"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/img_person"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_time_stamp" />
 
     <androidx.cardview.widget.CardView
@@ -116,64 +103,99 @@
         android:layout_marginEnd="16dp"
         app:cardCornerRadius="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/img_person"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_details">
+
         <ImageView
             android:id="@+id/img_feed"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:contentDescription="@string/icon"
             android:scaleType="centerCrop"
-            android:src="@drawable/logo1"
-            />
+            android:src="@drawable/logo1" />
     </androidx.cardview.widget.CardView>
-    
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@color/app_color"
-        android:layout_marginTop="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_layout"
-        />
-    
-    
-
     <TextView
-        android:id="@+id/txt_comment"
+        android:id="@+id/txt_vote"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="34sp"
-        android:textSize="12sp"
         android:fontFamily="@font/poppinsregular"
-        android:textColor="@color/comment_color"
-        android:text="Comment"
+        android:gravity="center"
+        android:minWidth="34dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="12sp"
+        android:text="0"
+        android:textColor="@color/black"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_layout" />
+
+    <View
+        android:id="@+id/devider"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="14sp"
+        android:background="@color/app_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_layout"
-        app:drawableStartCompat="@drawable/ic_baseline_mode_comment_24" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_vote" />
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/devider">
+
+
+        <TextView
+            android:id="@+id/img_voteup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:fontFamily="@font/poppinsregular"
+            android:text="@string/like"
+            android:textColor="@color/comment_color"
+            android:textSize="12sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:drawableStartCompat="@drawable/ic_baseline_favorite_border_24"
+            app:layout_constraintEnd_toStartOf="@+id/txt_comment"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+        <TextView
+            android:id="@+id/txt_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:fontFamily="@font/poppinsregular"
+            android:text="@string/comment"
+            android:textColor="@color/comment_color"
+            android:textSize="12sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:drawableStartCompat="@drawable/ic_baseline_mode_comment_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/img_voteup" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
     <TextView
         android:id="@+id/txt_share"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
         android:layout_marginTop="34sp"
-        android:textSize="12sp"
+        android:layout_marginEnd="24dp"
         android:fontFamily="@font/poppinsregular"
-        android:textColor="@color/comment_color"
         android:text="Share"
+        android:textColor="@color/comment_color"
+        android:textSize="12sp"
         android:visibility="gone"
+        app:drawableStartCompat="@drawable/ic_baseline_share_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_layout"
-        app:drawableStartCompat="@drawable/ic_baseline_share_24" />
-
+        app:layout_constraintTop_toBottomOf="@+id/img_layout" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

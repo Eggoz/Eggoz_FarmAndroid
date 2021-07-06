@@ -21,5 +21,12 @@
         android:icon="@drawable/ic_baseline_shopping_cart_24w"
         android:orderInCategory="100"
         app:showAsAction="always"
+        android:visible="false"
         android:title="@string/My_Cart" />
+    <item
+        android:id="@+id/nav_lang"
+        android:icon="@drawable/language"
+        android:orderInCategory="100"
+        app:showAsAction="always"
+        android:title="@string/choose_your_language" />
 </menu>

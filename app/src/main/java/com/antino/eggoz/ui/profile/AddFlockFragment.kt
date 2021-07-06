@@ -4,19 +4,17 @@ import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.antino.eggoz.MainActivity
-import com.antino.eggoz.R
 import com.antino.eggoz.databinding.FragmentAddFlockBinding
-import com.antino.eggoz.databinding.FragmentProfileBinding
 import com.antino.eggoz.modelvew.ModelMain
 import com.antino.eggoz.view.CustomAlertLoading
 
@@ -95,9 +93,9 @@ class AddFlockFragment(val parentContext:MainActivity,val token:String,val mid:I
                 if(it.errors!=null){
                     Log.d("data","${it.errors!![0].message} \n ${it.errorType} \n ${it.errors!![0].field}")
                 }else{
-                Toast.makeText(context,"Flock add", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context,"Flock Added", Toast.LENGTH_SHORT).show()
                 Log.d("data","success")
-                parentContext.loadProfile()
+                parentContext.loadSellShop()
             }
             }
         )

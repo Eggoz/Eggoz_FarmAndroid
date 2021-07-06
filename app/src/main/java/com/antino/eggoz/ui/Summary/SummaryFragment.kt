@@ -1,23 +1,26 @@
 package com.antino.eggoz.ui.Summary
 
 import android.annotation.SuppressLint
+import android.app.DatePickerDialog
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.VerifiedInputEvent
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.DatePicker
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.antino.eggoz.MainActivity
 import com.antino.eggoz.R
 import com.antino.eggoz.databinding.FragmentSummaryBinding
 import com.antino.eggoz.modelvew.ModelMain
+import com.antino.eggoz.ui.daily_input.adapter.DailyInputAdapter
+import com.antino.eggoz.ui.daily_input.model.DailInput
 import com.antino.eggoz.view.CustomAlertLoading
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
@@ -30,8 +33,8 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class SummaryFragment(val context: MainActivity, val token: String, val flock_id: Int) :
-    Fragment() {
+class SummaryFragment(val context: MainActivity, val token: String, private val flock_id: Int) :
+    Fragment(), DatePickerDialog.OnDateSetListener {
     private lateinit var binding: FragmentSummaryBinding
 
     private var mortality = ArrayList<Int>()
@@ -46,6 +49,10 @@ class SummaryFragment(val context: MainActivity, val token: String, val flock_id
 
     private var hhdep = 0.0
     private var ffcr = 0.0
+    private lateinit var dpd: DatePickerDialog
+
+    private var filter: ArrayList<DailInput.Result>? = null
+    private var result: List<DailInput.Result>? = null
 
 
     override fun onCreateView(
@@ -54,11 +61,128 @@ class SummaryFragment(val context: MainActivity, val token: String, val flock_id
     ): View {
         binding = FragmentSummaryBinding.inflate(inflater, container, false)
 
+        init()
+
         loadData()
+        Log.d("data", "flock id $flock_id")
         spinner()
 
-
         return binding.root
+    }
+
+    private fun init() {
+        result = ArrayList()
+        filter = ArrayList()
+        binding.txtDate.text=this.resources.getString(com.antino.eggoz.R.string.SelectDate)
+        binding.txtClear.visibility = View.GONE
+
+        binding.txtClear.setOnClickListener {
+            filter!!.clear()
+            binding.txtDate.text=this.resources.getString(com.antino.eggoz.R.string.SelectDate)
+            binding.txtClear.visibility = View.GONE
+            val adapter = DailyInputAdapter(context, result)
+            binding.recycleList.adapter = adapter
+            adapter.notifyDataSetChanged()
+        }
+
+        val calander = Calendar.getInstance()
+        dpd = DatePickerDialog(
+            requireContext(),
+            this,
+            calander.get(Calendar.YEAR),
+            calander.get(Calendar.MONTH),
+            calander.get(Calendar.DATE)
+        )
+        binding.crdGraph.setOnClickListener {
+            if (binding.constRecycle.isVisible) {
+                mortality.clear()
+                hdep.clear()
+                fcr.clear()
+                date.clear()
+
+                loadData()
+                binding.consGraph.visibility = View.VISIBLE
+                binding.constRecycle.visibility = View.GONE
+            }
+
+        }
+        binding.crdDate.setOnClickListener {
+            dpd.show()
+        }
+        binding.txtDate.setOnClickListener {
+            dpd.show()
+        }
+        binding.crdList.setOnClickListener {
+            if (binding.consGraph.isVisible) {
+
+                binding.txtDate.text=this.resources.getString(com.antino.eggoz.R.string.SelectDate)
+                binding.txtClear.visibility = View.GONE
+
+                getlist()
+                binding.consGraph.visibility = View.GONE
+                binding.constRecycle.visibility = View.VISIBLE
+            }
+        }
+
+
+
+
+        binding.root.isFocusableInTouchMode = true
+        binding.root.requestFocus()
+        binding.root.setOnKeyListener { v, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_BACK && event.action == KeyEvent.ACTION_DOWN) {
+                context.loadDailyInput()
+                true
+            } else false
+        }
+
+    }
+
+
+    private fun getlist() {
+
+        val loadingdialog = CustomAlertLoading(this)
+        loadingdialog.stateLoading()
+
+        Log.d("data", "comment id $id")
+        val viewModel = ViewModelProvider(this).get(ModelMain::class.java)
+        viewModel.getDailyInput(
+            token, flock_id
+        ).observe(requireActivity(),
+            Observer {
+                loadingdialog.dismiss()
+                if (it.errors == null) {
+
+                    Log.d("data", "daily input list ${it.results?.size!!}")
+                    binding.recycleList.layoutManager = LinearLayoutManager(
+                        activity,
+                        LinearLayoutManager.VERTICAL,
+                        false
+                    )
+                    result = it.results
+                    binding.recycleList.setHasFixedSize(true)
+                    val adapter = DailyInputAdapter(context, it.results)
+                    binding.recycleList.adapter = adapter
+
+                     val sdf = SimpleDateFormat("yyyy-MM-dd")
+                     val statedate = sdf.parse(it.results[0].date)
+                     val calstart = Calendar.getInstance()
+                     calstart.time = statedate
+
+                     val enddate = sdf.parse(it.results[it.results.size - 1].date)
+                     val calend = Calendar.getInstance()
+                     calend.time = enddate
+
+                     dpd.datePicker.minDate = calstart.timeInMillis
+                     dpd.datePicker.maxDate = calend.timeInMillis
+
+                } else {
+                    Toast.makeText(context, it.errors!![0].message, Toast.LENGTH_SHORT).show()
+                }
+
+
+            }
+        )
     }
 
     private fun loadData() {
@@ -81,8 +205,8 @@ class SummaryFragment(val context: MainActivity, val token: String, val flock_id
 
                         if (it.results?.isNotEmpty()!!) {
 
-                            binding.graphList.visibility=View.VISIBLE
-                            binding.consNoGraph.visibility=View.GONE
+                            binding.graphList.visibility = View.VISIBLE
+                            binding.consNoGraph.visibility = View.GONE
                             for (i in it.results?.indices!!) {
                                 hhdep =
                                     (it.results!![i].eggDailyProduction).toDouble() / (it.results!![i].totalActiveBirds.toDouble())
@@ -91,6 +215,8 @@ class SummaryFragment(val context: MainActivity, val token: String, val flock_id
 
                                 if (feedval > 0) {
                                     feedval = (feedval + ffcr) / 2
+                                } else {
+                                    feedval = ffcr
                                 }
                                 eggval += it.results!![i].eggDailyProduction
 
@@ -118,13 +244,16 @@ class SummaryFragment(val context: MainActivity, val token: String, val flock_id
                                     it.results!![it.results!!.size - 1].totalActiveBirds.toString()
                                 binding.MotalityValue.text =
                                     mortalityval.toString()
-                                binding.FeedPerBirdValue.text = feedval.toString()
+                                binding.FeedPerBirdValue.text = "${String.format(
+                                    "%.2f",
+                                    feedval * 1000
+                                ).toDouble()}"
                                 binding.EggProductionValue.text = eggval.toString()
 
-                                if (eggval==0) {
-                                    binding.txtEggProduction.visibility=View.GONE
-                                    binding.EggProductionValue.visibility=View.GONE
-                                    binding.cardHdep.visibility=View.GONE
+                                if (eggval == 0) {
+                                    binding.txtEggProduction.visibility = View.GONE
+                                    binding.EggProductionValue.visibility = View.GONE
+                                    binding.cardHdep.visibility = View.GONE
                                 }
 
                             }
@@ -143,15 +272,15 @@ class SummaryFragment(val context: MainActivity, val token: String, val flock_id
                             )
 
 
-                        }else{
+                        } else {
 
-                            binding.graphList.visibility=View.GONE
-                            binding.consNoGraph.visibility=View.VISIBLE
+                            binding.graphList.visibility = View.GONE
+                            binding.consNoGraph.visibility = View.VISIBLE
                         }
 
-                    }else{
-                        binding.graphList.visibility=View.GONE
-                        binding.consNoGraph.visibility=View.VISIBLE
+                    } else {
+                        binding.graphList.visibility = View.GONE
+                        binding.consNoGraph.visibility = View.VISIBLE
                     }
                 } else Toast.makeText(context, "${it.errors!![0].message}", Toast.LENGTH_SHORT)
                     .show()
@@ -422,6 +551,30 @@ class SummaryFragment(val context: MainActivity, val token: String, val flock_id
 
             }
 
+    }
+
+    override fun onDateSet(p0: DatePicker?, p1: Int, p2: Int, p3: Int) {
+        filter?.clear()
+        var date = ""
+        date = if (p0?.month!!+1 < 10) {
+            "${p0.year}-0${p0.month+1}-${p0.dayOfMonth}"
+
+        } else
+            "${p0.year}-${p0.month+1}-${p0.dayOfMonth}"
+        binding.txtDate.text = date
+        binding.txtClear.text=this.resources.getString(com.antino.eggoz.R.string.clear)
+        binding.txtClear.visibility = View.VISIBLE
+        binding.txtDate.visibility = View.VISIBLE
+        for (i in 0 until result?.size!!) {
+            Log.d("data", "ser date:${result!![i].date}=${date}")
+            if (result!![i].date == date) {
+                filter?.add(result!![i])
+            }
+        }
+
+        val adapter = DailyInputAdapter(context, filter)
+        binding.recycleList.adapter = adapter
+        adapter.notifyDataSetChanged()
     }
 
 

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "181488860591",
+    "project_id": "eggoz-farmer",
+    "storage_bucket": "eggoz-farmer.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:181488860591:android:04066c247ebbeec8e7035a",
+        "android_client_info": {
+          "package_name": "com.antino.eggoz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "181488860591-hj089vvflejv2ttn1i4pvnelh5tk15qk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.antino.eggoz",
+            "certificate_hash": "70d26b0f93e8e0738f00099380a7c4d6b0532d2a"
+          }
+        },
+        {
+          "client_id": "181488860591-b4ctera53bhill0p39koak291jjb3p83.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChsrCLvdGRxSIKvLyOGW8iYBO2_oZP1p0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "181488860591-b4ctera53bhill0p39koak291jjb3p83.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

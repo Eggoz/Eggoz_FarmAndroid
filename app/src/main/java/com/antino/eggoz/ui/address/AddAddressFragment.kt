@@ -1,22 +1,18 @@
 package com.antino.eggoz.ui.address
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.antino.eggoz.MainActivity
 import com.antino.eggoz.R
 import com.antino.eggoz.databinding.FragmentAddAddressBinding
-import com.antino.eggoz.databinding.FragmentBuyBinding
 import com.antino.eggoz.modelvew.ModelMain
-import com.antino.eggoz.utils.Constants
-import com.antino.eggoz.utils.CustomAlertLoadingActivity
-import com.antino.eggoz.utils.PrefrenceUtils
 import com.antino.eggoz.view.CustomAlertLoading
 
 class AddAddressFragment(
@@ -111,8 +107,6 @@ class AddAddressFragment(
             Observer {
                 loadingdialog.dismiss()
                 if (it.errors == null) {
-                    Toast.makeText(context, "${it.success}", Toast.LENGTH_SHORT).show()
-
                     mcontex.loadBuyFragment(
                         from,
                         mid,

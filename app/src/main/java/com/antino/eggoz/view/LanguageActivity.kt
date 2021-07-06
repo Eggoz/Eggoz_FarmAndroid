@@ -2,6 +2,7 @@ package com.antino.eggoz.view
 
 import android.content.Intent
 import android.content.res.Configuration
+import android.net.Uri
 import android.os.Bundle
 import android.widget.RadioGroup
 import android.widget.Toast
@@ -20,6 +21,14 @@ class LanguageActivity : AppCompatActivity() {
         binding = ActivityLanguageBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.term.setOnClickListener {
+            val uri: Uri =
+                Uri.parse("https://eggoz.in/privacy-policy.html")
+
+            val intent = Intent(Intent.ACTION_VIEW, uri)
+            startActivity(intent)
+        }
+
         binding.radiogroupLanguage.setOnCheckedChangeListener { radioGroup: RadioGroup, i: Int ->
             if (i == R.id.radioBtn_english) {
                 PrefrenceUtils.insertData(
@@ -27,10 +36,12 @@ class LanguageActivity : AppCompatActivity() {
                     Constants.LANG,
                     "en"
                 )
-                Toast.makeText(this,"english",Toast.LENGTH_SHORT).show()
-                startActivity(Intent(this,Signup1::class.java))
 
                 setLocale("en")
+//                Toast.makeText(this,"english",Toast.LENGTH_SHORT).show()
+                startActivity(Intent(this,Signup1::class.java))
+                finish()
+
 
 
             } else if (i == R.id.radioBtn_hindi) {
@@ -40,8 +51,9 @@ class LanguageActivity : AppCompatActivity() {
                     "hi"
                 )
                 setLocale("hi")
-                Toast.makeText(this,"हिन्दी",Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this,"हिन्दी",Toast.LENGTH_SHORT).show()
                 startActivity(Intent(this,Signup1::class.java))
+                finish()
 
 
             }

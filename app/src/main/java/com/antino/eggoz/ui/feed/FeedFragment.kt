@@ -13,12 +13,12 @@ import com.antino.eggoz.R
 import com.antino.eggoz.databinding.FragmentFeedBinding
 import com.antino.eggoz.modelvew.ModelMain
 import com.antino.eggoz.ui.feed.callback.CallbackforFeed
-import com.antino.eggoz.ui.profile.adapter.FlockitemlistAdapter
 import com.antino.eggoz.view.CustomAlertLoading
 
 class FeedFragment(val context:MainActivity,val token:String) : Fragment(), CallbackforFeed {
     private lateinit var binding: FragmentFeedBinding
     private var loading:Boolean=false
+    private lateinit var adapter: FeedAdapter
 
     private lateinit var loadingdialog:CustomAlertLoading
     override fun onCreateView(
@@ -38,6 +38,16 @@ class FeedFragment(val context:MainActivity,val token:String) : Fragment(), Call
     private fun init(){
         loadingdialog = CustomAlertLoading(this)
         loadingdialog.stateLoading()
+
+
+        binding.root.isFocusableInTouchMode = true
+        binding.root.requestFocus()
+        binding.root.setOnKeyListener { v, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_BACK && event.action == KeyEvent.ACTION_DOWN) {
+                context.loadHome()
+                true
+            } else false
+        }
     }
 
     private fun loadingCheck(){
@@ -90,8 +100,8 @@ class FeedFragment(val context:MainActivity,val token:String) : Fragment(), Call
                         false
                     )
                     binding.recycleFeed.setHasFixedSize(true)
-                    binding.recycleFeed.adapter =
-                        FeedAdapter(context,this, this.childFragmentManager, it.results)
+                    adapter=FeedAdapter(context,this, this.childFragmentManager, it.results)
+                    binding.recycleFeed.adapter =adapter
 
                     (binding.recycleFeed.adapter as FeedAdapter).notifyDataSetChanged()
 /*
@@ -101,26 +111,23 @@ class FeedFragment(val context:MainActivity,val token:String) : Fragment(), Call
             }
         )
 
+
+
+
     }
 
 
 
     override fun postlikedislike(pos: Int) {
-   /*     val loadingdialog = CustomAlertLoading(this)
-        loadingdialog.stateLoading()
-*/
         val viewModel = ViewModelProvider(this).get(ModelMain::class.java)
         viewModel.likedislikePost(
             token, pos
         ).observe(this,
             Observer {
-//                loadingdialog.dismiss()
                 if (it?.message!=null||it?.message!=""){
-                    loadFeed()
-                    Toast.makeText(context,it.message,Toast.LENGTH_SHORT).show()
+//                    loadFeed()
                 }else{
                     if ( it.errors!![0].message!=null) {
-//                        Toast.makeText(context, it.errors!![0].message, Toast.LENGTH_SHORT).show()
                         Log.d("data", "${it.errors!![0].message}")
                     }
                 }
@@ -128,13 +135,6 @@ class FeedFragment(val context:MainActivity,val token:String) : Fragment(), Call
         )
 
     }
-
-
-
-
-
-
-
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         menu.findItem(R.id.action_search).isVisible =false

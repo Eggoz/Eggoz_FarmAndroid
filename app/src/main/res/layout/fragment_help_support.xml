@@ -15,7 +15,8 @@
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:fillViewport="true">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -35,15 +36,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/textView10"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/helpsupport2"
-                    app:layout_constraintStart_toStartOf="@+id/textView3"
-                    app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
                 <LinearLayout
                     android:id="@+id/linearLayout"
                     android:layout_width="match_parent"
@@ -57,28 +49,21 @@
                     android:orientation="vertical"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView10">
-
-                    <TextView
-                        android:id="@+id/textView14"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="21sp"
-                        android:layout_marginLeft="21sp"
-                        android:layout_marginTop="24sp"
-                        android:fontFamily="@font/opensansbold"
-                        android:text="@string/write_your_message_here"
-                        android:textColor="@color/app_color" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView3">
 
                     <EditText
                         android:id="@+id/edtMessage"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20sp"
+                        android:padding="8dp"
+                        android:hint="@string/write_your_message_here"
                         android:background="@android:drawable/screen_background_light_transparent"
                         android:gravity="top|left"
                         android:inputType="textCapSentences|textMultiLine|textAutoCorrect"
                         android:lines="10"
+                        android:scrollbars="vertical"
+                        android:overScrollMode="always"
+                        android:scrollbarStyle="insideInset"
                         android:maxLength="500"
                         android:maxLines="10"
                         android:text="" />

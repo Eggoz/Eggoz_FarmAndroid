@@ -2,7 +2,7 @@
 
     <!--    New-->
     <!--    common-->
-    <string name="termsandcondi">By signing up you agree to out \n <u>Privacy policy and terms</u></string>
+    <string name="termsandcondi">By signing up you agree to our \n <u>Privacy policy and terms</u></string>
     <string name="confirm">Confirm</string>
     <string name="_0000">000000</string>
     <string name="_91">+91</string>
@@ -34,7 +34,7 @@
     <string name="ex_h_no_123">ex:-H no-123</string>
     <string name="submit">Submit</string>
     <string name="name_of_farm">Name of farm</string>
-    <string name="app_name">Eggoz</string>
+    <string name="app_name">Pragati Farm Management</string>
     <string name="email_add">Email address</string>
     <string name="Next">Next</string>
     <string name="xxxxxx">xxxxx</string>
@@ -90,25 +90,14 @@
     <string name="next">Next</string>
 
 
-
     <!--    signup 5-->
     <string name="write_remark">Write Remark</string>
-
-
-
 
 
     <!--    dailt input dialog-->
     <string name="Add_Medicine">Add Medicine</string>
     <string name="Consumed_Medicine">Consumed Medicine</string>
     <string name="item_name">Item Name</string>
-
-
-
-
-
-
-
 
 
     <!--    signup 5-->
@@ -142,12 +131,9 @@
     <string name="Logout">Logout</string>
 
 
-
     <!--    signup 2-->
     <string name="enter_new_password">Enter new Password</string>
     <string name="enter_con_password">Confirm Password</string>
-
-
 
 
     <!--    bottom nav-->
@@ -187,7 +173,7 @@
     <string name="menu_faqs">FAQs</string>
     <string name="menu_terms_condition">Terms and Condition</string>
     <string name="Eggoz_Price">Eggoz Price</string>
-    <string name="check_details">check Details</string>
+    <string name="check_details">Check Details</string>
     <string name="action_notification">Notification</string>
     <string name="action_search">Search</string>
     <string name="Eggoz_vs_necc_price">Eggoz Vs NECC Price</string>
@@ -241,10 +227,13 @@
     <string name="order_summary">Order Summary</string>
     <string name="Layer_Name">Layer Name</string>
     <string name="Layer_Type">Type</string>
+    <string name="Layer_Type2">Type</string>
     <string name="Capacity">Capacity</string>
+    <string name="shadeCapacity">Total shed capacity</string>
     <string name="add_farm">Add Farm</string>
     <string name="farm">Farms</string>
     <string name="Flocks">Flocks</string>
+    <string name="shadeFlocks">Flocks</string>
     <string name="Layer_Type_option">Layer Shed/ Grower Shed</string>
     <string name="BirdsNumber">Birds Number</string>
     <string name="No_of_Grower">Broiler Quantity</string>
@@ -257,13 +246,12 @@
     <string name="menu_bazaar">Bazaar</string>
     <string name="blogs">Blogs</string>
     <string name="name">Name</string>
+    <string name="shadename">Name</string>
     <string name="totoalbird">Total Bird</string>
     <string name="enter_address_name">Enter Name</string>
     <string name="weight">Weight</string>
     <string name="video">Video</string>
     <string name="na">Na</string>
-    <string name="egg_production">Egg Production</string>
-    <string name="mortality">Mortality</string>
     <string name="select_farmtype">Select Farm Type</string>
     <string name="select_shed">Select Shed</string>
     <string name="perhunpc">/100Pc</string>
@@ -284,8 +272,8 @@
     <string name="you_didn_t_added_your_farm_until_now_please_add_your_farm_first">You didn\'t added your farm until now Please add your farm first</string>
     <string name="products_populars">Products populars</string>
     <string name="live_iot_report">Live IOT Report</string>
-    <string name="enabl_iot_service">Enabl IOT Service</string>
-    <string name="request_iot_service_to_know_the_status_of_your_farms">Request Iot service to know the status of your Farms</string>
+    <string name="enabl_iot_service">Enable IOT Service</string>
+    <string name="request_iot_service_to_know_the_status_of_your_farms">Request IOT service to know the status of your Farms</string>
     <string name="request_iot">Request IOT</string>
     <string name="tempreture">Tempreture</string>
     <string name="humidity">Humidity</string>
@@ -309,11 +297,11 @@
     <string name="daily_input">Daily Input</string>
     <string name="photo_video">Photo/Video</string>
     <string name="write_about_farm_issue">Write about farm issue</string>
-    <string name="heading">Heading:</string>
+    <string name="heading">Title</string>
     <string name="issue_title">Issue Title</string>
     <string name="enter_issue_here">Enter issue Here</string>
     <string name="explain_issue">Explain Issue</string>
-    <string name="write_your_issue">Write your issue...………………………………...</string>
+    <string name="write_your_issue">Write your issue…</string>
     <string name="send_message">Send Message</string>
     <string name="write_your_message_here">Write your message here</string>
     <string name="you_need_any_help_send_us_a_message">You need any help send us a Message</string>
@@ -324,13 +312,30 @@
     <string name="my_Orders">My Orders</string>
     <string name="daily_Input">Daily Input</string>
     <string name="edit_Profile">Edit Profile</string>
-    <string name="comment">Comment</string>
     <string name="add_Flock">Add Flock</string>
     <string name="createfeed">Create Feed</string>
     <string name="addgrower">Add Grower</string>
     <string name="product_List">Product List</string>
     <string name="feed_per_bird_gm">Feed per Bird(gm)</string>
     <string name="you_seem_s_inactive_no_summary_found">You Seem\'s Inactive No summary Found</string>
+    <string name="pre">Previous</string>
+    <string name="like">Like</string>
+    <string name="comment">Comment</string>
+
+    <string name="daily_Input_list">Daily Input List</string>
+    <string name="feed">Feed</string>
+    <string name="broken_egg_in_production">Broken Egg in Operation</string>
+    <string name="daily_Input_update">Update Daily Input</string>
+    <string name="date">Date</string>
+    <string name="mortality">Mortality</string>
+    <string name="egg_production">Egg Production</string>
+    <string name="edit">Edit</string>
+    <string name="edit_dailyinput">Edit DailyInput</string>
+    <string name="clear">Clear</string>
+    <string name="SelectDate">Select Date</string>
+    <string name="edit_farm">Edit Farm</string>
+    <string name="edit_shed">Edit Shed</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

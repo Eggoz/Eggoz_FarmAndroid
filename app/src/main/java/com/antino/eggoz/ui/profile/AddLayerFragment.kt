@@ -81,6 +81,7 @@ class AddLayerFragment(var context: MainActivity, var mid:Int,var token:String,v
 
 
         binding.btnAddFlocks.setOnClickListener {
+            Log.d("data","clicked $from")
             if (from=="layer"){
                 AddFlockItemDialog(this,context,token,true).show(parentFragmentManager, "MyCustomFragment")
             }else if (from=="broiler"){
@@ -112,7 +113,7 @@ class AddLayerFragment(var context: MainActivity, var mid:Int,var token:String,v
             binding.edtLayerTypeLayout.isErrorEnabled=false
             if (flockName.size>0)
             submit()
-            else Toast.makeText(context,"Add some Flock ",Toast.LENGTH_SHORT).show()
+            else Toast.makeText(context,"Add Some Flock ",Toast.LENGTH_SHORT).show()
         }
     }
     private fun submit(){
@@ -127,7 +128,7 @@ class AddLayerFragment(var context: MainActivity, var mid:Int,var token:String,v
             Observer {
                 loadingdialog.dismiss()
                 if (it.success!=null){
-                    Toast.makeText(context,"shade add",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context,"Shade Add",Toast.LENGTH_SHORT).show()
                     Log.d("data","success")
                     context.loadDailyInput()
                 }else{

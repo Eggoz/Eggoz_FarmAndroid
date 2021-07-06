@@ -9,6 +9,8 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent">
 
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
@@ -17,6 +19,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/btn_edtFlock"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@drawable/ic_baseline_edit_24"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginEnd="14dp"
+            android:contentDescription="editFArm"
+            app:tint="@color/white" />
+
 
         <TextView
             android:id="@+id/txt_flock_name"
@@ -32,20 +47,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/txt_flock_status"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginEnd="18sp"
-            android:fontFamily="@font/poppinsregular"
-            android:gravity="center_vertical"
-            android:visibility="gone"
-            android:text="Edit Details"
-            android:textColor="@color/app_color"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -304,18 +307,61 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-        <TextView
-            android:id="@+id/txt_last_update"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayoutedit"
             android:layout_width="match_parent"
-            android:background="@color/white"
-            android:gravity="right"
-            android:textColor="@color/brown"
-            android:paddingTop="4sp"
-            android:layout_height="wrap_content"
-            android:text="@string/Shade_Name"
+            android:layout_height="45sp"
+            android:background="@color/brown"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/const_mortality"
-            />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/const_mortality">
+
+
+            <TextView
+                android:id="@+id/txt_last_update"
+                android:layout_width="wrap_content"
+                android:gravity="center_vertical"
+                android:textColor="@color/white"
+                android:layout_marginEnd="12sp"
+                android:paddingTop="4sp"
+                android:layout_height="match_parent"
+                android:text="@string/Shade_Name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayoutedt_dailyinput"
+            android:layout_width="match_parent"
+            android:layout_height="45sp"
+            android:background="@color/brown"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayoutedit">
+
+
+            <TextView
+                android:id="@+id/txt_edt_dailyinput"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingEnd="20dp"
+                android:paddingStart="20dp"
+                android:background="@color/transparent20"
+                android:fontFamily="@font/poppinsregular"
+                android:gravity="center_vertical"
+                android:visibility="visible"
+                android:text="@string/edit_dailyinput"
+                android:textColor="@color/app_color"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 
 
@@ -329,31 +375,6 @@
         android:background="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/flock_layout">
-
-        <!-- <Button
-            android:id="@+id/btn_FlockSummary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginBottom="28dp"
-            android:background="@drawable/starter_background"
-            android:clickable="true"
-            android:fontFamily="@font/opensansregular"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:gravity="center"
-            android:paddingStart="20sp"
-            android:paddingEnd="20sp"
-            android:text="Flock Summary"
-            android:textColor="@color/white"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toStartOf="@+id/btn_DailyInput"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-
-            />-->
-
-
 
         <androidx.cardview.widget.CardView
             android:id="@+id/btn_FlockSummary"
@@ -378,7 +399,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="42sp"
-                android:background="@drawable/cornerbtn_background"
+                android:background="@drawable/cornerbtn_background2"
                 android:gravity="center"
                 android:padding="5sp"
                 android:paddingStart="30sp"

@@ -1,8 +1,10 @@
 package com.antino.eggoz.view.data
 
+import androidx.annotation.Keep
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
+@Keep
 data class LoginUser(
     @SerializedName("error_type")
     @Expose

@@ -23,6 +23,7 @@
             android:title="@string/menu_My_Farm" />
         <item
             android:id="@+id/nav_feed"
+            android:visible="false"
             android:icon="@drawable/ic_baseline_rss_feed_24"
             android:title="@string/menu_feed" />
     </group>

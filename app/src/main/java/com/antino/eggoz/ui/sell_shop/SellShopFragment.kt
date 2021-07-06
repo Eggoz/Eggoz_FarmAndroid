@@ -16,12 +16,10 @@ import com.antino.eggoz.MainActivity
 import com.antino.eggoz.R
 import com.antino.eggoz.databinding.FragmentSellShopBinding
 import com.antino.eggoz.modelvew.ModelMain
-import com.antino.eggoz.ui.feed.FeedAdapter
 import com.antino.eggoz.ui.sell_shop.callback.Catcallback
 import com.antino.eggoz.ui.sell_shop.callback.SellShopCallback
 import com.antino.eggoz.view.CustomAlertLoading
 import java.util.*
-import kotlin.collections.ArrayList
 
 class SellShopFragment(private val callbacks: MainActivity, private val token: String) : Fragment(),
     SellShopCallback, Catcallback {
@@ -40,7 +38,15 @@ class SellShopFragment(private val callbacks: MainActivity, private val token: S
             ViewModelProvider(this).get(SellShopViewModel::class.java)
         setHasOptionsMenu(true)
         binding = FragmentSellShopBinding.inflate(inflater, container, false)
-        val view = binding.root
+
+        binding.root.isFocusableInTouchMode = true
+        binding.root.requestFocus()
+        binding.root.setOnKeyListener { v, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_BACK && event.action == KeyEvent.ACTION_DOWN) {
+                callbacks.loadHome()
+                true
+            } else false
+        }
 
 
 //        binding.shimmerViewContainer.stopShimmerAnimation()
@@ -53,7 +59,7 @@ class SellShopFragment(private val callbacks: MainActivity, private val token: S
         binding.txtExploreProd.setOnClickListener { callbacks.onclick(null) }
         buysellrecycle()
 
-        return view
+        return binding.root
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -66,6 +72,7 @@ class SellShopFragment(private val callbacks: MainActivity, private val token: S
         swipeTimer = Timer()
         val loadingdialog = CustomAlertLoading(this)
         loadingdialog.stateLoading()
+
 
         val viewModel = ViewModelProvider(this).get(ModelMain::class.java)
         viewModel.getBanner(

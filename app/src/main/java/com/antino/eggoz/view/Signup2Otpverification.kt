@@ -1,12 +1,15 @@
 package com.antino.eggoz.view
 
 import android.content.Intent
+import android.content.IntentFilter
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.antino.eggoz.MainActivity
 import com.antino.eggoz.R
 import com.antino.eggoz.databinding.ActivityOtpverificationBinding
@@ -14,12 +17,16 @@ import com.antino.eggoz.modelvew.ModelMain
 import com.antino.eggoz.utils.Constants
 import com.antino.eggoz.utils.CustomAlertLoadingActivity
 import com.antino.eggoz.utils.PrefrenceUtils
+import com.antino.eggoz.utils.SmsReceiver
+import com.google.android.gms.auth.api.phone.SmsRetriever
 
-class Signup2Otpverification : AppCompatActivity() {
+class Signup2Otpverification : AppCompatActivity(), SmsReceiver.OTPReceiveListener {
     private lateinit var binding: ActivityOtpverificationBinding
-    private lateinit var mobile:String
-    private lateinit var otp:String
-    private var farmer=false
+    private lateinit var mobile: String
+    private lateinit var otp: String
+    private var farmer = false
+    lateinit var smsReceiver: SmsReceiver
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_otpverification)
@@ -27,10 +34,18 @@ class Signup2Otpverification : AppCompatActivity() {
         binding = ActivityOtpverificationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        mobile= intent.getStringExtra("mobile_no").toString()
-        otp=intent.getStringExtra("otp").toString()
+        mobile = intent.getStringExtra("mobile_no").toString()
+        binding.edtOtp.setText(intent.getStringExtra("otp").toString())
+        if (mobile == "")
+            startActivity(Intent(this, Signup1::class.java))
+        binding.term.setOnClickListener {
+            val uri: Uri =
+                Uri.parse(Constants.privacypolicyUrl)
 
-        binding.edtOtp.setText(otp)
+            val intent = Intent(Intent.ACTION_VIEW, uri)
+
+            startActivity(intent)
+        }
 
         binding.btnSubmit.setOnClickListener {
             validate()
@@ -40,35 +55,39 @@ class Signup2Otpverification : AppCompatActivity() {
             startActivity(Intent(this, Signup1::class.java))
             finish()
         }
+
+        startSMSListener()
     }
-    private fun validate(){
+
+    private fun validate() {
         when {
-            binding.edtOtp.text?.length==0 -> binding.edtOtpLayout.error="Please enter valid otp"
-            binding.edtOtp.text?.length!! in 1..5 -> binding.edtOtpLayout.error="password length must be 6"
+            binding.edtOtp.text?.length == 0 -> binding.edtOtpLayout.error =
+                "Please enter valid otp"
+            binding.edtOtp.text?.length!! in 1..5 -> binding.edtOtpLayout.error =
+                "password length must be 6"
             else -> {
                 binding.edtOtpLayout.isErrorEnabled = false
-                confirm()
+                confirm(binding.edtOtp.text.toString())
             }
         }
     }
 
-    private fun confirm() {
+    private fun confirm(otp: String) {
 
         val loadingdialog = CustomAlertLoadingActivity(this)
         loadingdialog.stateLoading()
         val viewModel = ViewModelProvider(this).get(ModelMain::class.java)
         viewModel.signup2otp(
             mobile,
-            binding.edtOtp.text.toString()
+            otp
         ).observe(this,
             Observer {
-                loadingdialog.dismiss()
+                if (loadingdialog.isRuning())
+                    loadingdialog.dismiss()
                 if (it.success != null) {
-                    /*  val sharedPreferences = getSharedPreferences("eggoz", MODE_PRIVATE)
-                    val editor = sharedPreferences.edit()
-                    editor.putString("token", "Bearer ${it.token}")
-                    editor.putString("temp_id", "${it.user.id}")*/
-
+                    if (smsReceiver != null) {
+                        LocalBroadcastManager.getInstance(this).unregisterReceiver(smsReceiver)
+                    }
                     PrefrenceUtils.insertData(
                         this@Signup2Otpverification,
                         Constants.TEMPID,
@@ -93,7 +112,10 @@ class Signup2Otpverification : AppCompatActivity() {
                             }
                         }
                         if (farmer) {
-                            Log.d("data", "farmer id${it.user.userProfile.department_profiles[0].farmerProfile}")
+                            Log.d(
+                                "data",
+                                "farmer id${it.user.userProfile.department_profiles[0].farmerProfile}"
+                            )
 
                             PrefrenceUtils.insertData(
                                 this@Signup2Otpverification,
@@ -114,6 +136,9 @@ class Signup2Otpverification : AppCompatActivity() {
                         }
                     }
 //                    intent.putExtra("pos",pos)
+
+                    if (loadingdialog.isRuning())
+                        loadingdialog.dismiss()
                     startActivity(intent)
                     finish()
                 } else {
@@ -128,5 +153,54 @@ class Signup2Otpverification : AppCompatActivity() {
 
     override fun onBackPressed() {
         return
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if (smsReceiver != null) {
+            LocalBroadcastManager.getInstance(this).unregisterReceiver(smsReceiver)
+        }
+    }
+
+    private fun startSMSListener() {
+        try {
+            smsReceiver = SmsReceiver()
+            smsReceiver.setOTPListener(this)
+            val intentFilter = IntentFilter()
+            intentFilter.addAction(SmsRetriever.SMS_RETRIEVED_ACTION)
+            this.registerReceiver(smsReceiver, intentFilter)
+            val client = SmsRetriever.getClient(this)
+            val task = client.startSmsRetriever()
+            task.addOnSuccessListener {
+//                 Toast.makeText(this, "Successfully", Toast.LENGTH_LONG).show()
+            }
+            task.addOnFailureListener {
+                Toast.makeText(this, "Failure", Toast.LENGTH_LONG).show()
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    override fun onOTPReceived(otp: String) {
+        runOnUiThread {
+            if (otp != null) {
+                Log.d("data", otp)
+                val otttp = otp.split(" ")
+                val otpString = otttp[6].substring(0, 6)
+                Log.d("data", "otpstring $otpString")
+                binding.edtOtp.setText(otpString)
+                confirm(otpString)
+            }
+        }
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(smsReceiver)
+    }
+
+    override fun onOTPTimeOut() {
+//        Toast.makeText(this, "TimeOut", Toast.LENGTH_LONG).show()
+    }
+
+    override fun onOTPReceivedError(error: String) {
+        Toast.makeText(this, "Error", Toast.LENGTH_LONG).show()
     }
 }

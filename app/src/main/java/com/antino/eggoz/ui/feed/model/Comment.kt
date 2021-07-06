@@ -1,9 +1,11 @@
 package com.antino.eggoz.ui.feed.model
 
+import androidx.annotation.Keep
 import com.antino.eggoz.view.data.LoginUser
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
+@Keep
 data class Comment(
     @SerializedName("count")
     @Expose

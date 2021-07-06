@@ -1,31 +1,31 @@
 package com.antino.eggoz.ui.edit
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.antino.eggoz.MainActivity
-import com.antino.eggoz.R
 import com.antino.eggoz.databinding.FragmentEditProfileBinding
-import com.antino.eggoz.databinding.FragmentProfileBinding
 import com.antino.eggoz.modelvew.ModelMain
+import com.antino.eggoz.ui.profile.callback.EditProfileCallback
+import com.antino.eggoz.ui.profile.dialog.ErrorMessage
 import com.antino.eggoz.view.CustomAlertLoading
-import com.antino.eggoz.view.Signup1
 
 class EditProfileFragment(
     private var mcontext:MainActivity,
     private var token: String,
-    private var mid: Int) : Fragment() {
+    private var mid: Int) : Fragment(),EditProfileCallback {
 
 
     private lateinit var binding: FragmentEditProfileBinding
     private var fid: Int?=null
+
+    private lateinit var email:String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -70,7 +70,13 @@ class EditProfileFragment(
             binding.edtFarmerNameLayout.isErrorEnabled = false
             binding.edtEmailIdLayout.isErrorEnabled=false
             binding.edtMobileNoLayout.isErrorEnabled=false
+            if (email==binding.edtEmailId.text.toString())
             editProfile()
+            else
+                ErrorMessage("Relogin mandatory after email change", this,false).show(
+                    mcontext.supportFragmentManager,
+                    "MyCustomFragment2"
+                )
 
         }
 
@@ -85,14 +91,16 @@ class EditProfileFragment(
             val viewModel = ViewModelProvider(this).get(ModelMain::class.java)
             viewModel.editProfile(
                 token, fid!!, binding.edtFarmerName.text.toString(),
-                binding.edtMobileNo.text.toString(),
-                binding.edtEmailId.text.toString()
+                "+91${binding.edtMobileNo.text.toString()}",
+                binding.edtEmailId.text.toString(),
+                binding.edtPincode.text.toString()
             ).observe(mcontext,
                 Observer {
                     loadingdialog.dismiss()
                     if (it?.errors == null) {
 
                         mcontext.loadProfile()
+                        mcontext.fetchProfile()
 
 //                        startActivity(Intent(activity,Signup1::class.java))
                     } else {
@@ -106,7 +114,7 @@ class EditProfileFragment(
                 }
             )
         }else{
-            Toast.makeText(context,"Error loading farmer id",Toast.LENGTH_SHORT).show()
+            Toast.makeText(context,"Error Loading farmer id",Toast.LENGTH_SHORT).show()
         }
 
     }
@@ -129,21 +137,24 @@ class EditProfileFragment(
 
                     fid=it.farmer.id
                     binding.edtFarmerName.setText(it.farmer.name)
-                    binding.edtMobileNo.setText(it.farmer.phoneNo)
+                    binding.edtMobileNo.setText(it.farmer.phoneNo?.substring(3,it.farmer.phoneNo!!.length))
                     binding.edtEmailId.setText(it.farmer.email)
+                    binding.edtPincode.setText("${it.farmer.defaultAddress?.pinCode ?:""}")
+
+                    email=it.farmer.email
 
                 }else{
                     Toast.makeText(context, it.errors!![0].message, Toast.LENGTH_SHORT).show()
                     Log.d("data","${it.errors!![0].message}")
-                    /*val intent = Intent(this, MainActivity::class.java)
-                    intent.putExtra("id",id)
-                    intent.putExtra("token", "Bearer $token")
-                    startActivity(intent)*/
                 }
             }
         )
 
 
+    }
+
+    override fun save() {
+        editProfile()
     }
 
 }

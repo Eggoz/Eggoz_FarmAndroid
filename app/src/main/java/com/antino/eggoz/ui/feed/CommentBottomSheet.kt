@@ -11,7 +11,6 @@ import com.antino.eggoz.databinding.FragmentCommentbottomsheetBinding
 import com.antino.eggoz.ui.feed.callback.BottomSheetcallback
 import com.antino.eggoz.ui.feed.model.Comment
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import java.util.*
 
 
 class CommentBottomSheet(private val context:FeedFragment,private val mid:Int,private val like_no:Int,
@@ -75,7 +74,7 @@ class CommentBottomSheet(private val context:FeedFragment,private val mid:Int,pr
 
     private fun validate(){
         if (binding.edtComment.text!!.isEmpty())
-            Toast.makeText(mcontext,"Please add some Comment",Toast.LENGTH_SHORT).show()
+            Toast.makeText(mcontext,"Please Add Some Comment",Toast.LENGTH_SHORT).show()
 //            binding.edtCommentLayout.error="Please add some Comment"
 
         else{

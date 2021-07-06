@@ -1,8 +1,10 @@
 package com.antino.eggoz.ui.sell_shop.model
 
+import androidx.annotation.Keep
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
+@Keep
 data class CartBuy(
     @SerializedName("error_type")
     @Expose

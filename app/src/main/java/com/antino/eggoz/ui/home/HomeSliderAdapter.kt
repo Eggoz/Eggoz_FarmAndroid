@@ -2,7 +2,6 @@ package com.antino.eggoz.ui.home
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.text.TextUtils.substring
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View

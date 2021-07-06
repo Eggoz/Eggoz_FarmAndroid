@@ -1,23 +1,17 @@
 package com.antino.eggoz.ui.home.dialog
 
-import android.app.AlertDialog
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import android.widget.AutoCompleteTextView
-import android.widget.Button
 import android.widget.ImageView
-import androidx.cardview.widget.CardView
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.antino.eggoz.R
-import com.antino.eggoz.ui.faqs.FaqsAdapter
 import com.antino.eggoz.ui.home.adapter.NeccAdapter
 import com.antino.eggoz.ui.home.model.NeccRate
 import com.google.android.material.textfield.TextInputEditText

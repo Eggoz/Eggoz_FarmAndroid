@@ -8,8 +8,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.antino.eggoz.R
 import com.antino.eggoz.ui.daily_input.DailyInputDetailFragment
-import com.antino.eggoz.ui.profile.AddLayerFragment
-import com.antino.eggoz.ui.profile.adapter.FlockitemlistAdapter
 
 class FlockmedlistAdapter(val callbacks: DailyInputDetailFragment,
                           private val flockmedid:ArrayList<Int>,

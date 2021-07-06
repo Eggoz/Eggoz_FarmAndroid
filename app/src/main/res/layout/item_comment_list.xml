@@ -43,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4sp"
-            android:layout_marginRight="10sp"
+            android:layout_marginEnd="10sp"
             android:text="@string/name_of_farmer" />
 
 

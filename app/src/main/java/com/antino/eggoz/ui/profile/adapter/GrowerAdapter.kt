@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -59,11 +60,11 @@ class GrowerAdapter(
         holder.flockrecycleview.adapter =adapter
 
         holder.btn_add_flock.setOnClickListener {
-
             contextmain.AddFlock(growerdata[position].id,growerdata[position].shedType)
         }
-
-
+        holder.btn_edtShed.setOnClickListener {
+            contextmain.loadEditShed(growerdata[position].id)
+        }
 
     }
 
@@ -72,13 +73,10 @@ class GrowerAdapter(
         val txt_grower_name: TextView = itemView.findViewById(R.id.txt_grower_name)
         val txt_type: TextView = itemView.findViewById(R.id.txt_type)
         val txt_grower_capacity: TextView = itemView.findViewById(R.id.txt_grower_capacity)
-
         val cons_grower: ConstraintLayout = itemView.findViewById(R.id.grower_details_layout)
-
         val flockrecycleview:RecyclerView=itemView.findViewById(R.id.recycle_view_flock)
-
-
         val btn_add_flock: Button = itemView.findViewById(R.id.txt_add_flock)
+        val btn_edtShed: ImageView = itemView.findViewById(R.id.btn_edtFarm)
 
 
     }

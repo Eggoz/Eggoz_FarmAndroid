@@ -11,16 +11,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
-        android:padding="32sp"
         tools:context=".ui.consulting.ConsultingFragment">
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:fillViewport="true">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:padding="32sp">
 
                 <TextView
                     android:id="@+id/txt_enter_name"
@@ -85,7 +86,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:lines="1"
-                        android:maxLength="20"
+                        android:scrollbars="horizontal"
+                        android:maxLength="75"
                         android:hint="@string/enter_issue_here"
                         android:inputType="text" />
 
@@ -96,13 +98,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
+                    android:fontFamily="@font/opensansregular"
                     android:text="@string/explain_issue"
+                    android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="@+id/edt_issue_layout"
                     app:layout_constraintTop_toBottomOf="@+id/edt_issue_layout" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/linearLayout"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:background="@drawable/cornerbtn_background"
@@ -112,20 +116,19 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView18"
                     app:layout_goneMarginRight="20sp">
 
-                    <EditText
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edtMessageCon"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginRight="16dp"
+                        android:padding="8dp"
                         android:background="@android:drawable/screen_background_light_transparent"
                         android:gravity="top|left"
                         android:hint="@string/write_your_issue"
                         android:inputType="textCapSentences|textMultiLine|textAutoCorrect"
                         android:lines="5"
+                        android:scrollbars="vertical"
+                        android:overScrollMode="always"
+                        android:scrollbarStyle="insideInset"
                         android:maxLength="500"
                         android:maxLines="10"
                         android:text=""
@@ -145,8 +148,6 @@
                         android:layout_marginBottom="8dp"
                         android:layout_marginEnd="18dp"
                         android:src="@drawable/ic_baseline_attach_file_24" />
-
-
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

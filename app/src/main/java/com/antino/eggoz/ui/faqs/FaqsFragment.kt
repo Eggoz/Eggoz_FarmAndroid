@@ -1,16 +1,18 @@
 package com.antino.eggoz.ui.faqs
 
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.antino.eggoz.MainActivity
 import com.antino.eggoz.databinding.FragmentFaqsBinding
 
 
-class FaqsFragment : Fragment() {
+class FaqsFragment(val context:MainActivity) : Fragment() {
     private lateinit var binding: FragmentFaqsBinding
 
     override fun onCreateView(
@@ -45,6 +47,15 @@ class FaqsFragment : Fragment() {
         binding.recycleviewFaqs.itemAnimator = DefaultItemAnimator()
         binding.recycleviewFaqs.isNestedScrollingEnabled = false
         binding.recycleviewFaqs.adapter= FaqsAdapter(title, des)
+
+        binding.root.isFocusableInTouchMode = true
+        binding.root.requestFocus()
+        binding.root.setOnKeyListener { v, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_BACK && event.action == KeyEvent.ACTION_DOWN) {
+                context.loadHome()
+                true
+            } else false
+        }
 
         return binding.root
     }

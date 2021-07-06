@@ -1,10 +1,12 @@
 package com.antino.eggoz.ui.profile.Model
 
+import androidx.annotation.Keep
 import com.antino.eggoz.view.data.LoginUser
 import com.antino.eggoz.view.data.Signup2
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
+@Keep
 data class FarmerProfile(
     @SerializedName("id")
     @Expose
@@ -45,7 +47,7 @@ data class FarmerProfile(
         var phoneNo: String?=null,
         @SerializedName("default_address")
         @Expose
-        var defaultAddress: Defaultaddress,
+        var defaultAddress: Defaultaddress?=null,
         @SerializedName("addresses")
         @Expose
         var addresses: List<Address>? = null,
@@ -125,7 +127,7 @@ data class FarmerProfile(
             var landmark: String,
             @SerializedName("pinCode")
             @Expose
-            var pinCode: Int,
+            var pinCode: Int?=-1,
             @SerializedName("latitude")
             @Expose
             var latitude: Any,

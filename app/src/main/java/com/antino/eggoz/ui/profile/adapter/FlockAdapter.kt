@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -71,8 +72,17 @@ class FlockAdapter(
             holder.const_mortality.visibility = View.GONE
         } else {
 
-            holder.txt_last_update.text = "last updated: ${flock[position].lastDailyInputDate}"
+            holder.txt_last_update.text = "Detail updated till: ${flock[position].lastDailyInputDate}"
 
+            if (flock[position].lastDailyInputDate!=null){
+                holder.txt_edt_dailyinput.visibility=View.VISIBLE
+            }else{
+                holder.txt_edt_dailyinput.visibility=View.GONE
+            }
+
+            holder.txt_edt_dailyinput.setOnClickListener {
+                mcontex.loadDailyInputList(flock[position].id)
+            }
 
             val date: Date =
                 SimpleDateFormat("yyyy-MM-dd").parse("${flock[position].lastDailyInputDate}")
@@ -125,6 +135,10 @@ class FlockAdapter(
             mcontex.loadSummary(flock[position].id)
         }
 
+        holder.btn_edtFlock.setOnClickListener {
+            mcontex.loadEditFlock(flock[position].id)
+        }
+
 
     }
 
@@ -132,7 +146,6 @@ class FlockAdapter(
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         val txt_flock_name: TextView = itemView.findViewById(R.id.txt_flock_name)
-        val txt_flock_status: TextView = itemView.findViewById(R.id.txt_flock_status)
 
         val txt_breedname: TextView = itemView.findViewById(R.id.txt_BreedName)
         val txt_flockage: TextView = itemView.findViewById(R.id.txt_flockage)
@@ -159,6 +172,8 @@ class FlockAdapter(
         val txt_hdep: TextView = itemView.findViewById(R.id.txt_Hdep)
         val txt_egg_production: TextView = itemView.findViewById(R.id.txt_egg_production)
         val txt_mortality: TextView = itemView.findViewById(R.id.txt_mortality)
+        val txt_edt_dailyinput: TextView = itemView.findViewById(R.id.txt_edt_dailyinput)
+        val btn_edtFlock: ImageView = itemView.findViewById(R.id.btn_edtFlock)
 
 
     }

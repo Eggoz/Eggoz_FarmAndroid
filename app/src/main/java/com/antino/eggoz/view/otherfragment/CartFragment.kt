@@ -46,6 +46,17 @@ class CartFragment(var token:String,var mcontext:MainActivity) : Fragment() {
     }
 
     private fun init(){
+
+        binding.root.isFocusableInTouchMode = true
+        binding.root.requestFocus()
+        binding.root.setOnKeyListener { v, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_BACK && event.action == KeyEvent.ACTION_DOWN) {
+                mcontext.loadHome()
+                true
+            } else false
+        }
+
+
         binding.btnProceedBuy.setOnClickListener {
             mcontext.loadBuyFragment("Cart",-1,"","","",-1,"",
             false)
@@ -64,7 +75,8 @@ class CartFragment(var token:String,var mcontext:MainActivity) : Fragment() {
         binding.recycleViewCartItemList.layoutManager = LinearLayoutManager(context)
         binding.recycleViewCartItemList.itemAnimator = DefaultItemAnimator()
         binding.recycleViewCartItemList.isNestedScrollingEnabled = false
-        binding.recycleViewCartItemList.adapter= CartLargelistAdapter(cart,cartdao)
+        val adapter= CartLargelistAdapter(cart,cartdao,mcontext)
+        binding.recycleViewCartItemList.adapter=adapter
 
     }
     private fun explorelist(){

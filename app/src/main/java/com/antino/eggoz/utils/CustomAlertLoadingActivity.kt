@@ -21,6 +21,10 @@ class CustomAlertLoadingActivity(
         dialog.show()
 
     }
+    fun isRuning():Boolean
+    {
+        return dialog.isShowing
+    }
     fun dismiss(){
         dialog.dismiss()
     }

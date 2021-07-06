@@ -6,6 +6,7 @@ import com.antino.eggoz.room.RoomCart
 import com.antino.eggoz.ui.Summary.model.FlockGraph
 import com.antino.eggoz.ui.activity_log.model.ExpensesList
 import com.antino.eggoz.ui.daily_input.model.AddDailyInput
+import com.antino.eggoz.ui.daily_input.model.DailInput
 import com.antino.eggoz.ui.daily_input.model.MedList
 import com.antino.eggoz.ui.expenses.Model.Division
 import com.antino.eggoz.ui.expenses.Model.Party
@@ -80,21 +81,25 @@ class Retrofithit {
     val mutableLiveVideoList = MutableLiveData<VideoList>()
     val mutableLiveIotData = MutableLiveData<IotData>()
     val mutableLiveIotRequest = MutableLiveData<LoginUser>()
+    val mutableLiveDailInput = MutableLiveData<DailInput>()
+    val mutableLiveFarmbyid = MutableLiveData<Farm.Result>()
+    val mutableLiveShedbyid = MutableLiveData<Farm.Result.Shed>()
+    val mutableLiveFlockbyid = MutableLiveData<Farm.Result.Shed.Flock1>()
+    val mutableLiveWeatherDataByCode = MutableLiveData<WeatherDataByCode>()
 
 
-
-
-    fun signup1(mobile_no: String): MutableLiveData<SignUpUser> {
+    fun signup1(mobile_no: String, hash: String): MutableLiveData<SignUpUser> {
         val mm = RequestBody.create(MediaType.parse("multipart/form-data"), mobile_no)
+        val hc = RequestBody.create(MediaType.parse("multipart/form-data"), hash)
         val call: Call<SignUpUser> = RetrofitClient().getApi().signup1(
-            mm
+            mm, hc
         )
         call.enqueue(object : Callback<SignUpUser> {
             override fun onResponse(
                 call: Call<SignUpUser>,
                 response: Response<SignUpUser>
             ) {
-                Log.d("data","${response.body()}")
+                Log.d("data", "${response.body()}")
                 try {
                     if (response.isSuccessful) {
                         mutableLiveSignupUser.postValue(response.body())
@@ -128,7 +133,10 @@ class Retrofithit {
         city: String,
         state: String,
         pincode: String,
-        NoOfBroiler:Int,number_of_layer_shed:Int,number_of_grower_shed:Int,farm_layer_type:String
+        NoOfBroiler: Int,
+        number_of_layer_shed: Int,
+        number_of_grower_shed: Int,
+        farm_layer_type: String
     ): MutableLiveData<User> {
         val body = HashMap<String, Any>()
         body["farm_name"] = farmName
@@ -160,7 +168,79 @@ class Retrofithit {
                 call: Call<User>,
                 response: Response<User>
             ) {
-                Log.d("data","${response.body()} body ${body.toString()}")
+                Log.d("data", "${response.body()} body ${body.toString()}")
+                try {
+                    if (response.isSuccessful) {
+                        mutableLiveCreateFarm.postValue(response.body())
+                    } else {
+                        val gson = Gson()
+                        val type = object : TypeToken<User>() {}.type
+                        val errorResponse: User? = gson.fromJson(
+                            response.errorBody()!!.charStream(), type
+                        )
+                        mutableLiveCreateFarm.postValue(errorResponse)
+                    }
+                } catch (ex: Exception) {
+                    Log.d("data", "error $ex")
+                }
+            }
+
+            override fun onFailure(call: Call<User>, t: Throwable) {
+                Log.d("data", t.message.toString())
+            }
+        })
+        return mutableLiveCreateFarm
+
+    }
+
+
+    fun editFarm(
+        token: String,
+        farmid: Int,
+        farmName: String,
+        buildingno: String,
+        landmark: String,
+        city: String,
+        state: String,
+        pincode: String,
+        NoOfBroiler: Int,
+        number_of_layer_shed: Int,
+        number_of_grower_shed: Int,
+        farm_layer_type: String,farmerid:Int
+    ): MutableLiveData<User> {
+
+        val body = HashMap<String, Any>()
+        body["farm_name"] = farmName
+//        body["farmer"] = farmerid
+        body["number_of_layer_shed"] = number_of_layer_shed
+        body["number_of_grower_shed"] = number_of_grower_shed
+
+        body["number_of_broiler_shed"] = NoOfBroiler
+        body["farm_layer_type"] = farm_layer_type
+
+        val address = HashMap<String, Any>()
+        address["building_address"] = buildingno
+        address["street_address"] = state
+        address["landmark"] = landmark
+        address["billing_city"] = city
+        address["pinCode"] = Integer.parseInt(pincode)
+
+        body["farm_address"] = address
+
+        Log.d("data",body.toString()+" id"+farmerid)
+
+        val headerMap = mutableMapOf<String, String>()
+        headerMap["Authorization"] = token
+
+        val call: Call<User> = RetrofitClient().getApi().editFarm(
+            farmid, body, headerMap
+        )
+        call.enqueue(object : Callback<User> {
+            override fun onResponse(
+                call: Call<User>,
+                response: Response<User>
+            ) {
+                Log.d("data", "${response.body()} body ${body.toString()}")
                 try {
                     if (response.isSuccessful) {
                         mutableLiveCreateFarm.postValue(response.body())
@@ -299,6 +379,83 @@ class Retrofithit {
 
     }
 
+    fun editShed(
+        token: String,
+        shedType: String,
+        shedName: String,
+        shadeid: Int,
+        totalActiveBirdCapacity: String,
+        flockName: ArrayList<String>,
+        flockbreedid: ArrayList<Int>,
+        flockage: ArrayList<String>,
+        flockquantity: ArrayList<String>,
+        eggtype: ArrayList<String>
+
+    ): MutableLiveData<User> {
+
+        val body = JsonObject()
+
+        body.addProperty("shed_type", shedType)
+        body.addProperty("shed_name", shedName)
+//        body.addProperty("farm", farmid)
+        body.addProperty("total_active_bird_capacity", Integer.parseInt(totalActiveBirdCapacity))
+
+        val flockarray = JsonArray()
+
+        for (i in 0 until flockName.size) {
+            val flockdata = JsonObject()
+            flockdata.addProperty("flock_name", flockName[i])
+            flockdata.addProperty("breed", flockbreedid[i])
+            flockdata.addProperty("age", Integer.parseInt(flockage[i]))
+
+            flockdata.addProperty("initial_capacity", Integer.parseInt(flockquantity[i]))
+            flockdata.addProperty("egg_type", eggtype[i])
+            flockdata.addProperty("initial_production", 0)
+
+            flockarray.add(flockdata)
+
+        }
+
+        body.add("flocks", flockarray)
+
+        val headerMap = mutableMapOf<String, String>()
+        headerMap["Authorization"] = token
+
+        val call: Call<User> = RetrofitClient().getApi().editShed(shadeid,
+            body,
+            headerMap
+
+        )
+        call.enqueue(object : Callback<User> {
+            override fun onResponse(
+                call: Call<User>,
+                response: Response<User>
+            ) {
+                try {
+                    Log.d("data", "${body} \n ${headerMap}")
+                    if (response.isSuccessful) {
+                        addShed.postValue(response.body())
+                    } else {
+                        val gson = Gson()
+                        val type = object : TypeToken<User>() {}.type
+                        val errorResponse: User? = gson.fromJson(
+                            response.errorBody()!!.charStream(), type
+                        )
+                        addShed.postValue(errorResponse)
+                    }
+                } catch (ex: Exception) {
+                    Log.d("data", "error $ex")
+                }
+            }
+
+            override fun onFailure(call: Call<User>, t: Throwable) {
+                Log.d("data", t.message.toString())
+            }
+        })
+        return addShed
+
+    }
+
     fun addFlock(
         token: String,
         shed: Int,
@@ -326,6 +483,69 @@ class Retrofithit {
         headerMap["Authorization"] = token
 
         val call: Call<User> = RetrofitClient().getApi().addFlock(
+            body,
+            headerMap
+
+        )
+        call.enqueue(object : Callback<User> {
+            override fun onResponse(
+                call: Call<User>,
+                response: Response<User>
+            ) {
+                try {
+                    Log.d("data", "${body} \n ${headerMap}")
+                    if (response.isSuccessful) {
+                        mutableLiveAddFlock.postValue(response.body())
+                    } else {
+                        val gson = Gson()
+                        val type = object : TypeToken<User>() {}.type
+                        val errorResponse: User? = gson.fromJson(
+                            response.errorBody()!!.charStream(), type
+                        )
+                        mutableLiveAddFlock.postValue(errorResponse)
+                    }
+                } catch (ex: Exception) {
+                    Log.d("data", "error $ex")
+                }
+            }
+
+            override fun onFailure(call: Call<User>, t: Throwable) {
+                Log.d("data", t.message.toString())
+            }
+        })
+        return mutableLiveAddFlock
+
+    }
+
+
+    fun editFlock(
+        token: String,
+        flockid: Int,
+        flock_name: String,
+        breed: Int,
+        age: String,
+        initial_capacity: String,
+        egg_type: String,
+        initial_production: String
+
+    ): MutableLiveData<User> {
+
+        val body = JsonObject()
+
+//        body.addProperty("shed", shed)
+        body.addProperty("flock_name", flock_name)
+//        body.addProperty("breed", breed)
+        body.addProperty("age", Integer.parseInt(age))
+        body.addProperty("initial_capacity", Integer.parseInt(initial_capacity))
+        body.addProperty("egg_type", egg_type)
+        body.addProperty("initial_production", Integer.parseInt(initial_production))
+
+
+        val headerMap = mutableMapOf<String, String>()
+        headerMap["Authorization"] = token
+
+        val call: Call<User> = RetrofitClient().getApi().editFlock(
+            flockid,
             body,
             headerMap
 
@@ -708,7 +928,7 @@ class Retrofithit {
                 call: Call<FlockGraph>,
                 response: Response<FlockGraph>
             ) {
-                Log.d("data","${response.body()}")
+                Log.d("data", "${response.body()}")
                 try {
                     if (response.isSuccessful) {
                         mutableLiveFlockGraph.postValue(response.body())
@@ -849,6 +1069,119 @@ class Retrofithit {
 
     }
 
+    fun getFarmbyid(token: String, id: Int, farmer_id: Int): MutableLiveData<Farm.Result> {
+
+        val headerMap = mutableMapOf<String, String>()
+        headerMap["Authorization"] = token
+
+        val call: Call<Farm.Result> = RetrofitClient().getApi().getFarmbyid(
+            farmer_id, id, headerMap
+        )
+        call.enqueue(object : Callback<Farm.Result> {
+            override fun onResponse(
+                call: Call<Farm.Result>,
+                response: Response<Farm.Result>
+            ) {
+                Log.d("data", "${response.body()}")
+                try {
+                    if (response.isSuccessful) {
+                        mutableLiveFarmbyid.value = response.body()
+                    } else {
+                        val gson = Gson()
+                        val type = object : TypeToken<Farm.Result>() {}.type
+                        val errorResponse: Farm.Result? = gson.fromJson(
+                            response.errorBody()!!.charStream(), type
+                        )
+                        mutableLiveFarmbyid.value = errorResponse
+                    }
+                } catch (ex: Exception) {
+                    Log.d("data", "error $ex")
+                }
+            }
+
+            override fun onFailure(call: Call<Farm.Result>, t: Throwable) {
+                Log.d("data", t.message.toString())
+            }
+        })
+        return mutableLiveFarmbyid
+
+    }
+
+    fun getShedbyid(token: String, id: Int): MutableLiveData<Farm.Result.Shed> {
+
+        val headerMap = mutableMapOf<String, String>()
+        headerMap["Authorization"] = token
+
+        val call: Call<Farm.Result.Shed> = RetrofitClient().getApi().getShedbyid(
+            id, headerMap
+        )
+        call.enqueue(object : Callback<Farm.Result.Shed> {
+            override fun onResponse(
+                call: Call<Farm.Result.Shed>,
+                response: Response<Farm.Result.Shed>
+            ) {
+                Log.d("data", "${response.body()}")
+                try {
+                    if (response.isSuccessful) {
+                        mutableLiveShedbyid.value = response.body()
+                    } else {
+                        val gson = Gson()
+                        val type = object : TypeToken<Farm.Result.Shed>() {}.type
+                        val errorResponse: Farm.Result.Shed? = gson.fromJson(
+                            response.errorBody()!!.charStream(), type
+                        )
+                        mutableLiveShedbyid.value = errorResponse
+                    }
+                } catch (ex: Exception) {
+                    Log.d("data", "error $ex")
+                }
+            }
+
+            override fun onFailure(call: Call<Farm.Result.Shed>, t: Throwable) {
+                Log.d("data", t.message.toString())
+            }
+        })
+        return mutableLiveShedbyid
+
+    }
+
+    fun getFlockbyid(token: String, id: Int): MutableLiveData<Farm.Result.Shed.Flock1> {
+
+        val headerMap = mutableMapOf<String, String>()
+        headerMap["Authorization"] = token
+
+        val call: Call<Farm.Result.Shed.Flock1> = RetrofitClient().getApi().getFlockbyid(
+            id, headerMap
+        )
+        call.enqueue(object : Callback<Farm.Result.Shed.Flock1> {
+            override fun onResponse(
+                call: Call<Farm.Result.Shed.Flock1>,
+                response: Response<Farm.Result.Shed.Flock1>
+            ) {
+                Log.d("data", "${response.body()}")
+                try {
+                    if (response.isSuccessful) {
+                        mutableLiveFlockbyid.value = response.body()
+                    } else {
+                        val gson = Gson()
+                        val type = object : TypeToken<Farm.Result.Shed.Flock1>() {}.type
+                        val errorResponse: Farm.Result.Shed.Flock1? = gson.fromJson(
+                            response.errorBody()!!.charStream(), type
+                        )
+                        mutableLiveFlockbyid.value = errorResponse
+                    }
+                } catch (ex: Exception) {
+                    Log.d("data", "error $ex")
+                }
+            }
+
+            override fun onFailure(call: Call<Farm.Result.Shed.Flock1>, t: Throwable) {
+                Log.d("data", t.message.toString())
+            }
+        })
+        return mutableLiveFlockbyid
+
+    }
 
     fun signup2(mobile_no: String, otp: String): MutableLiveData<Signup2> {
 //        val mm = RequestBody.create(MediaType.parse("multipart/form-data"), mobile_no)
@@ -925,7 +1258,7 @@ class Retrofithit {
         farmer_id: Int,
         farmer_name: String,
         farmer_pinCode: Int,
-        zoneid:Int
+        zoneid: Int
     ): MutableLiveData<LoginUser> {
         val body = HashMap<String, Any>()
         body["farmer"] = farmer_id
@@ -944,7 +1277,7 @@ class Retrofithit {
                 call: Call<LoginUser>,
                 response: Response<LoginUser>
             ) {
-                Log.d("data","body ${response.body()} \n ${body}")
+                Log.d("data", "body ${response.body()} \n ${body}")
                 try {
                     if (response.isSuccessful) {
                         val user = LoginUser(
@@ -976,13 +1309,15 @@ class Retrofithit {
         farmer_id: Int,
         farmer_name: String,
         phone: String,
-        email: String
+        email: String,
+        pincode: String
     ): MutableLiveData<LoginUser> {
         val body = HashMap<String, Any>()
         body["farmer"] = farmer_id
         body["farmer_name"] = farmer_name
         body["phone_no"] = phone
         body["email"] = email
+        body["pinCode"] = pincode
 
         val headerMap = mutableMapOf<String, String>()
         headerMap["Authorization"] = token
@@ -1410,7 +1745,7 @@ class Retrofithit {
                 call: Call<LoginUser>,
                 response: Response<LoginUser>
             ) {
-                Log.d("data","${response.body()}")
+                Log.d("data", "${response.body()}")
                 try {
                     if (response.code() == 201) {
                         mutableLiveLikedislikecoment.postValue(response.body())
@@ -1711,7 +2046,13 @@ class Retrofithit {
     }
 
 
-    fun Consulting(token:String,message: String,title: String,file: File,requestFile: RequestBody,querytype:String
+    fun Consulting(
+        token: String,
+        message: String,
+        title: String,
+        file: File,
+        requestFile: RequestBody,
+        querytype: String
     ): MutableLiveData<Comment> {
 
         val message = RequestBody.create(MediaType.parse("multipart/form-data"), message)
@@ -1725,7 +2066,51 @@ class Retrofithit {
 
 
         val call: Call<Comment> = RetrofitClient().getApi().Consulting(
-            headerMap, message,title,querytype,body
+            headerMap, message, title, querytype, body
+        )
+        call.enqueue(object : Callback<Comment> {
+            override fun onResponse(
+                call: Call<Comment>,
+                response: Response<Comment>
+            ) {
+                Log.d("data", response.body().toString())
+                try {
+                    if (response.code() == 201) {
+                        mutableLiveComment.postValue(response.body())
+                    } else {
+                        val gson = Gson()
+                        val type = object : TypeToken<Comment>() {}.type
+                        val errorResponse: Comment? = gson.fromJson(
+                            response.errorBody()!!.charStream(), type
+                        )
+                        mutableLiveComment.postValue(errorResponse)
+                    }
+                } catch (ex: Exception) {
+                    Log.d("data", "error $ex")
+                }
+            }
+
+            override fun onFailure(call: Call<Comment?>, t: Throwable) {
+                Log.d("data", t.message.toString())
+            }
+        })
+        return mutableLiveComment
+    }
+
+    fun Consulting2(
+        token: String, message: String, title: String, querytype: String
+    ): MutableLiveData<Comment> {
+
+        val message = RequestBody.create(MediaType.parse("multipart/form-data"), message)
+        val title = RequestBody.create(MediaType.parse("multipart/form-data"), title)
+        val querytype = RequestBody.create(MediaType.parse("multipart/form-data"), querytype)
+
+        val headerMap = mutableMapOf<String, String>()
+        headerMap["Authorization"] = token
+
+
+        val call: Call<Comment> = RetrofitClient().getApi().Consulting2(
+            headerMap, message, title, querytype
         )
         call.enqueue(object : Callback<Comment> {
             override fun onResponse(
@@ -1768,7 +2153,7 @@ class Retrofithit {
 
 
         val call: Call<Comment> = RetrofitClient().getApi().Help(
-                headerMap, message,query_type
+            headerMap, message, query_type
         )
         call.enqueue(object : Callback<Comment> {
             override fun onResponse(
@@ -1801,14 +2186,14 @@ class Retrofithit {
 
 
     fun payBuynow(
-        token: String, mid: Int, id: Int, qnt: Int, price: String,shipping_address:Int
+        token: String, mid: Int, id: Int, qnt: Int, price: String, shipping_address: Int
     ): MutableLiveData<CartBuy> {
 
         val body = JsonObject()
 
-        body.addProperty("farm", mid)
+        body.addProperty("farmer", mid)
         body.addProperty("order_price_amount", price)
-        body.addProperty("shipping_address",shipping_address)
+        body.addProperty("shipping_address", shipping_address)
 
         val cart = JsonArray()
 
@@ -1861,13 +2246,13 @@ class Retrofithit {
     }
 
     fun cartBuy(
-        token: String, mid: Int, roomcart: List<RoomCart>,shipping_address:Int
+        token: String, mid: Int, roomcart: List<RoomCart>, shipping_address: Int
     ): MutableLiveData<CartBuy> {
 
         var price: Double = 0.0
         val body = JsonObject()
 
-        body.addProperty("farm", mid)
+        body.addProperty("farmer", mid)
 
         val cart = JsonArray()
 
@@ -1923,7 +2308,15 @@ class Retrofithit {
         return mutableLiveCartBuy
     }
 
-    fun addAddress(token:String, AddressName:String, Building:String, Street:String,Landmark:String,City:String,Pincode:String): MutableLiveData<Comment> {
+    fun addAddress(
+        token: String,
+        AddressName: String,
+        Building: String,
+        Street: String,
+        Landmark: String,
+        City: String,
+        Pincode: String
+    ): MutableLiveData<Comment> {
 
         val body = HashMap<String, Any>()
 
@@ -2048,7 +2441,6 @@ class Retrofithit {
     }
 
 
-
     fun addDailyInputWithWeight(
         token: String,
         id: Int,
@@ -2059,7 +2451,7 @@ class Retrofithit {
         remark: String,
         medlistidpost: ArrayList<Int>,
         medlistqnt: ArrayList<Int>,
-        weight:Int
+        weight: Int
     ):
             MutableLiveData<AddDailyInput> {
 
@@ -2071,7 +2463,7 @@ class Retrofithit {
         body.addProperty("feed", feed)
         body.addProperty("culls", culling)
         body.addProperty("remarks", remark)
-        body.addProperty("weight",weight)
+        body.addProperty("weight", weight)
 
         val flockmedarray = JsonArray()
 
@@ -2123,7 +2515,8 @@ class Retrofithit {
     }
 
     fun neccZone(
-        token: String): MutableLiveData<ZoneList> {
+        token: String
+    ): MutableLiveData<ZoneList> {
 
         val headerMap = mutableMapOf<String, String>()
         headerMap["Authorization"] = token
@@ -2139,7 +2532,7 @@ class Retrofithit {
                 try {
                     if (response.isSuccessful) {
                         mutableLiveZoneList.postValue(response.body())
-                    }else {
+                    } else {
                         val gson = Gson()
                         val type = object : TypeToken<ZoneList>() {}.type
                         val errorResponse: ZoneList? = gson.fromJson(
@@ -2160,24 +2553,24 @@ class Retrofithit {
 
     }
 
-    fun neccRate(token: String,mid:Int): MutableLiveData<NeccRate> {
+    fun neccRate(token: String, mid: Int): MutableLiveData<NeccRate> {
 
         val headerMap = mutableMapOf<String, String>()
         headerMap["Authorization"] = token
 
         val call: Call<NeccRate> = RetrofitClient().getApi().neccRate(
-            headerMap,mid
+            headerMap, mid
         )
         call.enqueue(object : Callback<NeccRate> {
             override fun onResponse(
                 call: Call<NeccRate>,
                 response: Response<NeccRate>
             ) {
-                Log.d("data","necc ${response.body()}")
+                Log.d("data", "necc ${response.body()}")
                 try {
                     if (response.isSuccessful) {
                         mutableLiveNeccRate.postValue(response.body())
-                    }else {
+                    } else {
                         val gson = Gson()
                         val type = object : TypeToken<NeccRate>() {}.type
                         val errorResponse: NeccRate? = gson.fromJson(
@@ -2199,13 +2592,14 @@ class Retrofithit {
     }
 
     fun wordpressFeed(
-        token: String
+        token: String, language: String
     ): MutableLiveData<WordpressFeed> {
 
         val headerMap = mutableMapOf<String, String>()
         headerMap["Authorization"] = token
 
-        val call: Call<WordpressFeed> = RetrofitClient().getApi().wordpressFeed( headerMap
+        val call: Call<WordpressFeed> = RetrofitClient().getApi().wordpressFeed(
+             language,headerMap
         )
         call.enqueue(object : Callback<WordpressFeed> {
             override fun onResponse(
@@ -2213,7 +2607,7 @@ class Retrofithit {
                 response: Response<WordpressFeed>
             ) {
 
-                Log.d("suggestion","suggestion ${response.body()}")
+                Log.d("suggestion", "suggestion ${response.body()}")
                 try {
                     if (response.isSuccessful) {
                         mutableLiveWordpressFeed.postValue(response.body())
@@ -2237,12 +2631,12 @@ class Retrofithit {
         return mutableLiveWordpressFeed
     }
 
-    fun getTemp(lat: Double, log: Double,token: String): MutableLiveData<WeatherData> {
+    fun getTemp(lat: Double, log: Double, token: String): MutableLiveData<WeatherData> {
         val headerMap = mutableMapOf<String, String>()
         headerMap["Authorization"] = token
 
         val call: Call<WeatherData> = RetrofitClient().getApi().getTemp(
-            lat,log,headerMap
+            lat, log, headerMap
         )
         call.enqueue(object : Callback<WeatherData> {
             override fun onResponse(
@@ -2251,7 +2645,7 @@ class Retrofithit {
             ) {
 
                 try {
-                    if (response.code()==200) {
+                    if (response.code() == 200) {
                         mutableLiveWeatherData.postValue(response.body())
                     } else {
                         val gson = Gson()
@@ -2273,6 +2667,43 @@ class Retrofithit {
         return mutableLiveWeatherData
     }
 
+    fun getTemppincode(pincode: Int, token: String): MutableLiveData<WeatherDataByCode> {
+        val headerMap = mutableMapOf<String, String>()
+        headerMap["Authorization"] = token
+
+        val call: Call<WeatherDataByCode> = RetrofitClient().getApi().getTemppincode(
+            "${pincode},IN",Constants.OpenWeatherkey, headerMap
+        )
+        call.enqueue(object : Callback<WeatherDataByCode> {
+            override fun onResponse(
+                call: Call<WeatherDataByCode>,
+                response: Response<WeatherDataByCode>
+            ) {
+
+                Log.d("data","")
+                try {
+                    if (response.code() == 200) {
+                        mutableLiveWeatherDataByCode.postValue(response.body())
+                    } else {
+                        val gson = Gson()
+                        val type = object : TypeToken<WeatherDataByCode>() {}.type
+                        val errorResponse: WeatherDataByCode? = gson.fromJson(
+                            response.errorBody()!!.charStream(), type
+                        )
+                        mutableLiveWeatherDataByCode.postValue(errorResponse)
+                    }
+                } catch (ex: Exception) {
+                    Log.d("data", "temp by pincode $ex")
+                }
+            }
+
+            override fun onFailure(call: Call<WeatherDataByCode?>, t: Throwable) {
+                Log.d("data", "temp by pincode ${t.message}")
+            }
+        })
+        return mutableLiveWeatherDataByCode
+    }
+
     fun getvideo(
         token: String
     ): MutableLiveData<VideoList> {
@@ -2280,7 +2711,8 @@ class Retrofithit {
         val headerMap = mutableMapOf<String, String>()
         headerMap["Authorization"] = token
 
-        val call: Call<VideoList> = RetrofitClient().getApi().getVideo( headerMap
+        val call: Call<VideoList> = RetrofitClient().getApi().getVideo(
+            headerMap
         )
         call.enqueue(object : Callback<VideoList> {
             override fun onResponse(
@@ -2374,11 +2806,11 @@ class Retrofithit {
                 call: Call<NeccRate>,
                 response: Response<NeccRate>
             ) {
-                Log.d("data","necc ${response.body()}")
+                Log.d("data", "necc ${response.body()}")
                 try {
                     if (response.isSuccessful) {
                         mutableLiveNeccRate.postValue(response.body())
-                    }else {
+                    } else {
                         val gson = Gson()
                         val type = object : TypeToken<NeccRate>() {}.type
                         val errorResponse: NeccRate? = gson.fromJson(
@@ -2414,9 +2846,9 @@ class Retrofithit {
                 call: Call<IotData>,
                 response: Response<IotData>
             ) {
-                Log.d("iot","${response.body()} ${call.request().url()}")
+                Log.d("iot", "${response.body()} ${call.request().url()}")
                 try {
-                    if (response.code()==200) {
+                    if (response.code() == 200) {
                         mutableLiveIotData.postValue(response.body())
                     } else {
                         val gson = Gson()
@@ -2480,5 +2912,109 @@ class Retrofithit {
         })
         return mutableLiveIotRequest
     }
+
+    fun getDailyInput(
+        token: String, id: Int
+    ): MutableLiveData<DailInput> {
+
+        val headerMap = mutableMapOf<String, String>()
+        headerMap["Authorization"] = token
+
+        val call: Call<DailInput> = RetrofitClient().getApi().getDailyInput(
+            headerMap, id
+        )
+        call.enqueue(object : Callback<DailInput> {
+            override fun onResponse(
+                call: Call<DailInput>,
+                response: Response<DailInput>
+            ) {
+                Log.d("data", response.body().toString())
+                try {
+                    if (response.code() == 200) {
+                        mutableLiveDailInput.postValue(response.body())
+                    } else {
+                        val gson = Gson()
+                        val type = object : TypeToken<DailInput>() {}.type
+                        val errorResponse: DailInput? = gson.fromJson(
+                            response.errorBody()!!.charStream(), type
+                        )
+                        mutableLiveDailInput.postValue(errorResponse)
+                    }
+                } catch (ex: Exception) {
+                    Log.d("data", "error $ex")
+                }
+            }
+
+            override fun onFailure(call: Call<DailInput?>, t: Throwable) {
+                Log.d("data", t.message.toString())
+            }
+        })
+        return mutableLiveDailInput
+    }
+
+
+    fun addDailyInputWithWeightUpdate(
+        token: String,
+        date: String,
+        mortality: Int,
+        feed: Double,
+        culling: Int,
+        remark: String,
+        weight: Double,
+        ids: Int,
+        totalEgg: Int,
+        brokenegg: String,
+        brokeneggInoperation: String
+    ):
+            MutableLiveData<AddDailyInput> {
+
+        val body = JsonObject()
+
+        body.addProperty("date", date)
+        body.addProperty("mortality", mortality)
+        body.addProperty("feed", feed)
+        body.addProperty("culls", culling)
+        body.addProperty("remarks", remark)
+        body.addProperty("weight", weight)
+        body.addProperty("egg_daily_production", totalEgg)
+        body.addProperty("broken_egg_in_production", brokenegg)
+        body.addProperty("broken_egg_in_operation", brokeneggInoperation)
+
+        val headerMap = mutableMapOf<String, String>()
+        headerMap["Authorization"] = token
+
+        val call: Call<AddDailyInput> = RetrofitClient().getApi().addDailyInputUpdate(
+            body, headerMap, ids.toString()
+        )
+        call.enqueue(object : Callback<AddDailyInput> {
+            override fun onResponse(
+                call: Call<AddDailyInput>,
+                response: Response<AddDailyInput>
+            ) {
+                Log.d("data", "boady ${body.toString()}")
+                try {
+                    if (response.isSuccessful) {
+                        addDailyInput.postValue(response.body())
+                    } else {
+                        val gson = Gson()
+                        val type = object : TypeToken<AddDailyInput>() {}.type
+                        val errorResponse: AddDailyInput? = gson.fromJson(
+                            response.errorBody()!!.charStream(), type
+                        )
+                        addDailyInput.postValue(errorResponse)
+                    }
+                } catch (ex: Exception) {
+                    Log.d("data", "error $ex")
+                }
+            }
+
+            override fun onFailure(call: Call<AddDailyInput>, t: Throwable) {
+                Log.d("data", t.message.toString())
+            }
+        })
+        return addDailyInput
+
+    }
+
 
 }

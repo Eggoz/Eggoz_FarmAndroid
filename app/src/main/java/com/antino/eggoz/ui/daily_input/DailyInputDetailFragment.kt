@@ -145,9 +145,6 @@ class DailyInputDetailFragment(
 
 
 
-                }else{
-                    Toast.makeText(context,"val not greater then 0",Toast.LENGTH_SHORT).show()
-
                 }
 
             }
@@ -162,6 +159,8 @@ class DailyInputDetailFragment(
         medlistidpost= ArrayList()
         medlistqnt= ArrayList()
         medlistname=ArrayList()
+
+        binding.txtDate.text=lastupdate
 
         if (from=="Grower"){
             binding.txtCullingBird.visibility=View.GONE
@@ -263,19 +262,6 @@ class DailyInputDetailFragment(
             if (binding.edtTotalMortality.text!!.isEmpty()) binding.edtTotalMortalityLayout.error =
                 "Please enter valid Mortality"
             else binding.edtTotalMortalityLayout.isErrorEnabled = false
-/*
-            if (binding.edtBrokenEggProduced.text!!.isEmpty()) binding.edtBrokenEggProducedLayout.error =
-                "Please enter valid Broken Egg Produced"
-            else binding.edtBrokenEggProducedLayout.isErrorEnabled = false
-
-            if (binding.edtBrokenEggInOperation.text!!.isEmpty()) binding.edtBrokenEggInOperationLayout.error =
-                "Please enter valid Broken Egg In Operation"
-            else binding.edtBrokenEggInOperationLayout.isErrorEnabled = false*/
-/*
-            if (binding.edtCullingBird.text!!.isEmpty()) binding.edtCullingBirdLayout.error =
-                "Please enter valid Culling Bird"
-            else binding.edtCullingBirdLayout.isErrorEnabled = false*/
-
             if (binding.edtFeedConsumed.text!!.isEmpty()) binding.edtFeedConsumedLayout.error =
                 "Please enter valid Feed Consumed"
             else binding.edtFeedConsumedLayout.isErrorEnabled = false
@@ -289,7 +275,7 @@ class DailyInputDetailFragment(
             binding.edtRemarkLayout.isErrorEnabled = false
             if (!error)
                 submit()
-            else Toast.makeText(context, "Error ", Toast.LENGTH_SHORT).show()
+            else Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
 
         }
 
@@ -297,14 +283,8 @@ class DailyInputDetailFragment(
 
     private fun validation2(){
 
-        if ( binding.edtTotalMortality.text!!.isEmpty()  || binding.edtFeedConsumed.text!!.isEmpty()||
-                    binding.edtWeight.text!!.isEmpty()
+        if ( binding.edtTotalMortality.text!!.isEmpty()  || binding.edtFeedConsumed.text!!.isEmpty()
         ) {
-
-            if (binding.edtWeight.text!!.isEmpty()) binding.edtWeightLayout.error =
-                "Please enter valid Weight"
-            else binding.edtWeightLayout.isErrorEnabled = false
-
             if (binding.edtTotalMortality.text!!.isEmpty()) binding.edtTotalMortalityLayout.error =
                 "Please enter valid Mortality"
             else binding.edtTotalMortalityLayout.isErrorEnabled = false

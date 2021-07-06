@@ -4,6 +4,9 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.IntentSender
+import android.content.pm.PackageInfo
+import android.content.pm.PackageManager
+import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -16,9 +19,11 @@ import android.widget.SearchView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
+import androidx.core.content.pm.PackageInfoCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
@@ -38,10 +43,12 @@ import com.antino.eggoz.ui.Summary.SummaryFragment
 import com.antino.eggoz.ui.activity_log.ActivityLog
 import com.antino.eggoz.ui.address.AddAddressFragment
 import com.antino.eggoz.ui.consulting.ConsultingFragment
-import com.antino.eggoz.ui.daily_input.DailyInputCallback
-import com.antino.eggoz.ui.daily_input.DailyInputDetailFragment
-import com.antino.eggoz.ui.daily_input.DailyInputFragment
+import com.antino.eggoz.ui.daily_input.*
+import com.antino.eggoz.ui.daily_input.model.DailInput
+import com.antino.eggoz.ui.edit.EditFarmFragment
+import com.antino.eggoz.ui.edit.EditFlockFragment
 import com.antino.eggoz.ui.edit.EditProfileFragment
+import com.antino.eggoz.ui.edit.EditShedFragment
 import com.antino.eggoz.ui.expenses.Expenses
 import com.antino.eggoz.ui.faqs.FaqsFragment
 import com.antino.eggoz.ui.feed.CommentFragment
@@ -52,6 +59,7 @@ import com.antino.eggoz.ui.helpsupport.HelpSupportFragment
 import com.antino.eggoz.ui.home.ExoplayerFragment
 import com.antino.eggoz.ui.home.HomeCallback
 import com.antino.eggoz.ui.home.HomeFragment
+import com.antino.eggoz.ui.home.IotListFragment
 import com.antino.eggoz.ui.item.ItemDetailCallback
 import com.antino.eggoz.ui.item.ItemDetailFragment
 import com.antino.eggoz.ui.ledgers.Leadgers
@@ -82,12 +90,11 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
-import com.google.android.play.core.appupdate.AppUpdateManager
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
-import com.google.android.play.core.install.InstallStateUpdatedListener
 import com.google.android.play.core.install.model.AppUpdateType
-import com.google.android.play.core.install.model.InstallStatus
 import com.google.android.play.core.install.model.UpdateAvailability
+import java.util.*
+import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity(), SellShopCallback, ProfileCallback, DailyInputCallback,
     HomeCallback, FeedCallback, LoadMainActivity, CartCallback,
@@ -100,6 +107,7 @@ class MainActivity : AppCompatActivity(), SellShopCallback, ProfileCallback, Dai
     private lateinit var mDrawerToggle: ActionBarDrawerToggle
     private var mToolBarNavigationListenerIsRegistered = false
     private lateinit var navView: NavigationView
+    private lateinit var navViewfooter: TextView
     private lateinit var farm: ArrayList<Farmdata?>
     private lateinit var farmdata: Farmdata
     private lateinit var shades: ArrayList<Shades>
@@ -126,30 +134,28 @@ class MainActivity : AppCompatActivity(), SellShopCallback, ProfileCallback, Dai
 
     // Creates instance of the manager.
 //    private var appUpdateManager:com.google.android.play.core.appupdate.AppUpdateManager ?=null
-    private lateinit var appUpdateManager: AppUpdateManager
-    private lateinit var installStateUpdatedListener: InstallStateUpdatedListener
-
-    override fun onStart() {
-        super.onStart()
-        inAppUpdate()
-    }
-
+//    private lateinit var appUpdateManager: AppUpdateManager
+//    private lateinit var installStateUpdatedListener: InstallStateUpdatedListener
 
     @SuppressLint("ResourceType", "SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        inAppUpdate()
+
+
+//        throw RuntimeException("Test Crash") // Force a crash
+
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            window.statusBarColor = ContextCompat.getColor(this, R.color.app_color)
-        }
+        window.statusBarColor = ContextCompat.getColor(this, R.color.app_color)
 
 
         farm = ArrayList()
         shades = ArrayList()
         grower = ArrayList()
+
 /*
         token = intent.getStringExtra("token").toString()
         ids = intent.getStringExtra("id").toString()*/
@@ -165,6 +171,14 @@ class MainActivity : AppCompatActivity(), SellShopCallback, ProfileCallback, Dai
 
         drawerLayout = findViewById(R.id.drawer_layout)
         navView = findViewById(R.id.nav_view)
+        navViewfooter = findViewById(R.id.footer_item_1)
+
+
+        val manager: PackageManager = this.packageManager
+        val info: PackageInfo =
+            manager.getPackageInfo(this.packageName, PackageManager.GET_ACTIVITIES)
+
+        navViewfooter.text = "Version: ${info.versionName}"
         bottomnav = findViewById(R.id.btm_nav_)
 
         networkObserver()
@@ -178,12 +192,7 @@ class MainActivity : AppCompatActivity(), SellShopCallback, ProfileCallback, Dai
         txt_person_name = headerLayout.findViewById(R.id.txt_name)
         txt_person_mobile = headerLayout.findViewById(R.id.txt_person_mobile)
 
-
-
-
         loadProfileData()
-
-
 
         headerLayout.setOnClickListener {
             loadFragment(ProfileFragment(this, farm, token, this.id))
@@ -301,6 +310,86 @@ class MainActivity : AppCompatActivity(), SellShopCallback, ProfileCallback, Dai
             Log.d("url", url)
             loadFragment(WebFragment(this, url))
         }
+    }
+
+    override fun loadEditFarm(farmid: Int) {
+
+
+        loadFragment(EditFarmFragment(token, id, farmid, this))
+        bottomnav.visibility = View.GONE
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+        toolbar.title = this.resources.getString(com.antino.eggoz.R.string.edit_farm)
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        mDrawerToggle.isDrawerIndicatorEnabled = false
+
+        mDrawerToggle.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24)
+        mDrawerToggle.setToolbarNavigationClickListener {
+            loadFragment(DailyInputFragment(this, token, id))
+            navView.setCheckedItem(R.id.menu_none)
+            toolbar.title = this.resources.getString(com.antino.eggoz.R.string.daily_Input)
+            bottomnav.visibility = View.VISIBLE
+            bottomnav.menu.findItem(R.id.nav_daily_input).isChecked = true
+
+            mDrawerToggle.isDrawerIndicatorEnabled = true
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+            mDrawerToggle.syncState()
+
+        }
+        mDrawerToggle.syncState()
+    }
+
+    override fun loadEditFlock(flockid: Int) {
+
+        loadFragment(EditFlockFragment(token, flockid, this))
+        bottomnav.visibility = View.GONE
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+        toolbar.title = this.resources.getString(com.antino.eggoz.R.string.edit_farm)
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        mDrawerToggle.isDrawerIndicatorEnabled = false
+
+        mDrawerToggle.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24)
+        mDrawerToggle.setToolbarNavigationClickListener {
+            loadFragment(DailyInputFragment(this, token, id))
+            navView.setCheckedItem(R.id.menu_none)
+            toolbar.title = this.resources.getString(com.antino.eggoz.R.string.daily_Input)
+            bottomnav.visibility = View.VISIBLE
+            bottomnav.menu.findItem(R.id.nav_daily_input).isChecked = true
+
+            mDrawerToggle.isDrawerIndicatorEnabled = true
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+            mDrawerToggle.syncState()
+
+        }
+        mDrawerToggle.syncState()
+    }
+
+
+    override fun loadEditShed(shedid: Int) {
+
+        loadFragment(EditShedFragment(token, shedid, this))
+        bottomnav.visibility = View.GONE
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+        toolbar.title = this.resources.getString(com.antino.eggoz.R.string.edit_shed)
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        mDrawerToggle.isDrawerIndicatorEnabled = false
+
+        mDrawerToggle.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24)
+        mDrawerToggle.setToolbarNavigationClickListener {
+            loadFragment(DailyInputFragment(this, token, id))
+            navView.setCheckedItem(R.id.menu_none)
+            toolbar.title = this.resources.getString(com.antino.eggoz.R.string.daily_Input)
+            bottomnav.visibility = View.VISIBLE
+            bottomnav.menu.findItem(R.id.nav_daily_input).isChecked = true
+
+            mDrawerToggle.isDrawerIndicatorEnabled = true
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+            mDrawerToggle.syncState()
+
+        }
+        mDrawerToggle.syncState()
     }
 
     private fun mobileNavigation() {
@@ -452,7 +541,7 @@ class MainActivity : AppCompatActivity(), SellShopCallback, ProfileCallback, Dai
                 R.id.nav_side_FAQs -> {
                     bottomnav.visibility = View.GONE
                     toolbar.title = this.resources.getString(com.antino.eggoz.R.string.menu_faqs)
-                    loadFragment(FaqsFragment())
+                    loadFragment(FaqsFragment(this))
                 }
 
                 R.id.nav_side_Setting -> {
@@ -491,13 +580,35 @@ class MainActivity : AppCompatActivity(), SellShopCallback, ProfileCallback, Dai
 
     }
 
+    override fun loadIot() {
+
+
+        loadFragment(IotListFragment(this))
+        bottomnav.visibility = View.GONE
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+        toolbar.title = this.resources.getString(com.antino.eggoz.R.string.iot_report)
+        toolbar.visibility = View.GONE
+
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        mDrawerToggle.isDrawerIndicatorEnabled = false
+
+        mDrawerToggle.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24)
+        mDrawerToggle.setToolbarNavigationClickListener {
+
+            toolbar.title = this.resources.getString(com.antino.eggoz.R.string.menu_home)
+            loadFragment(HomeFragment(this))
+            toolbar.visibility = View.VISIBLE
+            mDrawerToggle.isDrawerIndicatorEnabled = true
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+            mDrawerToggle.syncState()
+
+        }
+        mDrawerToggle.syncState()
+    }
 
     override fun loadDetailFrag(id: Int, from: String) {
-
-        /*   if (from=="sellshop")
-               if (from=="cart")
-                   if (from=="ExploreProducts")
-                   */
 
         loadFragment(ItemDetailFragment(id.toString(), this, from))
         bottomnav.visibility = View.GONE
@@ -514,8 +625,7 @@ class MainActivity : AppCompatActivity(), SellShopCallback, ProfileCallback, Dai
             if (from == "sellshop") {
                 loadFragment(
                     SellShopFragment(
-                        this
-                        , token
+                        this, token
                     )
                 )
                 toolbar.title = this.resources.getString(com.antino.eggoz.R.string.menu_bazaar)
@@ -537,7 +647,7 @@ class MainActivity : AppCompatActivity(), SellShopCallback, ProfileCallback, Dai
 
 
     override fun loadComment(mid: Int, comment: Int) {
-        loadFragment(CommentFragment(mid, comment))
+        loadFragment(CommentFragment(this, mid, comment))
         bottomnav.visibility = View.GONE
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
         toolbar.title = this.resources.getString(com.antino.eggoz.R.string.comment)
@@ -562,15 +672,14 @@ class MainActivity : AppCompatActivity(), SellShopCallback, ProfileCallback, Dai
     override fun loadDetailFragback(from: String) {
         toolbar.visibility = View.VISIBLE
         mDrawerToggle.isDrawerIndicatorEnabled = true
+        bottomnav.visibility = View.VISIBLE
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
-        bottomnav.visibility = View.GONE
         mDrawerToggle.syncState()
         if (from == "sellshop") {
             loadFragment(
                 SellShopFragment(
-                    this
-                    , token
+                    this, token
                 )
             )
             toolbar.title = this.resources.getString(com.antino.eggoz.R.string.menu_bazaar)
@@ -588,7 +697,6 @@ class MainActivity : AppCompatActivity(), SellShopCallback, ProfileCallback, Dai
         bottomnav.visibility = View.GONE
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
         toolbar.title = this.resources.getString(com.antino.eggoz.R.string.edit_Profile)
-
 
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
         mDrawerToggle.isDrawerIndicatorEnabled = false
@@ -630,8 +738,7 @@ class MainActivity : AppCompatActivity(), SellShopCallback, ProfileCallback, Dai
                 price,
                 qnt,
                 des,
-                tax
-                , this.id
+                tax, this.id
             )
         )
         toolbar.visibility = View.VISIBLE
@@ -691,21 +798,6 @@ class MainActivity : AppCompatActivity(), SellShopCallback, ProfileCallback, Dai
         mDrawerToggle.setToolbarNavigationClickListener {
             mDrawerToggle.isDrawerIndicatorEnabled = true
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
-            /*   loadFragment(BuyFragment(
-                   this,
-                   token,
-                   id,
-                   from,
-                   ids.toInt(),
-                   name,
-                   img,
-                   price,
-                   qnt,
-                   des,
-                   tax,this.id
-               ))
-
-               */
             toolbar.title = this.resources.getString(com.antino.eggoz.R.string.payment)
             drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
             bottomnav.visibility = View.GONE
@@ -727,106 +819,43 @@ class MainActivity : AppCompatActivity(), SellShopCallback, ProfileCallback, Dai
 
     private fun inAppUpdate() {
 
-        // Creates instance of the manager.
-        appUpdateManager = AppUpdateManagerFactory.create(this)
 
-// Returns an intent object that you use to check for an update.
-        val appUpdateInfoTask = appUpdateManager.appUpdateInfo
+        val mAppUpdateManager = AppUpdateManagerFactory.create(this@MainActivity)
+//        val appUpdateInfo=appUpdateManager.appUpdateInfo
 
-// Checks that the platform will allow the specified type of update.
-        appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
-
-            if (appUpdateInfo.updateAvailability() === UpdateAvailability.UPDATE_AVAILABLE
-                && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE /*AppUpdateType.IMMEDIATE*/)
-            ) {
-                try {
-                    appUpdateManager.startUpdateFlowForResult(
-                        appUpdateInfo,
-                        AppUpdateType.FLEXIBLE /*AppUpdateType.IMMEDIATE*/,
-                        this@MainActivity,
-                        MY_REQUEST_CODE
-                    )
-                    appUpdateManager.startUpdateFlowForResult(
-                        appUpdateInfo, AppUpdateType.FLEXIBLE
-                        /*AppUpdateType.IMMEDIATE*/, this, MY_REQUEST_CODE
-                    );
-
-                } catch (e: IntentSender.SendIntentException) {
-                    e.printStackTrace()
+//        mAppUpdateManager = AppUpdateManagerFactory.create(this@MainActivity)
+        mAppUpdateManager.appUpdateInfo.let {
+            it.addOnSuccessListener { appUpdateInfo ->
+                if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+                    && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)
+                ) {
+                    try {
+                        mAppUpdateManager.startUpdateFlowForResult(
+                            // Pass the intent that is returned by 'getAppUpdateInfo()'.
+                            appUpdateInfo,
+                            // Or 'AppUpdateType.FLEXIBLE' for flexible updates.
+                            AppUpdateType.IMMEDIATE,
+                            // The current activity making the update request.
+                            this,
+                            // Include a request code to later monitor this update request.
+                            MY_REQUEST_CODE
+                        )
+                    } catch (e: IntentSender.SendIntentException) {
+                        e.printStackTrace()
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
                 }
-            } else if (appUpdateInfo.installStatus() === InstallStatus.DOWNLOADED) {
-                //CHECK THIS if AppUpdateType.FLEXIBLE, otherwise you can skip
-                popupSnackbarForCompleteUpdate()
-            } else {
-                Log.e(
-                    "data",
-                    "checkForAppUpdateAvailability: something else"
-                )
-            }
-
-            /* if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
-                 // For a flexible update, use AppUpdateType.FLEXIBLE
-                 && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)
-             ) {
-                 // Request the update.
-
-                 appUpdateManager.startUpdateFlowForResult(
-                     // Pass the intent that is returned by 'getAppUpdateInfo()'.
-                     appUpdateInfo,
-                     // Or 'AppUpdateType.FLEXIBLE' for flexible updates.
-                     AppUpdateType.IMMEDIATE,
-                     // The current activity making the update request.
-                     this,
-                     // Include a request code to later monitor this update request.
-                     MY_REQUEST_CODE)
-
-
-             }*/
-        }
-
-
-        installStateUpdatedListener = InstallStateUpdatedListener() {
-
-            if (it.installStatus() == InstallStatus.DOWNLOADED) {
-                //CHECK THIS if AppUpdateType.FLEXIBLE, otherwise you can skip
-                popupSnackbarForCompleteUpdate();
-            } else if (it.installStatus() == InstallStatus.INSTALLED) {
-                if (appUpdateManager != null) {
-                    appUpdateManager.unregisterListener(installStateUpdatedListener);
-                }
-
-            } else {
-                Log.d("data", "InstallStateUpdatedListener: state: " + it.installStatus());
             }
         }
+
+
     }
 
 
-    private fun popupSnackbarForCompleteUpdate() {
-        val snackbar = Snackbar.make(
-            window.decorView.findViewById(android.R.id.content),
-            "New app is ready!",
-            Snackbar.LENGTH_INDEFINITE
-        )
-        snackbar.setAction(
-            "Install"
-        ) { view: View? ->
-            if (appUpdateManager != null) {
-                appUpdateManager.completeUpdate()
-            }
-        }
-        snackbar.setActionTextColor(resources.getColor(R.color.green))
-        snackbar.show()
+    override fun fetchProfile() {
+        loadProfileData()
     }
-
-
-    override fun onStop() {
-        if (appUpdateManager != null) {
-            appUpdateManager.unregisterListener(installStateUpdatedListener);
-        }
-        super.onStop()
-    }
-
 
     private fun loadProfileData() {
 
@@ -899,7 +928,7 @@ class MainActivity : AppCompatActivity(), SellShopCallback, ProfileCallback, Dai
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         loadFragment(ScheduleFragment(this, token, id))
         navView.setCheckedItem(R.id.menu_none)
-        toolbar.title =this.resources.getString(com.antino.eggoz.R.string.menu_schedule)
+        toolbar.title = this.resources.getString(com.antino.eggoz.R.string.menu_schedule)
         bottomnav.menu.getItem(1).isChecked = true
         bottomnav.visibility = View.VISIBLE
         mDrawerToggle.syncState()
@@ -907,17 +936,6 @@ class MainActivity : AppCompatActivity(), SellShopCallback, ProfileCallback, Dai
     }
 
     override fun loadProfile() {
-        /* loadFragment(ProfileFragment(this, farm, token, this.id))
-         navView.setCheckedItem(R.id.menu_none)
-         toolbar.title = "Profile"
-         bottomnav.visibility = View.GONE
-         drawerLayout.closeDrawer(GravityCompat.START)
-
-         mDrawerToggle.syncState()
-
-         navView.setCheckedItem(R.id.menu_none)
-         bottomnav.menu.findItem(R.id.nav_daily_input).isChecked = true
- */
         mDrawerToggle.isDrawerIndicatorEnabled = true
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         loadFragment(ProfileFragment(this, farm, token, this.id))
@@ -939,12 +957,6 @@ class MainActivity : AppCompatActivity(), SellShopCallback, ProfileCallback, Dai
         mDrawerToggle.isDrawerIndicatorEnabled = false
         mDrawerToggle.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24)
         mDrawerToggle.setToolbarNavigationClickListener {
-            /* mDrawerToggle.isDrawerIndicatorEnabled = true
-             supportActionBar?.setDisplayHomeAsUpEnabled(true)
-             loadFragment(ProfileFragment(this, farm, token, this.id))
-             toolbar.title = "Profile"
-             drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
-             bottomnav.visibility = View.GONE*/
             loadDailyInput()
             mDrawerToggle.syncState()
         }
@@ -964,14 +976,6 @@ class MainActivity : AppCompatActivity(), SellShopCallback, ProfileCallback, Dai
 
         mDrawerToggle.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24)
         mDrawerToggle.setToolbarNavigationClickListener {
-
-
-            /* mDrawerToggle.isDrawerIndicatorEnabled = true
-             supportActionBar?.setDisplayHomeAsUpEnabled(true)
-             loadFragment(ProfileFragment(this, farm, token, this.id))
-             toolbar.title = "Profile"
-             drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
-             bottomnav.visibility = View.GONE*/
             loadDailyInput()
             mDrawerToggle.syncState()
         }
@@ -993,12 +997,6 @@ class MainActivity : AppCompatActivity(), SellShopCallback, ProfileCallback, Dai
         farm_layer_type: String
     ) {
 
-        /* this.farmName = farmName
-         this.farmAddress = farmAddress
-
-         val shade: ArrayList<Shades> = ArrayList()
-         shades.clear()*/
-
         val viewModel = ViewModelProvider(this).get(ModelMain::class.java)
         viewModel.createFarm(
             token,
@@ -1017,15 +1015,6 @@ class MainActivity : AppCompatActivity(), SellShopCallback, ProfileCallback, Dai
         ).observe(this,
             Observer {
                 if (it.success != "" || it.success != null) {
-                    /* Log.d("data", "${it.success}")
-                     drawerLayout.closeDrawer(GravityCompat.START)
-                     mDrawerToggle.isDrawerIndicatorEnabled = true
-                     supportActionBar?.setDisplayHomeAsUpEnabled(true)
-                     loadFragment(ProfileFragment(this, farm, token, this.id))
-                     toolbar.title = "Profile"
-                     drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
-                     bottomnav.visibility = View.GONE
-                     mDrawerToggle.syncState()*/
                     loadDailyInput()
 
                 } else {
@@ -1073,7 +1062,7 @@ class MainActivity : AppCompatActivity(), SellShopCallback, ProfileCallback, Dai
         mDrawerToggle.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24)
         mDrawerToggle.setToolbarNavigationClickListener {
             loadFragment(FeedFragment(this, token))
-            toolbar.title =this.resources.getString(com.antino.eggoz.R.string.menu_feed)
+            toolbar.title = this.resources.getString(com.antino.eggoz.R.string.menu_feed)
             mDrawerToggle.isDrawerIndicatorEnabled = true
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
             drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
@@ -1154,7 +1143,7 @@ class MainActivity : AppCompatActivity(), SellShopCallback, ProfileCallback, Dai
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         loadFragment(DailyInputFragment(this, token, id))
         bottomnav.menu.findItem(R.id.nav_daily_input).isChecked = true
-        toolbar.title =  this.resources.getString(com.antino.eggoz.R.string.daily_Input)
+        toolbar.title = this.resources.getString(com.antino.eggoz.R.string.daily_Input)
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
         bottomnav.visibility = View.VISIBLE
         navView.setCheckedItem(R.id.menu_none)
@@ -1162,10 +1151,11 @@ class MainActivity : AppCompatActivity(), SellShopCallback, ProfileCallback, Dai
     }
 
     override fun loadSellShop() {
+        toolbar.visibility = View.VISIBLE
         mDrawerToggle.isDrawerIndicatorEnabled = true
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         loadFragment(SellShopFragment(this, token))
-        toolbar.title =  this.resources.getString(com.antino.eggoz.R.string.menu_bazaar)
+        toolbar.title = this.resources.getString(com.antino.eggoz.R.string.menu_bazaar)
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
         bottomnav.visibility = View.VISIBLE
         mDrawerToggle.syncState()
@@ -1173,7 +1163,7 @@ class MainActivity : AppCompatActivity(), SellShopCallback, ProfileCallback, Dai
 
     override fun loadFeed() {
         loadFragment(FeedFragment(this, token))
-        toolbar.title =  this.resources.getString(com.antino.eggoz.R.string.menu_feed)
+        toolbar.title = this.resources.getString(com.antino.eggoz.R.string.menu_feed)
         mDrawerToggle.isDrawerIndicatorEnabled = true
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
@@ -1184,7 +1174,7 @@ class MainActivity : AppCompatActivity(), SellShopCallback, ProfileCallback, Dai
     override fun loadHome() {
         loadFragment(HomeFragment(this))
         navView.menu.getItem(0).isChecked = true
-        toolbar.title =  this.resources.getString(com.antino.eggoz.R.string.menu_home)
+        toolbar.title = this.resources.getString(com.antino.eggoz.R.string.menu_home)
         bottomnav.menu.getItem(0).isChecked = true
         navView.menu.getItem(0).isChecked = true
 
@@ -1197,12 +1187,25 @@ class MainActivity : AppCompatActivity(), SellShopCallback, ProfileCallback, Dai
     }
 
     override fun loadSummary(flock_id: Int) {
-        toolbar.title =  this.resources.getString(com.antino.eggoz.R.string.summary)
+        toolbar.title = this.resources.getString(com.antino.eggoz.R.string.summary)
         bottomnav.visibility = View.GONE
         navView.menu.getItem(12).isChecked = true
         loadFragment(SummaryFragment(this, token, flock_id))
     }
 
+    override fun loadDailyInputList(id: Int) {
+        toolbar.title = this.resources.getString(com.antino.eggoz.R.string.daily_Input_list)
+        bottomnav.visibility = View.GONE
+        navView.menu.getItem(12).isChecked = true
+        loadFragment(DailyInputListFragment(this, id))
+    }
+
+    override fun loadUpdateDailtInput(data: DailInput.Result) {
+        toolbar.title = this.resources.getString(com.antino.eggoz.R.string.daily_Input_update)
+        bottomnav.visibility = View.GONE
+        navView.menu.getItem(12).isChecked = true
+        loadFragment(DaiyInputUpdateFragment(this, data))
+    }
 
     override fun dailyInputCallback(
         flockid: Int,
@@ -1261,15 +1264,6 @@ class MainActivity : AppCompatActivity(), SellShopCallback, ProfileCallback, Dai
 
         mDrawerToggle.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24)
         mDrawerToggle.setToolbarNavigationClickListener {
-            /*      mDrawerToggle.isDrawerIndicatorEnabled = true
-                  supportActionBar?.setDisplayHomeAsUpEnabled(true)
-                  loadFragment(ScheduleFragment(this, token, id))
-                  toolbar.title = "Schedule"
-                  drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
-                  bottomnav.visibility = View.VISIBLE
-                  bottomnav.menu.getItem(1).isChecked = true
-                  navView.setCheckedItem(R.id.menu_none)
-                  mDrawerToggle.syncState()*/
             loadSchedule()
 
         }
@@ -1277,112 +1271,6 @@ class MainActivity : AppCompatActivity(), SellShopCallback, ProfileCallback, Dai
 
     }
 
-/*    override fun addShades(
-        ShadeName: String,
-        totalbirdcapacity: String,
-        WhiteEggsdailyprod: String,
-        WhiteEggsdailycapacity: String,
-        BrownEggsdailyprod: String,
-        BrownEggsbirdcapacity: String,
-        FormerType: String,
-        FolkType: String,
-        noOfShads: String,
-        noOfGrower: String
-    ) {
-
-        val shadedata = Shades()
-        shadedata.shadeName = ShadeName
-        shadedata.Birdcapacity = totalbirdcapacity
-        shadedata.whiteEggProduction = WhiteEggsdailyprod
-        shadedata.whiteEggCapacity = WhiteEggsdailycapacity
-
-        shadedata.BrownEggProduction = BrownEggsdailyprod
-        shadedata.BrownEggCapacity = BrownEggsbirdcapacity
-
-        shadedata.formerType = FormerType
-        shadedata.formerType = FolkType
-
-        shades.add(shadedata)
-        if (shades.size != noOfShads.toInt() && noOfShads.toInt() != 0) {
-            val shade: ArrayList<Shades> = ArrayList()
-
-            loadFragment(AddLayerFragment(this, shade, noOfShads, noOfGrower))
-            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-            toolbar.title = "Add Shed/Grower"
-
-
-            supportActionBar?.setDisplayHomeAsUpEnabled(false)
-            mDrawerToggle.isDrawerIndicatorEnabled = false
-
-            mDrawerToggle.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24)
-            mDrawerToggle.setToolbarNavigationClickListener {
-                mDrawerToggle.isDrawerIndicatorEnabled = true
-                supportActionBar?.setDisplayHomeAsUpEnabled(true)
-                loadFragment(ProfileFragment(this, farm,token,this.id))
-                toolbar.title = "Profile"
-                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
-                bottomnav.visibility = View.VISIBLE
-                mDrawerToggle.syncState()
-            }
-            mDrawerToggle.syncState()
-        } else if (grower.size != noOfGrower.toInt() && noOfGrower.toInt() != 0) {
-
-            val grower: ArrayList<Grower> = ArrayList()
-            loadFragment(AddGrowerFragment(this, grower, noOfShads, noOfGrower))
-            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-            toolbar.title = "Add Grower"
-
-
-            supportActionBar?.setDisplayHomeAsUpEnabled(false)
-            mDrawerToggle.isDrawerIndicatorEnabled = false
-
-            mDrawerToggle.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24)
-            mDrawerToggle.setToolbarNavigationClickListener {
-                mDrawerToggle.isDrawerIndicatorEnabled = true
-                supportActionBar?.setDisplayHomeAsUpEnabled(true)
-                loadFragment(ProfileFragment(this, farm,token,this.id))
-                toolbar.title = "Profile"
-                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
-                bottomnav.visibility = View.VISIBLE
-                mDrawerToggle.syncState()
-            }
-            mDrawerToggle.syncState()
-
-
-        } else {
-            farmdata = Farmdata()
-            farmdata.shadesSize = noOfShads
-            farmdata.growerSize = "0 "
-            farmdata.farmName = farmName
-            farmdata.farmAddress = farmAddress
-            farmdata.shades = shades
-            farm.add(farmdata)
-
-            mDrawerToggle.isDrawerIndicatorEnabled = true
-            supportActionBar?.setDisplayHomeAsUpEnabled(true)
-            loadFragment(ProfileFragment(this, farm,token,this.id))
-            toolbar.title = "Profile"
-            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
-            mDrawerToggle.syncState()
-            navView.setCheckedItem(R.id.menu_none)
-            bottomnav.visibility = View.GONE
-            drawerLayout.closeDrawer(GravityCompat.START)
-        }
-
-
-        super.addShades(
-            ShadeName,
-            totalbirdcapacity,
-            WhiteEggsdailyprod,
-            WhiteEggsdailycapacity,
-            BrownEggsdailyprod,
-            BrownEggsbirdcapacity,
-            FormerType,
-            FolkType,
-            noOfShads,
-            noOfGrower
-        )
-    }*/
 
     private fun bottomnav() {
         //bottom nav click listner
@@ -1398,7 +1286,8 @@ class MainActivity : AppCompatActivity(), SellShopCallback, ProfileCallback, Dai
                 R.id.nav_schedule -> {
                     loadFragment(ScheduleFragment(this, token, id))
                     navView.setCheckedItem(R.id.menu_none)
-                    toolbar.title = this.resources.getString(com.antino.eggoz.R.string.menu_schedule)
+                    toolbar.title =
+                        this.resources.getString(com.antino.eggoz.R.string.menu_schedule)
                     bottomnav.visibility = View.VISIBLE
                     return@setOnNavigationItemSelectedListener true
                 }
@@ -1412,7 +1301,7 @@ class MainActivity : AppCompatActivity(), SellShopCallback, ProfileCallback, Dai
                 R.id.nav_daily_input -> {
                     loadFragment(DailyInputFragment(this, token, id))
                     navView.setCheckedItem(R.id.menu_none)
-                    toolbar.title =this.resources.getString(com.antino.eggoz.R.string.daily_Input)
+                    toolbar.title = this.resources.getString(com.antino.eggoz.R.string.daily_Input)
                     bottomnav.visibility = View.VISIBLE
                     return@setOnNavigationItemSelectedListener true
                 }
@@ -1447,7 +1336,7 @@ class MainActivity : AppCompatActivity(), SellShopCallback, ProfileCallback, Dai
             mDrawerToggle.isDrawerIndicatorEnabled = true
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
             loadFragment(SellShopFragment(this, token))
-            toolbar.title =this.resources.getString(com.antino.eggoz.R.string.menu_bazaar)
+            toolbar.title = this.resources.getString(com.antino.eggoz.R.string.menu_bazaar)
             drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
             bottomnav.visibility = View.VISIBLE
             mDrawerToggle.syncState()
@@ -1457,83 +1346,27 @@ class MainActivity : AppCompatActivity(), SellShopCallback, ProfileCallback, Dai
         super.onclick(id)
     }
 
-/*
-    override fun onclick() {
-        loadFragment(ExploreProductsFragment(this,token,null))
-        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-        toolbar.title = "Product List"
-        bottomnav.visibility = View.GONE
-        supportActionBar?.setDisplayHomeAsUpEnabled(false)
-        mDrawerToggle.isDrawerIndicatorEnabled = false
-
-        mDrawerToggle.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24)
-        mDrawerToggle.setToolbarNavigationClickListener {
-            mDrawerToggle.isDrawerIndicatorEnabled = true
-            supportActionBar?.setDisplayHomeAsUpEnabled(true)
-            loadFragment(SellShopFragment(this,token))
-            toolbar.title = "Sell & Shop"
-            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
-            bottomnav.visibility = View.VISIBLE
-            mDrawerToggle.syncState()
-        }
-        mDrawerToggle.syncState()
-
-        super.onclick()
-    }
-
-*/
-
-    /*
-     {
-         loadFragment(AddLayerFragment(this, shade, noOfShads, noOfGrower))
-         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-         toolbar.title = "Add Shed/Grower"
-
-
-         supportActionBar?.setDisplayHomeAsUpEnabled(false)
-         mDrawerToggle.isDrawerIndicatorEnabled = false
-
-         mDrawerToggle.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24)
-         mDrawerToggle.setToolbarNavigationClickListener {
-             mDrawerToggle.isDrawerIndicatorEnabled = true
-             supportActionBar?.setDisplayHomeAsUpEnabled(true)
-             loadFragment(ProfileFragment(this, farm,token,this.id))
-             toolbar.title = "Profile"
-             drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
-             bottomnav.visibility = View.VISIBLE
-             mDrawerToggle.syncState()
-         }
-         mDrawerToggle.syncState()}*/
 
     override fun loadAddLayer(mid: Int, from: String) {
 
         loadFragment(AddLayerFragment(this, mid, token, from))
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-        toolbar.title = "Add $from"
+        val lang = PrefrenceUtils.retriveData(this, Constants.LANG)!!
+        if (lang == "hi") {
+            if (from == "broiler")
+                toolbar.title = "जोड़ना भट्टी शेड"
+            else if (from == "layer")
+                toolbar.title = "जोड़ना परत शेड"
+        } else {
+            toolbar.title = "Add $from Shed"
+        }
         bottomnav.visibility = View.GONE
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
         mDrawerToggle.isDrawerIndicatorEnabled = false
 
         mDrawerToggle.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24)
         mDrawerToggle.setToolbarNavigationClickListener {
-
-
-            /*   mDrawerToggle.isDrawerIndicatorEnabled = true
-               supportActionBar?.setDisplayHomeAsUpEnabled(true)
-               loadFragment(ProfileFragment(this, farm, token, this.id))
-               toolbar.title = "Profile"
-               drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
-               bottomnav.visibility = View.GONE*/
             loadDailyInput()
-
-
-            /*     mDrawerToggle.isDrawerIndicatorEnabled = true
-                 supportActionBar?.setDisplayHomeAsUpEnabled(true)
-                 loadFragment(ProfileFragment(this, farm,token,this.id))
-                 toolbar.title = "Profile"
-                 drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
-                 bottomnav.visibility = View.VISIBLE
-                 mDrawerToggle.syncState()*/
         }
         mDrawerToggle.syncState()
     }
@@ -1572,7 +1405,8 @@ class MainActivity : AppCompatActivity(), SellShopCallback, ProfileCallback, Dai
             R.id.action_notification -> {
                 loadFragment(NotificationFragment(this))
                 bottomnav.visibility = View.GONE
-                toolbar.title = this.resources.getString(com.antino.eggoz.R.string.action_notification)
+                toolbar.title =
+                    this.resources.getString(com.antino.eggoz.R.string.action_notification)
                 navView.setCheckedItem(R.id.menu_none)
 
                 drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
@@ -1604,9 +1438,67 @@ class MainActivity : AppCompatActivity(), SellShopCallback, ProfileCallback, Dai
                 bottomnav.visibility = View.GONE
                 navView.menu.findItem(R.id.nav_side_My_Cart).isChecked = true
             }
+            R.id.nav_lang -> {
+                lang_check()
+            }
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+
+    private fun lang_check() {
+        if (PrefrenceUtils.retriveData(this, Constants.LANG)!!.toString() == "en") {
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Change Language")
+            builder.setMessage("Are you sure want to change language to हिन्दी")
+            builder.setIcon(android.R.drawable.ic_dialog_alert)
+            builder.setPositiveButton("Yes") { dialogInterface, which ->
+                PrefrenceUtils.insertData(
+                    this,
+                    Constants.LANG,
+                    "hi"
+                )
+                setLocale("hi")
+            }
+            builder.setNeutralButton("Cancel") { dialogInterface, which ->
+            }
+            val alertDialog: AlertDialog = builder.create()
+            alertDialog.setCancelable(false)
+            alertDialog.show()
+        } else {
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Change Language")
+            builder.setMessage("Are you sure want to change language to English")
+            builder.setIcon(android.R.drawable.ic_dialog_alert)
+            builder.setPositiveButton("Yes") { dialogInterface, which ->
+
+                PrefrenceUtils.insertData(
+                    this,
+                    Constants.LANG,
+                    "en"
+                )
+                setLocale("en")
+            }
+            builder.setNeutralButton("Cancel") { dialogInterface, which ->
+//                Toast.makeText(applicationContext,"clicked cancel\n operation cancel",Toast.LENGTH_LONG).show()
+            }
+            val alertDialog: AlertDialog = builder.create()
+            alertDialog.setCancelable(false)
+            alertDialog.show()
+        }
+    }
+
+    private fun setLocale(lang: String) {
+        val locale = Locale(lang)
+        Locale.setDefault(locale)
+        val config = Configuration()
+        config.setLocale(locale)
+        baseContext.resources.updateConfiguration(config, baseContext.resources.displayMetrics)
+
+        val refresh = Intent(this, MainActivity::class.java)
+        finish()
+        startActivity(refresh)
     }
 
     override fun loadCart() {
@@ -1641,7 +1533,7 @@ class MainActivity : AppCompatActivity(), SellShopCallback, ProfileCallback, Dai
         menuInflater.inflate(R.menu.main, menu)
         val seach: MenuItem = menu.findItem(R.id.action_search)
         val searchview: SearchView = seach.actionView as SearchView
-        searchview.queryHint =this.resources.getString(com.antino.eggoz.R.string.action_search)
+        searchview.queryHint = this.resources.getString(com.antino.eggoz.R.string.action_search)
 
         menu.findItem(R.id.action_search).isVisible = false
 
@@ -1684,12 +1576,18 @@ class MainActivity : AppCompatActivity(), SellShopCallback, ProfileCallback, Dai
             fragment.onActivityResult(requestCode, resultCode, data)
         }
         if (requestCode == MY_REQUEST_CODE) {
-            if (requestCode != RESULT_OK) {
-                Log.d("data ", "Update flow failed! Result code:$resultCode")
+            Toast.makeText(this, "start download", Toast.LENGTH_SHORT).show()
+            if (resultCode != RESULT_OK) {
+                Log.e("data", "in app update: $resultCode")
                 // If the update is cancelled or fails,
                 // you can request to start the update again.
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        inAppUpdate()
     }
 
 

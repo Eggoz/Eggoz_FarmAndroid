@@ -126,7 +126,7 @@ class BuyFragment(
                 /*Toast.makeText(context, it.success, Toast.LENGTH_SHORT).show()
                 mcontext.loadSellShop()*/
                 Messagedialog("Thank You " +
-                        "Your enquiry has reached us our team will get back to soon", mcontext).show(
+                        "Your enquiry has reached us our team will get back to soon", mcontext,true).show(
                     mcontext.supportFragmentManager,
                     "MyCustomFragment2"
                 )
@@ -162,17 +162,30 @@ class BuyFragment(
                 }
 //                mcontext.loadSellShop()
                 Messagedialog("Thank You " +
-                        "Your enquiry has reached us our team will get back to soon", mcontext).show(
+                        "Your enquiry has reached us our team will get back to soon", mcontext,true).show(
                     mcontext.supportFragmentManager,
                     "MyCustomFragment2"
                 )
-            } else
-                Toast.makeText(context, it.errors!![0].message, Toast.LENGTH_SHORT)
-                    .show()
+            } else{
+                val mess:String
+                if (it.errors!![0].message==null|| it.errors!![0].message?.isEmpty()!!)
+                mess="Some Error Occured "
+                else
+                    mess= it.errors!![0].message.toString()
+                Messagedialog(mess, mcontext,false).show(
+                    mcontext.supportFragmentManager,
+                    "MyCustomFragment2"
+                )
+
+               /* Toast.makeText(context, it.errors!![0].message, Toast.LENGTH_SHORT)
+                    .show()*/
+            }
         }
         )
 
     }
+
+
 
     private fun itemlist() {
 
@@ -192,6 +205,8 @@ class BuyFragment(
 
     }
 
+
+
     private fun cartlist() {
 
         database = Room.databaseBuilder(mcontext, MyDatabase::class.java, Constants.DB_NAME)
@@ -207,7 +222,7 @@ class BuyFragment(
         binding.recycleViewItemPaymentItemList.layoutManager = LinearLayoutManager(context)
         binding.recycleViewItemPaymentItemList.itemAnimator = DefaultItemAnimator()
         binding.recycleViewItemPaymentItemList.isNestedScrollingEnabled = false
-        binding.recycleViewItemPaymentItemList.adapter = CartLargelistAdapter(cart, cartdao)
+        binding.recycleViewItemPaymentItemList.adapter = CartLargelistAdapter(cart, cartdao,mcontext)
 
         binding.btnPaynow.setOnClickListener {
             if (add_id != -1)

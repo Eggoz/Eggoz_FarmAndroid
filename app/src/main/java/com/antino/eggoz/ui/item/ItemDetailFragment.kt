@@ -115,7 +115,7 @@ class ItemDetailFragment(var id: String, var mcontext: MainActivity, var from: S
                 lifecycleScope.launch(Dispatchers.IO) {
                     CartDao.insertAll(cart)
                 }
-                Toast.makeText(context, "saved", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Add To Cart", Toast.LENGTH_SHORT).show()
             }
         }
 

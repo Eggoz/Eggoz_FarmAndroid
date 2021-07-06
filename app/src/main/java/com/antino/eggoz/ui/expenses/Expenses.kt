@@ -13,7 +13,6 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -80,7 +79,6 @@ class Expenses(val mcontext:MainActivity,val token:String,val mid:Int) : Fragmen
 
 
                 }else{
-                    Toast.makeText(context,"val not greater then 0", Toast.LENGTH_SHORT).show()
 
                 }
 
@@ -106,7 +104,6 @@ class Expenses(val mcontext:MainActivity,val token:String,val mid:Int) : Fragmen
                         Itemsubdivisionlistid.add(it.results[i].id)
                     }
                 }else{
-                    Toast.makeText(context,"val not greater then 0", Toast.LENGTH_SHORT).show()
 
                 }
 
@@ -135,7 +132,6 @@ class Expenses(val mcontext:MainActivity,val token:String,val mid:Int) : Fragmen
 
 
                 }else{
-                    Toast.makeText(context,"val not greater then 0", Toast.LENGTH_SHORT).show()
 
                 }
 

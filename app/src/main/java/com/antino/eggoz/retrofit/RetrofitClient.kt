@@ -10,9 +10,9 @@ import java.util.concurrent.TimeUnit
 class RetrofitClient {
     private val BASE_URL = Constants.AppUrl
     val okhttp3=OkHttpClient().newBuilder()
-        .connectTimeout(60,TimeUnit.SECONDS)
-        .readTimeout(60,TimeUnit.SECONDS)
-        .writeTimeout(60,TimeUnit.SECONDS)
+        .connectTimeout(50,TimeUnit.SECONDS)
+        .readTimeout(50,TimeUnit.SECONDS)
+        .writeTimeout(50,TimeUnit.SECONDS)
         .build()
 
 

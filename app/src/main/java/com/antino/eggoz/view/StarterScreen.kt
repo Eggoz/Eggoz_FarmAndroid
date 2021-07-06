@@ -64,15 +64,30 @@ class StarterScreen : AppCompatActivity() {
                 binding.txtStarterSkipstep.visibility= View.VISIBLE
                 binding.txtStarterTitle.text ="Sell Fresh Eggs"
                 binding.txtStarterTitleDes.text ="Providing farm fresh and high quality eggs in well monitored clean farms to ensure your better health"
+
+                binding.btnPre.visibility=View.GONE
             }else  if(location==1){
                 binding.txtStarterSkipstep.visibility= View.VISIBLE
                 binding.txtStarterTitle.text ="Procure Feed"
-                binding.txtStarterTitleDes.text ="Quisque sit amet sagittis erat. Duis pharetra ornare venenatis. Nulla maximus porta velit ut molestie. Proin quis convallis mauris. In facilisis justo at mi pharetra lobortis."
+                binding.txtStarterTitleDes.text ="Procure feed from our trusted vendors hassle free."
+
+                binding.txtStarterSkipstep.visibility=View.GONE
+                binding.btnPre.visibility=View.VISIBLE
+
+                binding.btnPre.setOnClickListener {
+                    binding.staterViewPager.setCurrentItem(location - 1, true)
+                    location--
+                }
             }else if(location==2){
                 binding.txtStarterSkipstep.visibility= View.GONE
                 binding.btnNext.text ="Done"
                 binding.txtStarterTitle.text ="Farm Managment"
-                binding.txtStarterTitleDes.text ="Quisque sit amet sagittis erat. Duis pharetra ornare venenatis. Nulla maximus porta velit ut molestie. Proin quis convallis mauris. In facilisis justo at mi pharetra lobortis. s."
+                binding.txtStarterTitleDes.text ="Monitor performance of your farm. Track daily HDEP, mortality, feed intake etc."
+
+                binding.btnPre.setOnClickListener {
+                    binding.staterViewPager.setCurrentItem(location - 1, true)
+                    location--
+                }
             }
         }
 
@@ -103,6 +118,15 @@ class StarterScreen : AppCompatActivity() {
                 R.drawable.active_dot
             )
         )
+        dots!![0]?.setOnClickListener {
+            location=0
+            binding.staterViewPager.setCurrentItem(location, true) }
+        dots!![1]?.setOnClickListener {
+            location=1
+            binding.staterViewPager.setCurrentItem(location, true) }
+        dots!![2]?.setOnClickListener {
+            location=2
+            binding.staterViewPager.setCurrentItem(location, true) }
 
         binding.staterViewPager.addOnPageChangeListener(object : OnPageChangeListener {
             override fun onPageScrolled(
@@ -114,16 +138,18 @@ class StarterScreen : AppCompatActivity() {
                 if(location==0){
                     binding.txtStarterSkipstep.visibility= View.VISIBLE
                     binding.txtStarterTitle.text ="Sell Fresh Eggs"
+                    binding.btnNext.text ="Next"
                     binding.txtStarterTitleDes.text ="Providing farm fresh and high quality eggs in well monitored clean farms to ensure your better health"
                 }else  if(location==1){
                     binding.txtStarterSkipstep.visibility= View.VISIBLE
                     binding.txtStarterTitle.text ="Procure Feed"
-                    binding.txtStarterTitleDes.text ="Quisque sit amet sagittis erat. Duis pharetra ornare venenatis. Nulla maximus porta velit ut molestie. Proin quis convallis mauris. In facilisis justo at mi pharetra lobortis."
+                    binding.btnNext.text ="Next"
+                    binding.txtStarterTitleDes.text ="Procure feed from our trusted vendors hassle free."
                 }else if(location==2){
                     binding.txtStarterSkipstep.visibility= View.GONE
                     binding.btnNext.text ="Done"
                     binding.txtStarterTitle.text ="Farm Managment"
-                    binding.txtStarterTitleDes.text ="Quisque sit amet sagittis erat. Duis pharetra ornare venenatis. Nulla maximus porta velit ut molestie. Proin quis convallis mauris. In facilisis justo at mi pharetra lobortis. s."
+                    binding.txtStarterTitleDes.text ="Monitor performance of your farm. Track daily HDEP, mortality, feed intake etc."
                 }
             }
 

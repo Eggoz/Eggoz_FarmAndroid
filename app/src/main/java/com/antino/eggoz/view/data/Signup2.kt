@@ -1,8 +1,11 @@
 package com.antino.eggoz.view.data
 
+import androidx.annotation.Keep
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
+
+@Keep
 data class Signup2(
     @SerializedName("success")
     @Expose
@@ -44,7 +47,7 @@ data class Signup2(
         var userProfile: UserProfile,
         @SerializedName("userData")
         @Expose
-        var userData: String,
+        var userData: UserData2,
         @SerializedName("userCities")
         @Expose
         var userCities: List<UserCity>,
@@ -52,6 +55,90 @@ data class Signup2(
         @Expose
         var date_joined: String
     ) {
+        class UserData2(
+
+
+            @SerializedName("id")
+            @Expose
+             val id: Int? = null,
+
+            @SerializedName("employee_id")
+        @Expose
+         val employeeId: String? = null,
+
+        @SerializedName("profile_photo_url")
+        @Expose
+         val profilePhotoUrl: Any? = null,
+
+        @SerializedName("created_at")
+        @Expose
+         val createdAt: String? = null,
+
+        @SerializedName("updated_at")
+        @Expose
+         val updatedAt: String? = null,
+
+        @SerializedName("online")
+        @Expose
+         val online: Boolean? = null,
+
+        @SerializedName("latitude")
+        @Expose
+         val latitude: Any? = null,
+
+        @SerializedName("longitude")
+        @Expose
+         val longitude: Any? = null,
+
+        @SerializedName("location_updated_at")
+        @Expose
+         val locationUpdatedAt: Any? = null,
+
+        @SerializedName("is_profile_complete")
+        @Expose
+         val isProfileComplete: Boolean? = null,
+
+        @SerializedName("is_profile_verified")
+        @Expose
+         val isProfileVerified: Boolean? = null,
+
+        @SerializedName("experience")
+        @Expose
+         val experience: Any? = null,
+
+        @SerializedName("rating")
+        @Expose
+         val rating: String? = null,
+
+        @SerializedName("aadhar_photo_url")
+        @Expose
+         val aadharPhotoUrl: Any? = null,
+
+        @SerializedName("aadhar_no")
+        @Expose
+         val aadharNo: Any? = null,
+
+        @SerializedName("aadhar_status")
+        @Expose
+         val aadharStatus: String? = null,
+
+        @SerializedName("pancard_photo_url")
+        @Expose
+         val pancardPhotoUrl: Any? = null,
+
+        @SerializedName("pancard_no")
+        @Expose
+         val pancardNo: Any? = null,
+
+        @SerializedName("pancard_status")
+        @Expose
+         val pancardStatus: String? = null,
+
+        @SerializedName("userProfile")
+        @Expose
+         val userProfile: Int? = null
+        )
+
         class DefaultAddress(
             @SerializedName("id")
             @Expose
@@ -196,7 +283,27 @@ data class Signup2(
             var department_profiles: List<User.UserProfile.DepartmentProfiles>,
             @SerializedName("warehouse_ids")
             @Expose
-            var warehouse_ids: List<String>
-        )
+            var warehouse_ids: List<WarehouseId>
+        ) {
+            class WarehouseId(
+
+                @SerializedName("supplyWarehouseId")
+                @Expose
+                val supplyWarehouseId: Int? = null,
+
+                @SerializedName("salesWarehouseId")
+                @Expose
+                val salesWarehouseId: Int? = null,
+
+                @SerializedName("opsWarehouseId")
+                @Expose
+                val opsWarehouseId: Int? = null,
+
+                @SerializedName("warehouseId")
+                @Expose
+                val warehouseId: Int? = null
+            )
+
+        }
     }
 }

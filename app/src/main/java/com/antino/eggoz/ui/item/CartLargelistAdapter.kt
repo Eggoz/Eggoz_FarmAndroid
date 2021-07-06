@@ -2,6 +2,7 @@ package com.antino.eggoz.ui.item
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,22 +10,19 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.antino.eggoz.MainActivity
 import com.antino.eggoz.R
 import com.antino.eggoz.room.CartDao
 import com.antino.eggoz.room.RoomCart
+import com.antino.eggoz.ui.Buy.BuyFragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 
 class CartLargelistAdapter(
-    private val cart:List<RoomCart>,
-    private var cartdao: CartDao
+    private var cart:List<RoomCart>,
+    private var cartdao: CartDao,
+    private val mcontext:MainActivity
 
-/*
-    private val img: ArrayList<String>,
-    private val item_name: ArrayList<String>,
-    private val item_des: ArrayList<String>,
-    private val item_status: ArrayList<String>,
-    private val item_price: ArrayList<String>*/
 ) : RecyclerView.Adapter<CartLargelistAdapter.ViewHolder>() {
 
 
@@ -41,6 +39,9 @@ class CartLargelistAdapter(
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        Log.d("data","onBindViewHolder $itemCount  cart ${cart.size}")
+        if (itemCount==0)
+            mcontext.loadSellShop()
         holder.txtitemname.text = cart[position].name
 
         holder.txtitemprice.text = "Rs.${cart[position].price}"
@@ -92,6 +93,7 @@ class CartLargelistAdapter(
                 holder.txt_item_qnt.text = "00"
                 cartdao.deletebyid(cart[position].id)
             }
+
             if (holder.qnt<=0){
                 holder.add.visibility=View.VISIBLE
                 holder.incre.visibility=View.GONE
@@ -105,9 +107,16 @@ class CartLargelistAdapter(
         }
 
         holder.img_delete.setOnClickListener {
+            Log.d("data","delete clicked")
             cartdao.deletebyid(cart[position].id)
+
             listItem.visibility=View.GONE
-            notifyDataSetChanged()
+            this.notifyDataSetChanged()
+            if (cartdao.getAll().isEmpty())
+                mcontext.loadHome()
+
+            cart=cartdao.getAll()
+            this.notifyDataSetChanged()
         }
 
     }

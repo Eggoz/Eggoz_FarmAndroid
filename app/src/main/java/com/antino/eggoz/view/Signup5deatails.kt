@@ -32,19 +32,14 @@ class Signup5deatails : AppCompatActivity() {
         binding = ActivitySignup4DeatailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-/*
-        token = intent.getStringExtra("token").toString()
-        id = intent.getStringExtra("id").toString()*/
         token=PrefrenceUtils.retriveData(this@Signup5deatails, Constants.ACCESS_TOKEN_PREFERENCE)!!
         id= PrefrenceUtils.retriveData(this@Signup5deatails, Constants.TEMPID)!!
 
         Log.d("data", "enc ${token} \n id $id ")
 
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            window.statusBarColor = ContextCompat.getColor(this, R.color.app_color)
-        }
+        window.statusBarColor = ContextCompat.getColor(this, R.color.app_color)
         binding.edtCity.keyListener = null
-//        dropdownsetup()
+
         dropdownZone()
         binding.btnSubmit.setOnClickListener {
             validate()

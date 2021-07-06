@@ -8,6 +8,7 @@ import com.antino.eggoz.room.RoomCart
 import com.antino.eggoz.ui.Summary.model.FlockGraph
 import com.antino.eggoz.ui.activity_log.model.ExpensesList
 import com.antino.eggoz.ui.daily_input.model.AddDailyInput
+import com.antino.eggoz.ui.daily_input.model.DailInput
 import com.antino.eggoz.ui.daily_input.model.MedList
 import com.antino.eggoz.ui.expenses.Model.Division
 import com.antino.eggoz.ui.expenses.Model.Party
@@ -27,8 +28,8 @@ import java.io.File
 
 class ModelMain : ViewModel() {
 
-    fun signup1(mobile: String): MutableLiveData<SignUpUser> {
-        return Retrofithit().signup1(mobile)
+    fun signup1(mobile: String,hash:String): MutableLiveData<SignUpUser> {
+        return Retrofithit().signup1(mobile,hash)
     }
 
     fun signup2otp(mobile: String, otp: String): MutableLiveData<Signup2> {
@@ -52,7 +53,23 @@ class ModelMain : ViewModel() {
             ,farm_layer_type
         )
     }
-
+    fun editFarm(
+        token: String,
+        farmid: Int,
+        farmName: String,
+        buildingno: String,
+        landmark: String,
+        city: String,
+        state: String,
+        pincode: String, NoOfBroiler:Int,number_of_layer_shed:Int,number_of_grower_shed:Int
+        ,farm_layer_type:String,farmerid:Int
+    ): MutableLiveData<User> {
+        return Retrofithit().editFarm(
+            token, farmid, farmName, buildingno, landmark, city, state,
+            pincode,  NoOfBroiler,number_of_layer_shed,number_of_grower_shed
+            ,farm_layer_type,farmerid
+        )
+    }
     fun addDailyInput(
         token: String,
         id: Int,
@@ -154,6 +171,24 @@ class ModelMain : ViewModel() {
         )
     }
 
+    fun editShed(
+        token: String,
+        shedType: String,
+        shedName: String,
+        shadeid: Int,
+        totalActiveBirdCapacity: String,
+        flockName: ArrayList<String>,
+        flockbreedid: ArrayList<Int>,
+        flockage: ArrayList<String>,
+        flockquantity: ArrayList<String>,
+        eggtype: ArrayList<String>
+    ): MutableLiveData<User> {
+        return Retrofithit().editShed(
+            token, shedType, shedName, shadeid, totalActiveBirdCapacity, flockName,
+            flockbreedid, flockage, flockquantity, eggtype
+        )
+    }
+
     fun addFlock(
         token: String,
         shed: Int,
@@ -175,12 +210,46 @@ class ModelMain : ViewModel() {
             initial_production
         )
     }
+
+    fun editFlock(
+        token: String,
+        flockid: Int,
+        flock_name: String,
+        breed: Int,
+        age: String,
+        initial_capacity: String,
+        egg_type: String,
+        initial_production: String
+    ): MutableLiveData<User> {
+        return Retrofithit().editFlock(
+            token,
+            flockid,
+            flock_name,
+            breed,
+            age,
+            initial_capacity,
+            egg_type,
+            initial_production
+        )
+    }
     fun addSchedule(token: String, id: Int,date:String,whiteEgg:Int,brownEgg:Int,KadaknathEgg:Int): MutableLiveData<User> {
         return Retrofithit().addSchedule(token, id,date,whiteEgg,brownEgg,KadaknathEgg)
     }
 
     fun getFarm(token: String, id: Int): MutableLiveData<Farm> {
         return Retrofithit().getFarm(token, id)
+    }
+
+    fun getFarmbyid(token: String, id: Int, farmid: Int): MutableLiveData<Farm.Result> {
+        return Retrofithit().getFarmbyid(token, id,farmid)
+    }
+
+    fun getShedbyid(token: String, id: Int): MutableLiveData<Farm.Result.Shed> {
+        return Retrofithit().getShedbyid(token, id)
+    }
+
+    fun getFlockbyid(token: String, id: Int): MutableLiveData<Farm.Result.Shed.Flock1> {
+        return Retrofithit().getFlockbyid(token, id)
     }
 
     fun getflockData(token: String, id: Int, days: Int): MutableLiveData<FlockGraph> {
@@ -229,8 +298,8 @@ class ModelMain : ViewModel() {
     fun saveName(token: String, id: Int, name: String, pincode: Int,zone_id:Int): MutableLiveData<LoginUser> {
         return Retrofithit().signup5(token, id, name, pincode,zone_id)
     }
-    fun editProfile(token: String, id: Int, name: String, phone: String,email: String): MutableLiveData<LoginUser> {
-        return Retrofithit().editProfile(token, id, name, phone,email)
+    fun editProfile(token: String, id: Int, name: String, phone: String,email: String,pincode: String): MutableLiveData<LoginUser> {
+        return Retrofithit().editProfile(token, id, name, phone,email,pincode)
     }
     fun farmerProfile(token: String, id: Int): MutableLiveData<FarmerProfile> {
         return Retrofithit().farmerProfile(token, id)
@@ -277,9 +346,13 @@ class ModelMain : ViewModel() {
     fun Consulting(token:String,message: String,title: String,file: File,requestFile: RequestBody,querytype:String): MutableLiveData<Comment> {
         return Retrofithit().Consulting(token,message,title,file,requestFile,querytype)
     }
+    fun Consulting2(token:String,message: String,title: String,querytype:String): MutableLiveData<Comment> {
+        return Retrofithit().Consulting2(token,message,title,querytype)
+    }
     fun help(token:String,message: String): MutableLiveData<Comment> {
         return Retrofithit().help(token,message)
     }
+
     fun payBuynow(token:String,mid: Int,id: Int,qnt: Int,price: String,shipping_address:Int): MutableLiveData<CartBuy> {
         return Retrofithit().payBuynow(token,mid,id,qnt,price,shipping_address)
     }
@@ -325,11 +398,15 @@ class ModelMain : ViewModel() {
         return Retrofithit().neccRate(token, id)
     }
 
-    fun wordpressFeed(token: String): MutableLiveData<WordpressFeed> {
-        return Retrofithit().wordpressFeed(token)
+    fun wordpressFeed(token: String,language:String): MutableLiveData<WordpressFeed> {
+        return Retrofithit().wordpressFeed(token,language)
     }
     fun getTemp(lat: Double, log: Double,token:String): MutableLiveData<WeatherData> {
         return Retrofithit().getTemp(lat,log,token)
+    }
+
+    fun getTemppincode(pincode: Int,token:String): MutableLiveData<WeatherDataByCode> {
+        return Retrofithit().getTemppincode(pincode,token)
     }
     fun getVideo(token: String): MutableLiveData<VideoList> {
         return Retrofithit().getvideo(token)
@@ -351,4 +428,33 @@ class ModelMain : ViewModel() {
     fun iotRequest(token: String): MutableLiveData<LoginUser> {
         return Retrofithit().requestiot(token)
     }
+    fun getDailyInput(token: String,id:Int): MutableLiveData<DailInput> {
+        return Retrofithit().getDailyInput(token,id)
+    }
+    fun addDailyInputWithWeightUpdate(
+        token: String,
+        date: String,
+        mortality: Int,
+        feed: Double,
+        culling: Int,
+        remark: String,
+        Weight:Double,
+        ids:Int,
+        totalEgg:Int,
+        brokenegg:String,
+        brokeneggInoperation:String
+    ): MutableLiveData<AddDailyInput> {
+        return Retrofithit().addDailyInputWithWeightUpdate(
+            token,
+            date,
+            mortality,
+            feed,
+            culling,
+            remark,Weight,ids,
+            totalEgg,
+            brokenegg,
+            brokeneggInoperation
+        )
+    }
+
 }

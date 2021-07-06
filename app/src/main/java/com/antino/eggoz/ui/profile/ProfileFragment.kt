@@ -13,6 +13,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -108,6 +109,15 @@ class ProfileFragment(
 
     private fun init() {
 
+        binding.root.isFocusableInTouchMode = true
+        binding.root.requestFocus()
+        binding.root.setOnKeyListener { v, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_BACK && event.action == KeyEvent.ACTION_DOWN) {
+                context.loadHome()
+                true
+            } else false
+        }
+
         loadingdialog= CustomAlertLoading(this)
 
         binding.btnAddFarm.setOnClickListener { context.addFarm() }
@@ -144,12 +154,13 @@ class ProfileFragment(
         ).observe(context,
             Observer {
                 loadingdialog.dismiss()
-                if (it?.errors==null){
+                if (it?.errors == null) {
 
 
-                    binding.txtName.text=it.farmer.name
-                    binding.txtMobileNo.text=it.farmer.phoneNo
-                    binding.txtEmailId.text=it.farmer.email
+                    binding.txtName.text = it.farmer.name
+                    binding.txtMobileNo.text = it.farmer.phoneNo
+                    binding.txtEmailId.text = it.farmer.email
+                    binding.txtPincode.text = "Pincode: ${it.farmer.defaultAddress?.pinCode ?:""}"
 
                     Glide.with(this)
                         .asBitmap()
@@ -160,27 +171,27 @@ class ProfileFragment(
                         .into(binding.imgPerson)
 
 
-                }else{
-                    if (it.errors!![0].message=="Invalid signature.") {
+                } else {
+                    if (it.errors!![0].message == "Invalid signature.") {
                         startActivity(Intent(activity, Signup1::class.java))
                         PrefrenceUtils.insertData(
-                                context,
-                                Constants.TEMPID,
-                                ""
+                            context,
+                            Constants.TEMPID,
+                            ""
                         )
                         PrefrenceUtils.insertData(
-                                context,
-                                Constants.ACCESS_TOKEN_PREFERENCE,
-                                ""
+                            context,
+                            Constants.ACCESS_TOKEN_PREFERENCE,
+                            ""
                         )
                         PrefrenceUtils.insertData(
-                                context,
-                                Constants.ID,
-                                ""
+                            context,
+                            Constants.ID,
+                            ""
                         )
                     }
                     Toast.makeText(context, it.errors!![0].message, Toast.LENGTH_SHORT).show()
-                    Log.d("data","${it.errors!![0].message}")
+                    Log.d("data", "${it.errors!![0].message}")
                 }
             }
         )
@@ -290,7 +301,7 @@ class ProfileFragment(
             Observer {
                 loadingdialog.dismiss()
                 if (it.errorType == null || it.errorType == "") {
-                    Toast.makeText(context, "Image saved", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Image Saved", Toast.LENGTH_SHORT).show()
                 }
                 Log.d("data", "$it")
             }

@@ -20,12 +20,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.antino.eggoz.MainActivity
 import com.antino.eggoz.R
 import com.antino.eggoz.databinding.FragmentAddFarmBinding
-import com.antino.eggoz.modelvew.ModelMain
-import com.antino.eggoz.ui.home.HomeFragment
 import com.antino.eggoz.ui.profile.callback.locationCallback
 import com.antino.eggoz.view.CustomAlertLoading
 import com.google.android.gms.common.api.ApiException
@@ -34,7 +31,6 @@ import com.google.android.gms.location.*
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import java.io.IOException
-import java.text.DecimalFormat
 import java.util.*
 
 class AddFarmFragment(val context: MainActivity) : Fragment(), locationCallback {
@@ -50,7 +46,7 @@ class AddFarmFragment(val context: MainActivity) : Fragment(), locationCallback 
 
     private lateinit var flat_building: String
     private lateinit var building_name: String
-    private lateinit var landmark: String
+    private var landmark: String?=null
     private lateinit var city: String
     private lateinit var state: String
     private lateinit var pincode: String
@@ -223,7 +219,7 @@ class AddFarmFragment(val context: MainActivity) : Fragment(), locationCallback 
 
     private fun validate() {
         if (binding.edtFarmerName.text!!.isEmpty() ||
-            binding.edtBuilding.text!!.isEmpty() || binding.edtLandmark.text!!.isEmpty() || binding.edtCity.text!!.isEmpty() ||
+            binding.edtBuilding.text!!.isEmpty() || binding.edtCity.text!!.isEmpty() ||
             binding.edtState.text!!.isEmpty() || binding.edtPincode.text!!.isEmpty() || farm_layer_type==""
         ) {
             if (farm_layer_type=="") binding.edtFarmLayerTypeLayout.error="Select type"
@@ -236,9 +232,6 @@ class AddFarmFragment(val context: MainActivity) : Fragment(), locationCallback 
             if (binding.edtBuilding.text!!.isEmpty()) binding.edtFlatnoLayout.error =
                 "Enter Building/Flat number"
             else binding.edtFlatnoLayout.isErrorEnabled = false
-            if (binding.edtLandmark.text!!.isEmpty()) binding.edtLandmarkLayout.error =
-                "Enter Landmark"
-            else binding.edtLandmarkLayout.isErrorEnabled = false
             if (binding.edtCity.text!!.isEmpty()) binding.edtCityLayout.error = "Enter city name"
             else binding.edtCityLayout.isErrorEnabled = false
             if (binding.edtState.text!!.isEmpty()) binding.edtStateLayout.error = "Enter sate Name"
@@ -258,7 +251,7 @@ class AddFarmFragment(val context: MainActivity) : Fragment(), locationCallback 
                 binding.edtFarmLayerTypeLayout.isErrorEnabled=false
 
                 if (binding.edtNoOfBroiler.text!!.isEmpty()&& (binding.edtNoOfSheds.text!!.isEmpty()||binding.edtNumberOfGrowerShed.text!!.isEmpty())){
-                    Toast.makeText(context,"Input feild missing",Toast.LENGTH_LONG).show()
+                    Toast.makeText(context,"Input Field Missing",Toast.LENGTH_LONG).show()
                 }else
                 submit()
             }
@@ -359,7 +352,7 @@ class AddFarmFragment(val context: MainActivity) : Fragment(), locationCallback 
                         }
                     }
                     LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE -> {
-                        Toast.makeText(context, "SETTINGS_CHANGE_UNAVAILABLE", Toast.LENGTH_SHORT)
+                        Toast.makeText(context, "Setting Change Unavailable", Toast.LENGTH_SHORT)
                             .show()
                     }
                 }
@@ -435,57 +428,26 @@ class AddFarmFragment(val context: MainActivity) : Fragment(), locationCallback 
             }
 
         }
-        /*
-        Log.d("data", "getlocation fx 1496")
-
-        if (gpsListener == null && networkListener == null && !gpslocation) {
-
-
-            val manager =
-                context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-            val statusOfGPS =
-                manager.isProviderEnabled(LocationManager.GPS_PROVIDER)
-            Log.d("data", "gps status$statusOfGPS")
-            if (statusOfGPS) {
-                locationManager =
-                    context.getSystemService(AppCompatActivity.LOCATION_SERVICE) as LocationManager
-
-                listner = MyLocationListener(context, this)
-                gpsListener = listner!!
-                networkListener = listner!!
-
-                locationManager.requestLocationUpdates(
-                    LocationManager.GPS_PROVIDER, 5000, 10f, gpsListener!!
-                )
-                locationManager.requestLocationUpdates(
-                    LocationManager.NETWORK_PROVIDER, 5000, 10f, networkListener!!
-                )
-
-            }
-
-        }*/
-
     }
 
     override fun location(
-        building_name: String,
-        landmark: String,
-        city: String,
-        state: String,
-        pincode: String
+        building_name: String?,
+        landmark: String?,
+        city: String?,
+        state: String?,
+        pincode: String?
     ) {
         loadingdialog.dismiss()
+        if (building_name!=null)
         this.building_name = building_name
+        if (landmark!=null)
         this.landmark = landmark
+        if (city!=null)
         this.city = city
+        if (state!=null)
         this.state = state
+        if (pincode!=null)
         this.pincode = pincode
-
-//        if (!gpslocation) {
-
-//        }
-
-
 
 
         Log.d("data", "getTem api 1700 start ")
@@ -536,46 +498,41 @@ class AddFarmFragment(val context: MainActivity) : Fragment(), locationCallback 
                     loc.latitude,
                     loc.longitude, 1
                 )
+                if(addresses==null|| addresses.isEmpty()) { return }
                 if (addresses.size > 0) {
                     println(addresses[0].getLocality())
 
                     call.location(
-                        addresses[0].featureName,
-                        addresses[0].subLocality,
-                        addresses[0].locality,
-                        addresses[0].adminArea,
-                        addresses[0].postalCode
+                        addresses[0].featureName ?:"",
+                        addresses[0].subLocality ?:"",
+                        addresses[0].locality ?:"",
+                        addresses[0].adminArea ?:"",
+                        addresses[0].postalCode ?:""
                     )
 
-                    cityName = addresses[0].locality
+                    cityName = addresses[0].locality ?:""
                     address = addresses?.get(0)
-                        ?.getAddressLine(0) // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
-                    subLocality = addresses[0].subLocality
-                    state = addresses[0].adminArea
-                    country = addresses[0].countryName
-                    postalCode = addresses[0].postalCode
-                    knownName = addresses[0].featureName
+                        ?.getAddressLine(0) ?:""
+                    subLocality = addresses[0].subLocality ?:""
+                    state = addresses[0].adminArea ?:""
+                    country = addresses[0].countryName ?:""
+                    postalCode = addresses[0].postalCode ?:""
+                    knownName = addresses[0].featureName ?:""
                 }
             } catch (e: IOException) {
                 e.printStackTrace()
                 Log.d("data", e.message.toString())
 
             }
-            val s = """
-                $longitude
-                $latitude
-                
-                My Current City is: $cityName \n
-                addre: $address \n
-                sub loc: $subLocality \n
-                state: $state \n
-                country: $country \n
-                postalcode: $postalCode \n
-                knownName: $knownName
-                """.trimIndent()
-            Log.d("data", s)
+        }
 
+        override fun onProviderEnabled(provider: String) {
+        }
 
+        override fun onProviderDisabled(provider: String) {
+        }
+
+        override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
         }
 
 
@@ -585,36 +542,16 @@ class AddFarmFragment(val context: MainActivity) : Fragment(), locationCallback 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         Log.d("data", "onActivityResult ${requestCode}")
-       /* if (requestCode == requestchecksetting) {
-            if (resultCode == Activity.RESULT_OK) {
-                Toast.makeText(context, "Gps is turned on", Toast.LENGTH_SHORT).show()
-                MgetLocation()
-
-            } else if (resultCode == Activity.RESULT_CANCELED) {
-                Toast.makeText(context, "Gps is cancel", Toast.LENGTH_SHORT).show()
-
-            }
-        }
-        if (requestCode == requestcheckper) {
-            if (resultCode == Activity.RESULT_OK) {
-                Toast.makeText(context, "Gps is turned on", Toast.LENGTH_SHORT).show()
-               getlocation()
-
-            } else if (resultCode == Activity.RESULT_CANCELED) {
-                Toast.makeText(context, "Gps is cancel", Toast.LENGTH_SHORT).show()
-
-            }
-        }*/
         if (requestCode == gpslocationrequest) {
             if (resultCode == Activity.RESULT_OK) {
                 getlocation()
                 Log.d("data","add farm gps enable")
-                Toast.makeText(context, "Gps is turned on", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(context, "Gps is turned on", Toast.LENGTH_SHORT).show()
 
             } else {
                 loc()
                 Log.d("data","add farm gps not enable")
-                Toast.makeText(context, "Gps is cancel", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Gps Is Cancel", Toast.LENGTH_SHORT).show()
 
             }
 

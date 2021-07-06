@@ -51,17 +51,11 @@ class CreateFeedFragment(val context: MainActivity, val token: String) : Fragmen
     ): View {
         binding = FragmentCreateFeedBinding.inflate(inflater, container, false)
         setHasOptionsMenu(true)
-        if (!hasStoragePermission(context))
-        {
-            ActivityCompat.requestPermissions(
-                (context as Activity?)!!,
-                arrayOf(
-                    Manifest.permission.READ_EXTERNAL_STORAGE,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE),
-                200
-            )
-        }
 
+
+        haspermission()
+
+        init()
         binding.layoutPhoto
 //        binding.feedImg.visibility=View.GONE
         binding.root.isFocusableInTouchMode = true
@@ -81,6 +75,32 @@ class CreateFeedFragment(val context: MainActivity, val token: String) : Fragmen
         return binding.root
     }
 
+    private fun init() {
+        binding.edtFeedinput.setOnTouchListener { view, motionEvent ->
+            if (binding.edtFeedinput.hasFocus()) {
+                binding.root.getParent().requestDisallowInterceptTouchEvent(true)
+                if (motionEvent.getAction() and MotionEvent.ACTION_MASK == MotionEvent.ACTION_SCROLL) {
+                    binding.root.getParent().requestDisallowInterceptTouchEvent(false);
+                    return@setOnTouchListener true
+                }
+
+            }
+            return@setOnTouchListener false
+        }
+    }
+
+    private fun haspermission(){
+        if (!hasStoragePermission(context))
+        {
+            ActivityCompat.requestPermissions(
+                (context as Activity?)!!,
+                arrayOf(
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                200
+            )
+        }
+    }
 
     private fun loadProfile(){
 
@@ -136,6 +156,18 @@ class CreateFeedFragment(val context: MainActivity, val token: String) : Fragmen
 
     }
 
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        if (requestCode==200&&  grantResults[0] ==PackageManager.PERMISSION_DENIED){
+            haspermission()
+
+        }
+
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == PICKFILE_REQUEST_CODE && data != null && data.data != null) {
@@ -159,19 +191,20 @@ class CreateFeedFragment(val context: MainActivity, val token: String) : Fragmen
     private fun validate(){
         if (binding.edtFeedinput.text!!.isEmpty() || mediaImageFile==null || binding.edtHeading.text!!.isEmpty()){
             if (binding.edtFeedinput.text!!.isEmpty())
-                binding.edtFeedinputLayout.error="Enter message"
-            else binding.edtFeedinputLayout.isErrorEnabled=false
+                Toast.makeText(requireContext(),"Enter message",Toast.LENGTH_SHORT).show()
+//                binding.edtFeedinputLayout.error="Enter message"
+//            else binding.edtFeedinputLayout.isErrorEnabled=false
             if (binding.edtHeading.text!!.isEmpty())
                 binding.edtHeadingLayout.error="Enter Heading"
             else
                 binding.edtHeadingLayout.isErrorEnabled=false
             if (mediaImageFile==null){
-                Toast.makeText(context,"Select Image Frist",Toast.LENGTH_SHORT).show()
+                Toast.makeText(context,"Select Image First",Toast.LENGTH_SHORT).show()
             }
 
 
         }else{
-            binding.edtFeedinputLayout.isErrorEnabled=false
+//            binding.edtFeedinputLayout.isErrorEnabled=false
             binding.edtHeadingLayout.isErrorEnabled=false
             if (hasStoragePermission(context)) {
                 submit()

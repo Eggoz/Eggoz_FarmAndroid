@@ -1,9 +1,11 @@
 package com.antino.eggoz.view.model
 
+import androidx.annotation.Keep
 import com.antino.eggoz.view.data.LoginUser
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
+@Keep
 data class ZoneList(
 
     @SerializedName("count")

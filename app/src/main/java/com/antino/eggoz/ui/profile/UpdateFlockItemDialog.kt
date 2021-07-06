@@ -2,13 +2,11 @@ package com.antino.eggoz.ui.profile
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.VerifiedInputEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.constraintlayout.widget.ConstraintSet
-import androidx.databinding.adapters.ViewBindingAdapter
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
