@@ -18,8 +18,8 @@ android {
         applicationId "com.antino.eggoz"
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode 18
-        versionName "1.0.1"
+        versionCode 21
+        versionName "1.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
